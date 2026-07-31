@@ -103,11 +103,13 @@ class ADReSSoDataset(Dataset):
         # 2-class CSVs (adni_teacher_ablation outputs) lack prob_MCI; mass goes to 0
         # so the KD-loss collapse stays equivalent to the raw (CN, AD) distribution.
         self.has_mci = "prob_MCI" in self.df.columns
+        self.teacher_embedding_cols = [c for c in self.df.columns if c.startswith("teacher_emb_")]
 
         log.info(
             f"ADReSSoDataset: {len(self.df)} subjects | mode={mode} | "
             f"HC={int((self.df['dx'] == 0).sum())} AD={int((self.df['dx'] == 1).sum())} | "
-            f"soft_label_classes={'3 (CN/MCI/AD)' if self.has_mci else '2 (CN/AD)'}"
+            f"soft_label_classes={'3 (CN/MCI/AD)' if self.has_mci else '2 (CN/AD)'} | "
+            f"teacher_emb_dim={len(self.teacher_embedding_cols)}"
         )
 
     def __len__(self) -> int:
@@ -131,6 +133,14 @@ class ADReSSoDataset(Dataset):
         )
         if sl.sum() > 0:
             sl = sl / sl.sum()
+
+        if self.teacher_embedding_cols:
+            teacher_embedding = torch.tensor(
+                [float(row[c]) if not pd.isna(row[c]) else 0.0 for c in self.teacher_embedding_cols],
+                dtype=torch.float32,
+            )
+        else:
+            teacher_embedding = torch.empty(0, dtype=torch.float32)
 
         # Clinical features
         clin_vals = []
@@ -168,6 +178,7 @@ class ADReSSoDataset(Dataset):
             "subject_id":          sid,
             "label":               torch.tensor(label, dtype=torch.long),
             "soft_label":          sl,
+            "teacher_embedding":   teacher_embedding,
             "clinical":            clinical,
             "audio_values":        audio_values,
             "text_input_ids":      text_input_ids,
@@ -249,6 +260,7 @@ class MultimodalCollator:
     def __call__(self, batch: List[Dict]) -> Dict:
         labels      = torch.stack([b["label"]      for b in batch])
         soft_labels = torch.stack([b["soft_label"] for b in batch])
+        teacher_embeddings = torch.stack([b["teacher_embedding"] for b in batch])
         clinical    = torch.stack([b["clinical"]   for b in batch])
         subject_ids = [b["subject_id"] for b in batch]
 
@@ -277,6 +289,7 @@ class MultimodalCollator:
             "subject_id":           subject_ids,
             "label":                labels,
             "soft_label":           soft_labels,
+            "teacher_embedding":    teacher_embeddings,
             "clinical":             clinical,
             "audio_values":         audio_values,
             "audio_attention_mask": audio_mask,
@@ -298,6 +311,8 @@ def load_transcripts(csv_path: Path) -> Dict[str, str]:
 def build_merged_df(
     soft_labels_csv: Path,
     enriched_csv:    Path,
+    teacher_embeddings_csv: Optional[Path] = None,
+    require_teacher_embeddings: bool = False,
 ) -> pd.DataFrame:
     """
     Merge the new Teacher soft labels CSV with the enriched ADReSSo CSV.
@@ -319,6 +334,27 @@ def build_merged_df(
         on="subject_id",
         how="inner",
     )
+
+    if teacher_embeddings_csv is not None and Path(teacher_embeddings_csv).exists():
+        emb_df = pd.read_csv(teacher_embeddings_csv)
+        emb_cols = [c for c in emb_df.columns if c.startswith("emb_")]
+        if require_teacher_embeddings and not emb_cols:
+            raise ValueError(f"No emb_* columns found in teacher embeddings CSV: {teacher_embeddings_csv}")
+        emb_df = emb_df[["subject_id"] + emb_cols].rename(
+            columns={c: f"teacher_{c}" for c in emb_cols}
+        )
+        before = len(merged)
+        merged = merged.merge(emb_df, on="subject_id", how="inner")
+        if require_teacher_embeddings and len(merged) == 0:
+            raise ValueError(
+                "Teacher embeddings CSV did not match any ADReSSo subject_id values: "
+                f"{teacher_embeddings_csv}"
+            )
+        log.info(
+            f"Teacher embeddings: {len(emb_cols)} dims | matched {len(merged)}/{before} subjects"
+        )
+    elif require_teacher_embeddings:
+        raise FileNotFoundError(f"Missing teacher embeddings CSV: {teacher_embeddings_csv}")
     log.info(
         f"Merged dataset: {len(merged)} subjects with audio "
         f"(HC={int((merged['dx'] == 0).sum())} AD={int((merged['dx'] == 1).sum())})"
@@ -343,6 +379,8 @@ def build_dataloaders(
     n_folds:          int = 5,
     augment_train:    bool = False,
     aug_factor:       int = 1,
+    teacher_embeddings_csv: Optional[Path] = None,
+    require_teacher_embeddings: bool = False,
 ) -> Dict[str, DataLoader]:
     """
     Build train/val/test DataLoaders.
@@ -364,7 +402,13 @@ def build_dataloaders(
     enc_csv = enriched_csv     or cfg.ADRESSO_ENRICHED_CSV
     tr_csv  = transcripts_csv  or cfg.TRANSCRIPTIONS_CSV
 
-    df          = build_merged_df(sl_csv, enc_csv)
+    emb_csv = teacher_embeddings_csv or cfg.TEACHER_EMBEDDINGS_CSV
+    df = build_merged_df(
+        sl_csv,
+        enc_csv,
+        teacher_embeddings_csv=emb_csv,
+        require_teacher_embeddings=require_teacher_embeddings,
+    )
     transcripts = load_transcripts(tr_csv)
 
     log.info(f"Loading tokenizer ({roberta_model})...")

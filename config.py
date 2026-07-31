@@ -18,6 +18,7 @@ SOFT_LABELS_DIR = KD_ROOT / "adresso_softlabels" / "outputs"
 SOFT_LABELS_T1_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T1.csv"
 SOFT_LABELS_T2_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T2.csv"
 SOFT_LABELS_T3_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T3.csv"
+TEACHER_EMBEDDINGS_CSV = KD_ROOT / "adni_teacher" / "outputs" / "teacher_embeddings.csv"
 
 # ADReSSo enriched CSV from tfm_alzheimer (has audio_path + normalised clinical features)
 TFM_DIR              = BASE_DIR.parent.parent / "tfm_alzheimer"
@@ -26,7 +27,7 @@ ADRESSO_ENRICHED_CSV = TFM_DIR / "data_processed" / "adresso" / "adresso_enriche
 TRANSCRIPTIONS_CSV   = TFM_DIR / "data_processed" / "adresso" / "transcriptions_whisper.csv"
 # ADReSSo audio root (Roger's directory)
 ADRESSO_AUDIO_ROOT   = Path(
-    "/home/usuaris/veu/roger.esteve.sanchez/adresso/ADReSSo21/diagnosis"
+    "/home/usuaris/veussd/roger.esteve.sanchez/adresso/ADReSSo21/diagnosis"
 )
 
 LOGS_DIR     = BASE_DIR / "logs"
@@ -75,6 +76,10 @@ SOFT_LABEL_DEFAULT_T = 3.0   # temperature used when generating the soft labels
 KD_ALPHA             = 0.7   # weight for hard CE loss
 KD_BETA              = 0.3   # weight for KL-div distillation loss
 KD_TEMPERATURE       = 3.0   # temperature applied to Student logits during KL
+KD_METHOD            = "feature"  # "response", "feature", or "both"
+KD_FEATURE_WEIGHT    = 0.3        # weight for feature-alignment KD loss
+KD_PROJECTION_DIM    = 128        # common projected space for Teacher/Student embeddings
+KD_FEATURE_LOSS      = "cosine"   # "cosine" or "l2"
 
 # ---------------------------------------------------------------------------
 # Training hyperparameters
@@ -96,7 +101,7 @@ MODALITY_DROPOUT_P = 0.2
 # ---------------------------------------------------------------------------
 # Model architecture
 # ---------------------------------------------------------------------------
-WAV2VEC2_MODEL  = "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base"
+WAV2VEC2_MODEL  = "/home/usuaris/veussd/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base"
 ROBERTA_MODEL   = "roberta-base"
 FUSION_DIM      = 256
 FREEZE_AUDIO_N  = 12   # freeze all 12 transformer layers of Wav2Vec2 (linear probe)

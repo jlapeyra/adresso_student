@@ -1,25 +1,11 @@
 """
 distillation/kd_loss.py
-Knowledge Distillation loss for the ADReSSo Student.
+Knowledge Distillation losses for the ADReSSo Student.
 
-L_total = alpha * L_hard + beta * L_distill * T^2
-
-L_hard    = CrossEntropy(logits_hard, y_real)          [alpha=0.6]
-L_distill = KL-div(log_softmax(logits_soft/T), P_bin)  [beta=0.4]
-
-Teacher soft labels are 3-class [P(CN), P(MCI), P(AD)].
-They are collapsed to binary before the KL-div via renormalisation:
-
-    P(CN_bin) = P(CN) / (P(CN) + P(AD))
-    P(AD_bin) = P(AD) / (P(CN) + P(AD))   [MCI mass discarded]
-
-Rationale: summing P(MCI) into P(AD) inflates P(AD_bin) to ~0.43 for true-CN
-subjects (the LUPI head assigns high P(MCI) under clinical uncertainty), which
-reduces CN/AD separability by ~31%. Renormalising over CN and AD only preserves
-the relative teacher confidence between the two target classes.
-
-Reference: Hinton et al. (2015) "Distilling the Knowledge in a Neural Network"
-Original: tfm_alzheimer/distillation/kd_loss.py  (collapse direction corrected)
+Supported KD modes:
+  response: hard CE + KL-divergence against Teacher probabilities.
+  feature:  hard CE + alignment between Student and Teacher embeddings.
+  both:     hard CE + response KD + feature alignment.
 """
 
 import torch
@@ -29,66 +15,111 @@ import torch.nn.functional as F
 
 class KnowledgeDistillationLoss(nn.Module):
     """
-    Dual loss: hard CrossEntropy + KL-divergence distillation.
+    Dual/combined KD loss.
 
-    Args:
-        alpha:           weight for L_hard          [default: 0.6]
-        beta:            weight for L_distill        [default: 0.4]
-        temperature:     T applied to Student logits before KL
-        label_smoothing: smoothing for CrossEntropy
+    Feature KD projects the Student embedding and the frozen Teacher embedding
+    into a shared space, then aligns them with cosine distance or L2/MSE.
     """
 
     def __init__(
         self,
-        alpha:           float = 0.6,
-        beta:            float = 0.4,
-        temperature:     float = 3.0,
+        alpha: float = 0.6,
+        beta: float = 0.4,
+        temperature: float = 3.0,
         label_smoothing: float = 0.05,
+        method: str = "response",
+        feature_weight: float = 0.3,
+        student_dim: int = 256,
+        teacher_dim: int = 256,
+        projection_dim: int = 128,
+        feature_loss: str = "cosine",
     ):
         super().__init__()
-        assert alpha >= 0 and beta >= 0
+        if method not in {"response", "feature", "both"}:
+            raise ValueError("method must be one of: response, feature, both")
+        if feature_loss not in {"cosine", "l2"}:
+            raise ValueError("feature_loss must be one of: cosine, l2")
+        assert alpha >= 0 and beta >= 0 and feature_weight >= 0
+
         self.alpha = alpha
-        self.beta  = beta
-        self.T     = temperature
-        self.ce    = nn.CrossEntropyLoss(label_smoothing=label_smoothing)
+        self.beta = beta
+        self.T = temperature
+        self.method = method
+        self.feature_weight = feature_weight
+        self.feature_loss = feature_loss
+        self.ce = nn.CrossEntropyLoss(label_smoothing=label_smoothing)
 
-    def forward(
+        self.student_proj = nn.Linear(student_dim, projection_dim)
+        self.teacher_proj = nn.Linear(teacher_dim, projection_dim)
+
+    def _response_loss(
         self,
-        logits_hard: torch.Tensor,   # (B, 2)
-        logits_soft: torch.Tensor,   # (B, 2)
-        labels_hard: torch.Tensor,   # (B,)  int64
-        soft_labels: torch.Tensor,   # (B, 3) float  [P(CN), P(MCI), P(AD)]
-    ) -> dict:
-        # Hard loss
-        L_hard = self.ce(logits_hard, labels_hard)
-
-        # Collapse 3-class Teacher -> binary via renormalisation over CN and AD only.
-        # P(MCI) is discarded rather than added to AD: summing it inflates P(AD_bin)
-        # to ~0.43 for true-CN subjects (where prob_MCI is high due to uncertainty),
-        # reducing CN/AD separability by ~31% vs. the normalised form.
+        logits_soft: torch.Tensor,
+        soft_labels: torch.Tensor,
+    ) -> torch.Tensor:
+        # Teacher labels may be 3-class [CN, MCI, AD] or 2-class [CN, AD]
+        # represented as [CN, 0, AD]. We renormalise over CN/AD for binary KD.
         p_cn = soft_labels[:, 0]
         p_ad = soft_labels[:, 2]
         denom = (p_cn + p_ad).clamp(min=1e-8)
-        soft_labels_bin = torch.stack([
-            p_cn / denom,   # P(CN_bin) — renormalised, MCI mass discarded
-            p_ad / denom,   # P(AD_bin) — renormalised, MCI mass discarded
-        ], dim=1).to(logits_soft.dtype)               # (B, 2)
+        soft_labels_bin = torch.stack([p_cn / denom, p_ad / denom], dim=1)
+        soft_labels_bin = soft_labels_bin.to(logits_soft.dtype)
 
         log_student = F.log_softmax(logits_soft / self.T, dim=-1)
-        L_distill   = F.kl_div(
+        return F.kl_div(
             log_student,
             soft_labels_bin,
             reduction="batchmean",
             log_target=False,
-        )
-        L_distill_scaled = L_distill * (self.T ** 2)
+        ) * (self.T ** 2)
 
-        L_total = self.alpha * L_hard + self.beta * L_distill_scaled
+    def _feature_loss(
+        self,
+        student_embedding: torch.Tensor | None,
+        teacher_embedding: torch.Tensor | None,
+    ) -> torch.Tensor:
+        if student_embedding is None or teacher_embedding is None or teacher_embedding.numel() == 0:
+            raise ValueError("Feature-based KD requires student_embedding and teacher_embedding")
+
+        teacher_embedding = teacher_embedding.to(
+            device=student_embedding.device,
+            dtype=student_embedding.dtype,
+        )
+        student_z = self.student_proj(student_embedding)
+        teacher_z = self.teacher_proj(teacher_embedding)
+
+        if self.feature_loss == "cosine":
+            student_z = F.normalize(student_z, dim=-1)
+            teacher_z = F.normalize(teacher_z, dim=-1)
+            return (1.0 - F.cosine_similarity(student_z, teacher_z, dim=-1)).mean()
+        return F.mse_loss(student_z, teacher_z)
+
+    def forward(
+        self,
+        logits_hard: torch.Tensor,
+        logits_soft: torch.Tensor,
+        labels_hard: torch.Tensor,
+        soft_labels: torch.Tensor,
+        student_embedding: torch.Tensor | None = None,
+        teacher_embedding: torch.Tensor | None = None,
+    ) -> dict:
+        L_hard = self.ce(logits_hard, labels_hard)
+
+        L_response = torch.zeros((), device=logits_hard.device)
+        if self.method in {"response", "both"}:
+            L_response = self._response_loss(logits_soft, soft_labels)
+
+        L_feature = torch.zeros((), device=logits_hard.device)
+        if self.method in {"feature", "both"}:
+            L_feature = self._feature_loss(student_embedding, teacher_embedding)
+
+        L_total = self.alpha * L_hard + self.beta * L_response + self.feature_weight * L_feature
 
         return {
-            "loss":         L_total,
-            "loss_hard":    L_hard.detach(),
-            "loss_distill": L_distill_scaled.detach(),
+            "loss": L_total,
+            "loss_hard": L_hard.detach(),
+            "loss_distill": L_response.detach(),
+            "loss_feature": L_feature.detach(),
         }
 
 
@@ -99,22 +130,40 @@ class HardOnlyLoss(nn.Module):
         super().__init__()
         self.ce = nn.CrossEntropyLoss(label_smoothing=label_smoothing)
 
-    def forward(self, logits_hard, logits_soft, labels_hard, soft_labels):
+    def forward(self, logits_hard, logits_soft, labels_hard, soft_labels, **kwargs):
         L = self.ce(logits_hard, labels_hard)
         return {
-            "loss":         L,
-            "loss_hard":    L.detach(),
+            "loss": L,
+            "loss_hard": L.detach(),
             "loss_distill": torch.zeros(1, device=L.device),
+            "loss_feature": torch.zeros(1, device=L.device),
         }
 
 
 def build_kd_loss(
-    use_distillation: bool  = True,
-    alpha:            float = 0.6,
-    beta:             float = 0.4,
-    temperature:      float = 3.0,
-    label_smoothing:  float = 0.05,
+    use_distillation: bool = True,
+    alpha: float = 0.6,
+    beta: float = 0.4,
+    temperature: float = 3.0,
+    label_smoothing: float = 0.05,
+    method: str = "response",
+    feature_weight: float = 0.3,
+    student_dim: int = 256,
+    teacher_dim: int = 256,
+    projection_dim: int = 128,
+    feature_loss: str = "cosine",
 ) -> nn.Module:
     if use_distillation:
-        return KnowledgeDistillationLoss(alpha, beta, temperature, label_smoothing)
+        return KnowledgeDistillationLoss(
+            alpha=alpha,
+            beta=beta,
+            temperature=temperature,
+            label_smoothing=label_smoothing,
+            method=method,
+            feature_weight=feature_weight,
+            student_dim=student_dim,
+            teacher_dim=teacher_dim,
+            projection_dim=projection_dim,
+            feature_loss=feature_loss,
+        )
     return HardOnlyLoss(label_smoothing)

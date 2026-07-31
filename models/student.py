@@ -445,7 +445,7 @@ class StudentModel(nn.Module):
         return {
             "logits_hard": self.hard_classifier(shared_hard),
             "logits_soft": self.soft_classifier(shared_soft),
-            "embedding":   shared_hard,
+            "embedding":   fused,
         }
 
     def count_parameters(self) -> Dict[str, int]:

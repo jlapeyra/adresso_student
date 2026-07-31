@@ -102,6 +102,26 @@ knowledge_distillation/
 
 ### Loss Function
 
+Current default: `--kd-method feature`.
+
+Feature-based KD aligns the Student fused 256-d multimodal embedding with the
+Teacher frozen 256-d `link_token` embedding exported in
+`adni_teacher/outputs/teacher_embeddings.csv`. Both vectors are projected to a
+shared space before the alignment loss:
+
+```
+z_s = Linear(student_embedding)
+z_t = Linear(teacher_embedding)
+L_feature = 1 - cosine(normalize(z_s), normalize(z_t))
+L_total = alpha * L_hard + lambda_feat * L_feature
+```
+
+The old response-based KL objective is still available with
+`--kd-method response`, and both objectives can be combined with
+`--kd-method both`.
+
+Legacy response-KD objective:
+
 ```
 L_total = α · L_hard + β · L_distill · T²
 
@@ -171,7 +191,7 @@ Columns: `subject_id, dx, mmse, age, sex, subset, has_audio, prob_CN, prob_MCI, 
 
 | Data | Path |
 |------|------|
-| Audio (.wav) | `/home/usuaris/veu/roger.esteve.sanchez/adresso/ADReSSo21/diagnosis/train/audio/{cn,ad}/` |
+| Audio (.wav) | `/home/usuaris/veussd/roger.esteve.sanchez/adresso/ADReSSo21/diagnosis/train/audio/{cn,ad}/` |
 | Whisper transcriptions | `tfm_alzheimer/data_processed/adresso/transcriptions_whisper.csv` |
 | Clinical features (normalised) | `tfm_alzheimer/data_processed/adresso/adresso_enriched.csv` |
 | Teacher soft labels | `adresso_softlabels/outputs/adresso_soft_labels_T3.csv` |
@@ -271,6 +291,7 @@ MCI->AD collapse check:
 ```bash
 python train.py \
   --ablation multimodal_kd \
+  --kd-method feature \
   --epochs 50 \
   --batch-size 8 \
   --augment-train \
