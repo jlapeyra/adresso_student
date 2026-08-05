@@ -385,11 +385,17 @@ class StudentModel(nn.Module):
 
         self.hard_classifier = nn.Linear(128, num_classes_hard)
         self.soft_classifier = nn.Linear(128, num_classes_soft)
+        self.feat_proj_student = nn.Linear(128, 128)
+        self.feat_proj_teacher = nn.Linear(256, 128)
 
         nn.init.xavier_uniform_(self.hard_classifier.weight, gain=0.1)
         nn.init.zeros_(self.hard_classifier.bias)
         nn.init.xavier_uniform_(self.soft_classifier.weight, gain=0.1)
         nn.init.zeros_(self.soft_classifier.bias)
+        nn.init.xavier_uniform_(self.feat_proj_student.weight, gain=0.1)
+        nn.init.zeros_(self.feat_proj_student.bias)
+        nn.init.xavier_uniform_(self.feat_proj_teacher.weight, gain=0.1)
+        nn.init.zeros_(self.feat_proj_teacher.bias)
 
     def forward(
         self,

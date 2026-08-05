@@ -44,6 +44,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.amp import GradScaler, autocast
 from tqdm import tqdm
 
@@ -79,6 +80,7 @@ def parse_args():
                    help="Soft-labels CSV. Auto-derived from --temperature if not set.")
     p.add_argument("--enriched-csv",     type=Path, default=cfg.ADRESSO_ENRICHED_CSV)
     p.add_argument("--transcripts-csv",  type=Path, default=cfg.TRANSCRIPTIONS_CSV)
+    p.add_argument("--adni-teacher-embeddings-csv", type=Path, default=cfg.ADNI_TEACHER_EMBEDDINGS_CSV)
     p.add_argument("--temperature",      type=float, default=cfg.KD_TEMPERATURE)
 
     # Model
@@ -93,6 +95,12 @@ def parse_args():
     # KD loss
     p.add_argument("--alpha",            type=float, default=cfg.KD_ALPHA)
     p.add_argument("--beta",             type=float, default=cfg.KD_BETA)
+
+    p.add_argument("--feature-kd", action="store_true")
+    p.add_argument("--feat-kd-weight", type=float, default=cfg.FEATURE_KD_WEIGHT)
+    p.add_argument("--feat-kd-proj-dim", type=int, default=cfg.FEATURE_KD_PROJ_DIM)
+    p.add_argument("--feat-kd-loss", choices=["l2","cosine"], default=cfg.FEATURE_KD_LOSS)
+    p.add_argument("--teacher-embeddings-csv", type=Path, default=None)
 
     # Training
     p.add_argument("--epochs",           type=int,   default=cfg.EPOCHS)
@@ -159,7 +167,7 @@ def build_optimizer(model, args):
 # Training loop
 # ============================================================================
 
-def train_epoch(model, loader, optimizer, loss_fn, scaler, scheduler,
+def train_epoch(model, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
                 device, args, tracker, epoch) -> Dict:
     model.train()
     tracker.reset()
@@ -211,11 +219,20 @@ def train_epoch(model, loader, optimizer, loss_fn, scaler, scheduler,
                 text_input_ids=text_ids,   text_attention_mask=text_mask,
                 clinical=clinical,
             )
+            student_emb = out["embedding"]                   # (B, 128)
+            proj_s = model.feat_proj_student(student_emb)    # (B, 128)
+            proj_t = model.feat_proj_teacher(batch["teacher_embedding"].to(device))  # (B, 128)
             loss_dict = loss_fn(
                 logits_hard=out["logits_hard"], logits_soft=out["logits_soft"],
                 labels_hard=label, soft_labels=soft_label,
             )
-            loss = loss_dict["loss"] / args.grad_accum
+            if args.feat_kd_loss == "l2":
+                align_loss = F.mse_loss(proj_s, proj_t)
+            else:
+                proj_s = F.normalize(proj_s, dim=1)
+                proj_t = F.normalize(proj_t, dim=1)
+                align_loss = 1.0 - F.cosine_similarity(proj_s, proj_t, dim=1)
+            loss = (loss_dict["loss"] + args.feat_kd_weight * align_loss) / args.grad_accum
 
         scaler.scale(loss).backward()
 
@@ -303,6 +320,7 @@ def train_experiment(
         soft_labels_csv=args.soft_labels_csv,
         enriched_csv=args.enriched_csv,
         transcripts_csv=args.transcripts_csv,
+        adni_teacher_embeddings_csv=args.adni_teacher_embeddings_csv,
         roberta_model=args.roberta,
         temperature=args.temperature,
         batch_size=args.batch_size,
@@ -580,7 +598,7 @@ def main():
     log.info(f"  CV:          {args.cv}")
     log.info(f"  No clinical: {args.no_clinical}")
     log.info(f"  Temperature: {args.temperature}")
-    log.info(f"  alpha={args.alpha}  beta={args.beta}")
+    log.info(f"  alpha={args.alpha}  beta={args.beta} feat_kd_weight={args.feat_kd_weight}")
     log.info(f"  Soft labels: {args.soft_labels_csv}")
 
     if args.dry_run:

@@ -29,6 +29,8 @@ ADRESSO_AUDIO_ROOT   = Path(
     "/home/usuaris/veu/roger.esteve.sanchez/adresso/ADReSSo21/diagnosis"
 )
 
+ADNI_TEACHER_EMBEDDINGS_CSV = KD_ROOT / "adni_teacher" / "outputs" / "adni_teacher_embeddings.csv"
+
 LOGS_DIR     = BASE_DIR / "logs"
 OUTPUTS_DIR  = BASE_DIR / "outputs"
 CKPT_DIR     = OUTPUTS_DIR / "checkpoints"
@@ -75,6 +77,11 @@ SOFT_LABEL_DEFAULT_T = 3.0   # temperature used when generating the soft labels
 KD_ALPHA             = 0.7   # weight for hard CE loss
 KD_BETA              = 0.3   # weight for KL-div distillation loss
 KD_TEMPERATURE       = 3.0   # temperature applied to Student logits during KL
+
+FEATURE_KD = False
+FEATURE_KD_WEIGHT = 0.1
+FEATURE_KD_PROJ_DIM = 128
+FEATURE_KD_LOSS = "cosine"   # o "l2"
 
 # ---------------------------------------------------------------------------
 # Training hyperparameters

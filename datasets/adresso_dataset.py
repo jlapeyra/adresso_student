@@ -19,6 +19,7 @@ Original: tfm_alzheimer/datasets/adresso_audio_dataset.py (adapted for new Teach
 """
 
 import logging
+import re
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -164,6 +165,13 @@ class ADReSSoDataset(Dataset):
             text_input_ids      = enc["input_ids"].squeeze(0)
             text_attention_mask = enc["attention_mask"].squeeze(0)
 
+        emb_cols = [col for col in self.df.columns if re.fullmatch(r"emb_\d+", str(col))]
+        teacher_embedding = torch.tensor(
+            [float(row.get(col, 0.0)) if not pd.isna(row.get(col, 0.0)) else 0.0 for col in emb_cols],
+            dtype=torch.float32,
+        )
+
+
         return {
             "subject_id":          sid,
             "label":               torch.tensor(label, dtype=torch.long),
@@ -172,6 +180,7 @@ class ADReSSoDataset(Dataset):
             "audio_values":        audio_values,
             "text_input_ids":      text_input_ids,
             "text_attention_mask": text_attention_mask,
+            "teacher_embedding":   teacher_embedding,
         }
 
 
@@ -273,6 +282,8 @@ class MultimodalCollator:
         else:
             text_input_ids = text_attention_mask = None
 
+        teacher_embedding = torch.stack([b["teacher_embedding"] for b in batch])
+
         return {
             "subject_id":           subject_ids,
             "label":                labels,
@@ -282,6 +293,7 @@ class MultimodalCollator:
             "audio_attention_mask": audio_mask,
             "text_input_ids":       text_input_ids,
             "text_attention_mask":  text_attention_mask,
+            "teacher_embedding":    teacher_embedding,
         }
 
 
@@ -298,6 +310,7 @@ def load_transcripts(csv_path: Path) -> Dict[str, str]:
 def build_merged_df(
     soft_labels_csv: Path,
     enriched_csv:    Path,
+    adni_teacher_embeddings_csv: Path,
 ) -> pd.DataFrame:
     """
     Merge the new Teacher soft labels CSV with the enriched ADReSSo CSV.
@@ -309,6 +322,7 @@ def build_merged_df(
     """
     sl_df  = pd.read_csv(soft_labels_csv)
     enc_df = pd.read_csv(enriched_csv)
+    emb_df = pd.read_csv(adni_teacher_embeddings_csv) if adni_teacher_embeddings_csv else None
 
     # Keep only subjects that have audio
     sl_df = sl_df[sl_df["has_audio"] == True].copy()
@@ -316,6 +330,10 @@ def build_merged_df(
     # Merge on subject_id — keep soft label columns and clinical norms from enriched
     merged = sl_df.merge(
         enc_df[["subject_id", "audio_path"] + cfg.CLINICAL_FEATURE_COLS],
+        on="subject_id",
+        how="inner",
+    ).merge(
+        emb_df,
         on="subject_id",
         how="inner",
     )
@@ -334,6 +352,7 @@ def build_dataloaders(
     soft_labels_csv:  Optional[Path] = None,
     enriched_csv:     Optional[Path] = None,
     transcripts_csv:  Optional[Path] = None,
+    adni_teacher_embeddings_csv: Optional[Path] = None,
     roberta_model:    str = "roberta-base",
     temperature:      float = 3.0,
     batch_size:       int = 8,
@@ -363,8 +382,9 @@ def build_dataloaders(
     sl_csv  = soft_labels_csv  or cfg.SOFT_LABELS_T3_CSV
     enc_csv = enriched_csv     or cfg.ADRESSO_ENRICHED_CSV
     tr_csv  = transcripts_csv  or cfg.TRANSCRIPTIONS_CSV
+    emb_csv = adni_teacher_embeddings_csv or cfg.ADNI_TEACHER_EMBEDDINGS_CSV
 
-    df          = build_merged_df(sl_csv, enc_csv)
+    df          = build_merged_df(sl_csv, enc_csv, emb_csv)
     transcripts = load_transcripts(tr_csv)
 
     log.info(f"Loading tokenizer ({roberta_model})...")
