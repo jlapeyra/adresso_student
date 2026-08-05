@@ -232,6 +232,7 @@ def train_epoch(model, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
                 proj_s = F.normalize(proj_s, dim=1)
                 proj_t = F.normalize(proj_t, dim=1)
                 align_loss = 1.0 - F.cosine_similarity(proj_s, proj_t, dim=1)
+                align_loss = align_loss.mean()
             loss = (loss_dict["loss"] + args.feat_kd_weight * align_loss) / args.grad_accum
 
         scaler.scale(loss).backward()
