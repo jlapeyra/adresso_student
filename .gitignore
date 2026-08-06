@@ -1,6 +1,6 @@
 /outputs/*
-!/outputs/results/
-!/outputs/results/**
+!/outputs/results*/
+!/outputs/results*/**
 **.pyc
 __pycache__/
 /logs/tb/
