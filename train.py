@@ -96,7 +96,10 @@ def parse_args():
     p.add_argument("--alpha",            type=float, default=cfg.KD_ALPHA)
     p.add_argument("--beta",             type=float, default=cfg.KD_BETA)
 
-    p.add_argument("--feature-kd", action="store_true")
+    p.add_argument("--feature-kd", action="store_true", default=cfg.FEATURE_KD)
+    p.add_argument("--link-features", choices=cfg.LINK_FEATURES_OPTIONS + ["all"],
+                   default="clinical",
+                   help="Features used for feature-level KD alignment.")
     p.add_argument("--feat-kd-weight", type=float, default=cfg.FEATURE_KD_WEIGHT)
     p.add_argument("--feat-kd-proj-dim", type=int, default=cfg.FEATURE_KD_PROJ_DIM)
     p.add_argument("--feat-kd-loss", choices=["l2","cosine"], default=cfg.FEATURE_KD_LOSS)
@@ -219,21 +222,40 @@ def train_epoch(model, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
                 text_input_ids=text_ids,   text_attention_mask=text_mask,
                 clinical=clinical,
             )
-            student_emb = out["embedding"]                   # (B, 128)
-            proj_s = model.feat_proj_student(student_emb)    # (B, 128)
-            proj_t = model.feat_proj_teacher(batch["teacher_embedding"].to(device))  # (B, 128)
             loss_dict = loss_fn(
                 logits_hard=out["logits_hard"], logits_soft=out["logits_soft"],
                 labels_hard=label, soft_labels=soft_label,
             )
-            if args.feat_kd_loss == "l2":
-                align_loss = F.mse_loss(proj_s, proj_t)
-            else:
-                proj_s = F.normalize(proj_s, dim=1)
-                proj_t = F.normalize(proj_t, dim=1)
-                align_loss = 1.0 - F.cosine_similarity(proj_s, proj_t, dim=1)
-                align_loss = align_loss.mean()
-            loss = (loss_dict["loss"] + args.feat_kd_weight * align_loss) / args.grad_accum
+            loss = loss_dict["loss"]
+            teacher_emb = batch["teacher_embedding"].to(device)
+            proj_t = model.feat_proj_teacher(teacher_emb)
+            align_losses = []
+
+            if args.link_features in ("clinical", "both") and out["clinical_embedding"] is not None:
+                proj_clin = model.feat_proj_clinical(out["clinical_embedding"])
+                if args.feat_kd_loss == "l2":
+                    align_losses.append(F.mse_loss(proj_clin, proj_t))
+                else:
+                    align_losses.append(1.0 - F.cosine_similarity(
+                        F.normalize(proj_clin, dim=1),
+                        F.normalize(proj_t, dim=1), dim=1,
+                    ).mean())
+
+            if args.link_features in ("emb", "both"):
+                proj_emb = model.feat_proj_student(out["embedding"])
+                if args.feat_kd_loss == "l2":
+                    align_losses.append(F.mse_loss(proj_emb, proj_t))
+                else:
+                    align_losses.append(1.0 - F.cosine_similarity(
+                        F.normalize(proj_emb, dim=1),
+                        F.normalize(proj_t, dim=1), dim=1,
+                    ).mean())
+
+            if align_losses:
+                align_loss = torch.stack(align_losses).mean()
+                loss = loss + args.feat_kd_weight * align_loss
+
+            loss = loss / args.grad_accum
 
         scaler.scale(loss).backward()
 
@@ -473,7 +495,7 @@ def train_experiment(
         f"kappa={test_m.get('kappa',0):.4f} "
         f"({elapsed_total/60:.1f} min)"
     )
-    return {"ablation": ablation_name, "fold": fold,
+    return {"ablation": ablation_name, "link_features": args.link_features, "fold": fold,
             "best_val_bacc": early_stop.best_score, **test_m}
 
 
@@ -484,36 +506,47 @@ def train_experiment(
 def run_ablations(args) -> pd.DataFrame:
     ablations = list(cfg.ABLATION_MODES.keys()) if args.ablation == "all" \
                 else [args.ablation]
+    link_features = cfg.LINK_FEATURES_OPTIONS if args.link_features == "all" \
+                    else [args.link_features]
     all_results = []
 
-    for abl_name in ablations:
-        abl_cfg = cfg.ABLATION_MODES[abl_name]
 
-        if args.no_clinical and abl_cfg["mode"] == "clinical_only":
-            log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
-            continue
+    for link_feat in link_features:
+        args.link_features = link_feat
+        log.info(f"\n{'='*70}\nLINK FEATURES: {link_feat}\n{'='*70}")
+        for abl_name in ablations:
+            abl_cfg = cfg.ABLATION_MODES[abl_name]
 
-        set_seed(args.seed)
+            if args.no_clinical and abl_cfg["mode"] == "clinical_only":
+                log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
+                continue
 
-        if args.cv:
-            fold_range = [args.fold] if args.fold is not None else range(args.n_folds)
-            fold_results = []
-            for fold in fold_range:
-                set_seed(args.seed + fold)
-                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold)
-                fold_results.append(res)
+            set_seed(args.seed)
+
+            if args.cv:
+                fold_range = [args.fold] if args.fold is not None else range(args.n_folds)
+                fold_results = []
+                for fold in fold_range:
+                    set_seed(args.seed + fold)
+                    res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold)
+                    fold_results.append(res)
+                    all_results.append(res)
+
+                metrics = ["accuracy", "balanced_accuracy", "f1_macro", "auroc_macro",
+                        "kappa", "sensitivity_AD", "specificity_AD"]
+                log.info(f"\n  {abl_name} — CV summary:")
+                for m in metrics:
+                    vals = [r[m] for r in fold_results if m in r]
+                    if vals:
+                        log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
+            else:
+                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"])
                 all_results.append(res)
 
-            metrics = ["accuracy", "balanced_accuracy", "f1_macro", "auroc_macro",
-                       "kappa", "sensitivity_AD", "specificity_AD"]
-            log.info(f"\n  {abl_name} — CV summary:")
-            for m in metrics:
-                vals = [r[m] for r in fold_results if m in r]
-                if vals:
-                    log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
-        else:
-            res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"])
-            all_results.append(res)
+            df = pd.DataFrame(all_results)
+            df.to_csv(cfg.RESULTS_DIR / "results_so_far.csv", index=False)
+            with open(cfg.RESULTS_DIR / "results_so_far.json", "w") as f:
+                json.dump(df.to_dict(orient="records"), f, indent=2, default=str)
 
     df = pd.DataFrame(all_results)
 

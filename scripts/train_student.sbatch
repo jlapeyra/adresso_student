@@ -7,8 +7,11 @@
 #SBATCH --mem=32GB
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
-#SBATCH --time=48:00:00
+#SBATCH --time=144:00:00
 #SBATCH --nodelist=veuc12
+
+# time with one link-feature set = 48:00:00
+
 
 set -euo pipefail
 
@@ -33,6 +36,7 @@ echo "Starting ADReSSo Student training..."
 
 python -u train.py \
   --ablation all \
+  --link-features all \
   --cv \
   --n-folds 5 \
   --epochs 50 \

@@ -122,3 +122,5 @@ ABLATION_MODES = {
     "multimodal_no_kd": {"mode": "full",          "use_kd": False},
     "multimodal_kd":    {"mode": "full",          "use_kd": True},
 }
+
+LINK_FEATURES_OPTIONS = ["emb", "clinical", "both"]
