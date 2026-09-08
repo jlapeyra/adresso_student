@@ -119,7 +119,7 @@ def parse_args():
     p.add_argument("--label-smoothing",  type=float, default=cfg.LABEL_SMOOTHING)
 
     # Experiment mode
-    p.add_argument("--ablation", nrgs='+', default=["multimodal_kd"],
+    p.add_argument("--ablation", nargs='+', default=["multimodal_kd"],
                    choices=list(cfg.ABLATION_MODES.keys()) + ["all"])
     p.add_argument("--cv",               action="store_true", help="5-fold cross-validation")
     p.add_argument("--n-folds",          type=int, default=5)
