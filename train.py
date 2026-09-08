@@ -97,7 +97,7 @@ def parse_args():
     p.add_argument("--beta",             type=float, default=cfg.KD_BETA)
 
     p.add_argument("--feature-kd", action="store_true", default=cfg.FEATURE_KD)
-    p.add_argument("--link-features", choices=cfg.LINK_FEATURES_OPTIONS + ["all"],
+    p.add_argument("--link-features", nargs='+', choices=cfg.LINK_FEATURES_OPTIONS + ["all"],
                    default="clinical",
                    help="Features used for feature-level KD alignment.")
     p.add_argument("--feat-kd-weight", type=float, default=cfg.FEATURE_KD_WEIGHT)
@@ -119,7 +119,7 @@ def parse_args():
     p.add_argument("--label-smoothing",  type=float, default=cfg.LABEL_SMOOTHING)
 
     # Experiment mode
-    p.add_argument("--ablation",         default="multimodal_kd",
+    p.add_argument("--ablation", nrgs='+', default=["multimodal_kd"],
                    choices=list(cfg.ABLATION_MODES.keys()) + ["all"])
     p.add_argument("--cv",               action="store_true", help="5-fold cross-validation")
     p.add_argument("--n-folds",          type=int, default=5)
@@ -504,10 +504,8 @@ def train_experiment(
 # ============================================================================
 
 def run_ablations(args) -> pd.DataFrame:
-    ablations = list(cfg.ABLATION_MODES.keys()) if args.ablation == "all" \
-                else [args.ablation]
-    link_features = cfg.LINK_FEATURES_OPTIONS if args.link_features == "all" \
-                    else [args.link_features]
+    ablations = list(cfg.ABLATION_MODES.keys()) if "all" in args.ablation else args.ablation
+    link_features = cfg.LINK_FEATURES_OPTIONS if "all" in args.link_features else args.link_features
     all_results = []
 
 
