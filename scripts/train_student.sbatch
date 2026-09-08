@@ -4,14 +4,14 @@
 #SBATCH -A veu
 #SBATCH -p veu
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=32GB
+#SBATCH --mem=64GB
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
-#SBATCH --time=144:00:00
+#SBATCH --time=96:00:00
 #SBATCH --nodelist=veuc12
 
 # time with one link-feature set = 48:00:00
-
+# mem  idem = 32GB
 
 set -euo pipefail
 
