@@ -36,7 +36,7 @@ echo "Starting ADReSSo Student training..."
 
 python -u train.py \
   --ablation all \
-  --link-features all \
+  --link-features clinical both \
   --cv \
   --n-folds 5 \
   --epochs 50 \
