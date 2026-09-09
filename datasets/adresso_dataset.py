@@ -465,7 +465,7 @@ def build_dataloaders(
             num_workers=num_workers,
             collate_fn=collator,
             pin_memory=True,
-            persistent_workers=(num_workers > 0),
+            persistent_workers=False,
         )
 
     return loaders
