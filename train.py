@@ -49,7 +49,7 @@ from torch.amp import GradScaler, autocast
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).parent))
-from adresso_student.models.student import StudentModel
+from models.student import StudentModel
 import config as cfg
 
 cfg.LOGS_DIR.mkdir(parents=True, exist_ok=True)
