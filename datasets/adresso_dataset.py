@@ -275,7 +275,7 @@ class MultimodalCollator:
         else:
             text_input_ids = text_attention_mask = None
 
-        teacher_embedding = torch.stack([b["teacher_embedding"] for b in batch])
+        #teacher_embedding = torch.stack([b["teacher_embedding"] for b in batch])
 
         return {
             "subject_id":           subject_ids,
@@ -286,7 +286,7 @@ class MultimodalCollator:
             "audio_attention_mask": audio_mask,
             "text_input_ids":       text_input_ids,
             "text_attention_mask":  text_attention_mask,
-            "teacher_embedding":    teacher_embedding,
+            #"teacher_embedding":    teacher_embedding,
         }
 
 
