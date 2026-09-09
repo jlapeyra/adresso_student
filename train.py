@@ -49,6 +49,7 @@ from torch.amp import GradScaler, autocast
 from tqdm import tqdm
 
 sys.path.insert(0, str(Path(__file__).parent))
+from adresso_student.models.student import StudentModel
 import config as cfg
 
 cfg.LOGS_DIR.mkdir(parents=True, exist_ok=True)
@@ -98,7 +99,7 @@ def parse_args():
 
     p.add_argument("--feature-kd", action="store_true", default=cfg.FEATURE_KD)
     p.add_argument("--link-features", nargs='+', choices=cfg.LINK_FEATURES_OPTIONS + ["all"],
-                   default="clinical",
+                   default=["plain"],
                    help="Features used for feature-level KD alignment.")
     p.add_argument("--feat-kd-weight", type=float, default=cfg.FEATURE_KD_WEIGHT)
     p.add_argument("--feat-kd-proj-dim", type=int, default=cfg.FEATURE_KD_PROJ_DIM)
@@ -170,7 +171,7 @@ def build_optimizer(model, args):
 # Training loop
 # ============================================================================
 
-def train_epoch(model, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
+def train_epoch(model:StudentModel, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
                 device, args, tracker, epoch) -> Dict:
     model.train()
     tracker.reset()
@@ -180,7 +181,7 @@ def train_epoch(model, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
     for step, batch in enumerate(tqdm(loader, desc=f"E{epoch:03d} [train]", leave=False, ncols=110)):
         label       = batch["label"].to(device)
         soft_label  = batch["soft_label"].to(device)
-        clinical    = batch["clinical"].to(device)
+        clinical    = batch["clinical"].to(device) # clinical features (MMSE/age/sex): plain (3), embedded (256), or both (3+256)
 
         audio_values = batch.get("audio_values")
         audio_mask   = batch.get("audio_attention_mask")
@@ -226,36 +227,7 @@ def train_epoch(model, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
                 logits_hard=out["logits_hard"], logits_soft=out["logits_soft"],
                 labels_hard=label, soft_labels=soft_label,
             )
-            loss = loss_dict["loss"]
-            teacher_emb = batch["teacher_embedding"].to(device)
-            proj_t = model.feat_proj_teacher(teacher_emb)
-            align_losses = []
-
-            if args.link_features in ("clinical", "both") and out["clinical_embedding"] is not None:
-                proj_clin = model.feat_proj_clinical(out["clinical_embedding"])
-                if args.feat_kd_loss == "l2":
-                    align_losses.append(F.mse_loss(proj_clin, proj_t))
-                else:
-                    align_losses.append(1.0 - F.cosine_similarity(
-                        F.normalize(proj_clin, dim=1),
-                        F.normalize(proj_t, dim=1), dim=1,
-                    ).mean())
-
-            if args.link_features in ("emb", "both"):
-                proj_emb = model.feat_proj_student(out["embedding"])
-                if args.feat_kd_loss == "l2":
-                    align_losses.append(F.mse_loss(proj_emb, proj_t))
-                else:
-                    align_losses.append(1.0 - F.cosine_similarity(
-                        F.normalize(proj_emb, dim=1),
-                        F.normalize(proj_t, dim=1), dim=1,
-                    ).mean())
-
-            if align_losses:
-                align_loss = torch.stack(align_losses).mean()
-                loss = loss + args.feat_kd_weight * align_loss
-
-            loss = loss / args.grad_accum
+            loss = loss_dict["loss"] / args.grad_accum
 
         scaler.scale(loss).backward()
 
@@ -323,6 +295,7 @@ def train_experiment(
     ablation_name: str,
     mode:          str,
     use_kd:        bool,
+    link_features: str = "plain",
     fold:          Optional[int] = None,
 ) -> Dict:
     fold_str = f"_fold{fold}" if fold is not None else ""
@@ -338,7 +311,7 @@ def train_experiment(
     )
     log.info(f"  Device: {device}")
 
-    from datasets.adresso_dataset import build_dataloaders
+    from datasets.adresso_dataset import build_dataloaders, get_feature_cols
     loaders = build_dataloaders(
         soft_labels_csv=args.soft_labels_csv,
         enriched_csv=args.enriched_csv,
@@ -353,16 +326,17 @@ def train_experiment(
         n_folds=args.n_folds,
         augment_train=args.augment_train,
         aug_factor=args.aug_factor,
+        link_features=link_features,
     )
 
-    from models.student import build_student
-    model = build_student(
+    from models.student import StudentModel
+    model = StudentModel(
         num_classes_hard=2,
         num_classes_soft=2,
         fusion_dim=args.fusion_dim,
         wav2vec2_model=args.wav2vec2,
         roberta_model=args.roberta,
-        n_clinical=len(cfg.CLINICAL_FEATURE_COLS),
+        n_clinical=len(get_feature_cols(link_features)),
         freeze_audio_n=args.freeze_audio,
         freeze_text_n=args.freeze_text,
         fusion_layers=args.fusion_layers,
@@ -495,7 +469,7 @@ def train_experiment(
         f"kappa={test_m.get('kappa',0):.4f} "
         f"({elapsed_total/60:.1f} min)"
     )
-    return {"ablation": ablation_name, "link_features": args.link_features, "fold": fold,
+    return {"ablation": ablation_name, "link_features": link_features, "fold": fold,
             "best_val_bacc": early_stop.best_score, **test_m}
 
 
@@ -510,7 +484,6 @@ def run_ablations(args) -> pd.DataFrame:
 
 
     for link_feat in link_features:
-        args.link_features = link_feat
         log.info(f"\n{'='*70}\nLINK FEATURES: {link_feat}\n{'='*70}")
         for abl_name in ablations:
             abl_cfg = cfg.ABLATION_MODES[abl_name]
@@ -526,7 +499,7 @@ def run_ablations(args) -> pd.DataFrame:
                 fold_results = []
                 for fold in fold_range:
                     set_seed(args.seed + fold)
-                    res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold)
+                    res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, link_features=link_feat)
                     fold_results.append(res)
                     all_results.append(res)
 
@@ -538,7 +511,7 @@ def run_ablations(args) -> pd.DataFrame:
                     if vals:
                         log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
             else:
-                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"])
+                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], link_features=link_feat)
                 all_results.append(res)
 
             df = pd.DataFrame(all_results)

@@ -44,6 +44,7 @@ CLINICAL_FEATURE_COLS = [
     "AGE_norm",
     "PTGENDER_enc",
 ]
+EMBEDDED_CLINICAL_FEATURE_COLS = [f'emb_{i}' for i in range(256)]  # 256-dim embeddings from ADNI Teacher
 
 # ---------------------------------------------------------------------------
 # Audio preprocessing
@@ -123,4 +124,4 @@ ABLATION_MODES = {
     "multimodal_kd":    {"mode": "full",          "use_kd": True},
 }
 
-LINK_FEATURES_OPTIONS = ["emb", "clinical", "both"]
+LINK_FEATURES_OPTIONS = ["plain", "emb", "both"]

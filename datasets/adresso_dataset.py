@@ -87,7 +87,7 @@ class ADReSSoDataset(Dataset):
         df:             pd.DataFrame,
         transcripts:    Dict[str, str],
         text_tokenizer,
-        feature_cols:   List[str] = None,
+        feature_cols:   List[str],
         mode:           str = "full",
         max_text_len:   int = 512,
     ):
@@ -97,7 +97,7 @@ class ADReSSoDataset(Dataset):
         self.df           = df.reset_index(drop=True)
         self.transcripts  = transcripts
         self.tokenizer    = text_tokenizer
-        self.feature_cols = feature_cols or cfg.CLINICAL_FEATURE_COLS
+        self.feature_cols = feature_cols
         self.mode         = mode
         self.max_text_len = max_text_len
 
@@ -165,12 +165,6 @@ class ADReSSoDataset(Dataset):
             text_input_ids      = enc["input_ids"].squeeze(0)
             text_attention_mask = enc["attention_mask"].squeeze(0)
 
-        emb_cols = [col for col in self.df.columns if re.fullmatch(r"emb_\d+", str(col))]
-        teacher_embedding = torch.tensor(
-            [float(row.get(col, 0.0)) if not pd.isna(row.get(col, 0.0)) else 0.0 for col in emb_cols],
-            dtype=torch.float32,
-        )
-
 
         return {
             "subject_id":          sid,
@@ -180,7 +174,6 @@ class ADReSSoDataset(Dataset):
             "audio_values":        audio_values,
             "text_input_ids":      text_input_ids,
             "text_attention_mask": text_attention_mask,
-            "teacher_embedding":   teacher_embedding,
         }
 
 
@@ -311,6 +304,7 @@ def build_merged_df(
     soft_labels_csv: Path,
     enriched_csv:    Path,
     adni_teacher_embeddings_csv: Path,
+    link_features: str
 ) -> pd.DataFrame:
     """
     Merge the new Teacher soft labels CSV with the enriched ADReSSo CSV.
@@ -320,23 +314,27 @@ def build_merged_df(
 
     Only subjects with audio (has_audio=True in soft labels CSV) are kept.
     """
-    sl_df  = pd.read_csv(soft_labels_csv)
-    enc_df = pd.read_csv(enriched_csv)
-    emb_df = pd.read_csv(adni_teacher_embeddings_csv) if adni_teacher_embeddings_csv else None
+    soft_labels_df  = pd.read_csv(soft_labels_csv)
+    enriched_df = pd.read_csv(enriched_csv)
+    teacher_embeddings_df = pd.read_csv(adni_teacher_embeddings_csv) if adni_teacher_embeddings_csv else None
 
     # Keep only subjects that have audio
-    sl_df = sl_df[sl_df["has_audio"] == True].copy()
+    soft_labels_df = soft_labels_df[soft_labels_df["has_audio"] == True].copy()
+
+    to_merge = [
+        soft_labels_df, 
+        enriched_df[["subject_id", "audio_path"]]
+    ]
+    if link_features in ("plain", "both"):
+        to_merge.append(enriched_df[["subject_id"] + cfg.CLINICAL_FEATURE_COLS])
+    if link_features in ("emb", "both") and teacher_embeddings_df is not None:
+        to_merge.append(teacher_embeddings_df)
 
     # Merge on subject_id — keep soft label columns and clinical norms from enriched
-    merged = sl_df.merge(
-        enc_df[["subject_id", "audio_path"] + cfg.CLINICAL_FEATURE_COLS],
-        on="subject_id",
-        how="inner",
-    ).merge(
-        emb_df,
-        on="subject_id",
-        how="inner",
-    )
+    merged = to_merge[0].copy()
+    for df in to_merge[1:]:
+        merged = merged.merge(df, on="subject_id", how="inner")
+
     log.info(
         f"Merged dataset: {len(merged)} subjects with audio "
         f"(HC={int((merged['dx'] == 0).sum())} AD={int((merged['dx'] == 1).sum())})"
@@ -347,6 +345,21 @@ def build_merged_df(
 # ============================================================================
 # DataLoader factory
 # ============================================================================
+
+
+def get_feature_cols(link_features: str) -> List[str]:
+    """
+    Return the list of clinical feature columns based on link_features option.
+    """
+    if link_features == "plain":
+        return cfg.CLINICAL_FEATURE_COLS
+    elif link_features == "emb":
+        return cfg.EMBEDDED_CLINICAL_FEATURE_COLS
+    elif link_features == "both":
+        return cfg.CLINICAL_FEATURE_COLS + cfg.EMBEDDED_CLINICAL_FEATURE_COLS
+    else:
+        raise ValueError(f"Invalid link_features: {link_features}")
+
 
 def build_dataloaders(
     soft_labels_csv:  Optional[Path] = None,
@@ -362,6 +375,7 @@ def build_dataloaders(
     n_folds:          int = 5,
     augment_train:    bool = False,
     aug_factor:       int = 1,
+    link_features:    str = "plain",
 ) -> Dict[str, DataLoader]:
     """
     Build train/val/test DataLoaders.
@@ -384,7 +398,7 @@ def build_dataloaders(
     tr_csv  = transcripts_csv  or cfg.TRANSCRIPTIONS_CSV
     emb_csv = adni_teacher_embeddings_csv or cfg.ADNI_TEACHER_EMBEDDINGS_CSV
 
-    df          = build_merged_df(sl_csv, enc_csv, emb_csv)
+    df          = build_merged_df(sl_csv, enc_csv, emb_csv, link_features=link_features)
     transcripts = load_transcripts(tr_csv)
 
     log.info(f"Loading tokenizer ({roberta_model})...")
@@ -424,6 +438,7 @@ def build_dataloaders(
     collator = MultimodalCollator()
     loaders  = {}
 
+
     for split_name, idx in split_map.items():
         split_df = df.iloc[idx].copy()
         is_train = (split_name == "train")
@@ -432,7 +447,7 @@ def build_dataloaders(
             df=split_df,
             transcripts=transcripts,
             text_tokenizer=tokenizer,
-            feature_cols=cfg.CLINICAL_FEATURE_COLS,
+            feature_cols=get_feature_cols(link_features),
             mode=mode,
             max_text_len=512,
         )

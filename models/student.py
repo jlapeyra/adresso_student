@@ -385,20 +385,11 @@ class StudentModel(nn.Module):
 
         self.hard_classifier = nn.Linear(128, num_classes_hard)
         self.soft_classifier = nn.Linear(128, num_classes_soft)
-        self.feat_proj_student = nn.Linear(128, 128)
-        self.feat_proj_clinical = nn.Linear(fusion_dim, 128)
-        self.feat_proj_teacher = nn.Linear(256, 128)
 
         nn.init.xavier_uniform_(self.hard_classifier.weight, gain=0.1)
         nn.init.zeros_(self.hard_classifier.bias)
         nn.init.xavier_uniform_(self.soft_classifier.weight, gain=0.1)
         nn.init.zeros_(self.soft_classifier.bias)
-        nn.init.xavier_uniform_(self.feat_proj_student.weight, gain=0.1)
-        nn.init.zeros_(self.feat_proj_student.bias)
-        nn.init.xavier_uniform_(self.feat_proj_clinical.weight, gain=0.1)
-        nn.init.zeros_(self.feat_proj_clinical.bias)
-        nn.init.xavier_uniform_(self.feat_proj_teacher.weight, gain=0.1)
-        nn.init.zeros_(self.feat_proj_teacher.bias)
 
     def forward(
         self,
@@ -455,7 +446,6 @@ class StudentModel(nn.Module):
             "logits_hard": self.hard_classifier(shared_hard),
             "logits_soft": self.soft_classifier(shared_soft),
             "embedding":   shared_hard,
-            "clinical_embedding": tokens[2] if clinical is not None else None,
         }
 
     def count_parameters(self) -> Dict[str, int]:
@@ -471,6 +461,3 @@ class StudentModel(nn.Module):
             "total_trainable": count(self),
         }
 
-
-def build_student(**kwargs) -> StudentModel:
-    return StudentModel(**kwargs)
