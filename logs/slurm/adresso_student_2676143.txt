@@ -10647,4 +10647,4 @@ Notes:
   File "/usr/lib/python3.10/multiprocessing/reduction.py", line 198, in DupFd
   File "/usr/lib/python3.10/multiprocessing/resource_sharer.py", line 48, in __init__
 OSError: [Errno 24] Too many open files
-[val]:  33%|███████████████████▎                                      | 1/3 [00:00<00:00,  5.00it/s]
+[val]:  33%|███████████████████▎                                      | 1/3 [00:00<00:00,  5.00it/s]slurmstepd: error: *** JOB 2676143 ON veuc12 CANCELLED AT 2026-09-09T18:23:32 ***
