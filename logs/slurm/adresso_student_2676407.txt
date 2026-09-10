@@ -1,0 +1,132 @@
+Wed Sep  9 10:41:29 PM CEST 2026
+Wed Sep  9 22:41:29 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3090        Off |   00000000:41:00.0 Off |                  N/A |
+| 30%   41C    P8             30W /  350W |      15MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2587      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+2026-09-09 22:41:31,788  INFO      
+======================================================================
+2026-09-09 22:41:31,789  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-09-09 22:41:31,789  INFO      ======================================================================
+2026-09-09 22:41:31,789  INFO        Ablation:    ['all']
+2026-09-09 22:41:31,789  INFO        CV:          True
+2026-09-09 22:41:31,789  INFO        No clinical: False
+2026-09-09 22:41:31,789  INFO        Temperature: 1.1861923153571683
+2026-09-09 22:41:31,789  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-09-09 22:41:31,789  INFO        Soft labels: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-09-09 22:41:31,789  INFO      
+======================================================================
+LINK FEATURES: plain
+======================================================================
+2026-09-09 22:41:31,789  INFO      
+======================================================================
+2026-09-09 22:41:31,789  INFO      EXPERIMENT: clinical_only_fold0  (mode=clinical_only, kd=False)
+2026-09-09 22:41:31,789  INFO      ======================================================================
+2026-09-09 22:41:31,936  INFO        Device: cuda
+2026-09-09 22:41:35,121  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-09 22:41:35,125  INFO      Loading tokenizer (roberta-base)...
+2026-09-09 22:41:35,359  INFO      HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-09-09 22:41:35,494  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-09 22:41:35,633  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-09 22:41:35,765  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-09 22:41:35,894  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-09 22:41:36,018  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-09 22:41:36,321  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-09 22:41:36,321  INFO      ADReSSoDataset: 99 subjects | mode=clinical_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-09 22:41:36,322  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-09 22:41:36,324  INFO      ADReSSoDataset: 25 subjects | mode=clinical_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-09 22:41:36,325  INFO      ADReSSoDataset: 42 subjects | mode=clinical_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4747.00it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-09-09 22:41:38,568  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-09 22:41:38,568  WARNING   Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-09 22:41:38,701  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 8558.12it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-09-09 22:41:38,990  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-09 22:41:39,117  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-09 22:41:39,245  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-09 22:41:39,372  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-09 22:41:39,502  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-09 22:41:40,181  INFO          audio_encoder                           :  4,919,168
+2026-09-09 22:41:40,181  INFO          text_encoder                            :    787,968
+2026-09-09 22:41:40,181  INFO          clinical_encoder                        :     42,118
+2026-09-09 22:41:40,181  INFO          fusion                                  :  1,054,720
+2026-09-09 22:41:40,181  INFO          classifiers                             :     66,308
+2026-09-09 22:41:40,181  INFO          total_trainable                         :  6,871,821
+2026-09-09 22:41:40,185  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]                                                                                                              Traceback (most recent call last):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 621, in <module>
+    main()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 613, in main
+    run_ablations(args)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 502, in run_ablations
+    res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, link_features=link_feat)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 397, in train_experiment
+    tr_m  = train_epoch(model, loaders["train"], optimizer, loss_fn,
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 181, in train_epoch
+    for step, batch in enumerate(tqdm(loader, desc=f"E{epoch:03d} [train]", leave=False, ncols=110)):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/tqdm/std.py", line 1187, in __iter__
+    for obj in iterable:
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 701, in __next__
+    data = self._next_data()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1465, in _next_data
+    return self._process_data(data)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1491, in _process_data
+    data.reraise()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+KeyError: Caught KeyError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 351, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py", line 278, in __call__
+    teacher_embedding = torch.stack([b["teacher_embedding"] for b in batch])
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py", line 278, in <listcomp>
+    teacher_embedding = torch.stack([b["teacher_embedding"] for b in batch])
+KeyError: 'teacher_embedding'
+
