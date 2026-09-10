@@ -25606,3 +25606,319 @@ weighted avg       0.96      0.95      0.95        42
 2026-09-10 12:46:04,212  INFO        Saved checkpoint (epoch=1, val_bal_acc=0.5897)
 2026-09-10 12:46:50,009  INFO        E002/50 (46s) | Tr: loss=0.6847 acc=0.6465 f1=0.6399 | Val: loss=0.6792 acc=0.8000 f1=0.7947 auroc=0.9103 | lr=1.0e-05 ES=0/20
 2026-09-10 12:46:58,701  INFO        Saved checkpoint (epoch=2, val_bal_acc=0.7949)
+2026-09-10 12:47:50,870  INFO        E003/50 (52s) | Tr: loss=0.6729 acc=0.7710 f1=0.7706 | Val: loss=0.6685 acc=0.8000 f1=0.7947 auroc=0.9551 | lr=1.5e-05 ES=0/20
+2026-09-10 12:47:59,610  INFO        Saved checkpoint (epoch=3, val_bal_acc=0.8077)
+2026-09-10 12:48:43,827  INFO        E004/50 (44s) | Tr: loss=0.6460 acc=0.8384 f1=0.8374 | Val: loss=0.6134 acc=0.9200 f1=0.9199 auroc=0.9808 | lr=2.0e-05 ES=0/20
+2026-09-10 12:48:52,646  INFO        Saved checkpoint (epoch=4, val_bal_acc=0.9231)
+2026-09-10 12:49:36,172  INFO        E005/50 (44s) | Tr: loss=0.6126 acc=0.8081 f1=0.7946 | Val: loss=0.5493 acc=0.9200 f1=0.9199 auroc=1.0000 | lr=2.5e-05 ES=0/20
+2026-09-10 12:50:17,891  INFO        E006/50 (42s) | Tr: loss=0.5328 acc=0.8889 f1=0.8888 | Val: loss=0.4571 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=3.0e-05 ES=1/20
+2026-09-10 12:50:26,704  INFO        Saved checkpoint (epoch=6, val_bal_acc=0.9615)
+2026-09-10 12:51:14,445  INFO        E007/50 (48s) | Tr: loss=0.4835 acc=0.8687 f1=0.8681 | Val: loss=0.3637 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=3.5e-05 ES=0/20
+2026-09-10 12:51:23,259  INFO        Saved checkpoint (epoch=7, val_bal_acc=1.0000)
+2026-09-10 12:52:09,238  INFO        E008/50 (46s) | Tr: loss=0.4282 acc=0.8822 f1=0.8817 | Val: loss=0.3188 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.0e-05 ES=0/20
+2026-09-10 12:52:52,996  INFO        E009/50 (44s) | Tr: loss=0.3645 acc=0.9192 f1=0.9189 | Val: loss=0.2492 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.5e-05 ES=1/20
+2026-09-10 12:53:41,577  INFO        E010/50 (49s) | Tr: loss=0.3731 acc=0.8855 f1=0.8831 | Val: loss=0.2084 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=5.0e-05 ES=2/20
+2026-09-10 12:54:22,832  INFO        E011/50 (41s) | Tr: loss=0.3138 acc=0.9125 f1=0.9123 | Val: loss=0.1919 acc=0.9600 f1=0.9597 auroc=1.0000 | lr=5.0e-05 ES=3/20
+2026-09-10 12:55:06,434  INFO        E012/50 (44s) | Tr: loss=0.2424 acc=0.9428 f1=0.9424 | Val: loss=0.2246 acc=0.9200 f1=0.9188 auroc=1.0000 | lr=5.0e-05 ES=4/20
+2026-09-10 12:55:52,319  INFO        E013/50 (46s) | Tr: loss=0.2285 acc=0.9495 f1=0.9493 | Val: loss=0.1620 acc=0.9600 f1=0.9597 auroc=1.0000 | lr=4.9e-05 ES=5/20
+2026-09-10 12:56:38,392  INFO        E014/50 (46s) | Tr: loss=0.2466 acc=0.9428 f1=0.9424 | Val: loss=0.1261 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.9e-05 ES=6/20
+2026-09-10 12:57:20,373  INFO        E015/50 (42s) | Tr: loss=0.2753 acc=0.9158 f1=0.9158 | Val: loss=0.1267 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.8e-05 ES=7/20
+2026-09-10 12:58:09,947  INFO        E016/50 (50s) | Tr: loss=0.3248 acc=0.8990 f1=0.8989 | Val: loss=0.1234 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.7e-05 ES=8/20
+2026-09-10 12:58:58,990  INFO        E017/50 (49s) | Tr: loss=0.2860 acc=0.8956 f1=0.8951 | Val: loss=0.1277 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.6e-05 ES=9/20
+2026-09-10 12:59:50,219  INFO        E018/50 (51s) | Tr: loss=0.2389 acc=0.9327 f1=0.9325 | Val: loss=0.1180 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.5e-05 ES=10/20
+2026-09-10 13:00:29,829  INFO        E019/50 (40s) | Tr: loss=0.2531 acc=0.9226 f1=0.9221 | Val: loss=0.1243 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.4e-05 ES=11/20
+2026-09-10 13:01:18,106  INFO        E020/50 (48s) | Tr: loss=0.2425 acc=0.9327 f1=0.9325 | Val: loss=0.1230 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.3e-05 ES=12/20
+2026-09-10 13:02:02,911  INFO        E021/50 (45s) | Tr: loss=0.2377 acc=0.9428 f1=0.9428 | Val: loss=0.1189 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.1e-05 ES=13/20
+2026-09-10 13:02:47,388  INFO        E022/50 (44s) | Tr: loss=0.2857 acc=0.9125 f1=0.9123 | Val: loss=0.1202 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.0e-05 ES=14/20
+2026-09-10 13:03:31,576  INFO        E023/50 (44s) | Tr: loss=0.2099 acc=0.9428 f1=0.9425 | Val: loss=0.1716 acc=0.9600 f1=0.9597 auroc=1.0000 | lr=3.8e-05 ES=15/20
+2026-09-10 13:04:22,291  INFO        E024/50 (51s) | Tr: loss=0.2368 acc=0.9259 f1=0.9256 | Val: loss=0.2463 acc=0.9200 f1=0.9188 auroc=1.0000 | lr=3.6e-05 ES=16/20
+2026-09-10 13:05:13,399  INFO        E025/50 (51s) | Tr: loss=0.2306 acc=0.9360 f1=0.9358 | Val: loss=0.2761 acc=0.9200 f1=0.9188 auroc=1.0000 | lr=3.5e-05 ES=17/20
+2026-09-10 13:05:56,697  INFO        E026/50 (43s) | Tr: loss=0.2545 acc=0.9091 f1=0.9086 | Val: loss=0.2196 acc=0.9600 f1=0.9597 auroc=1.0000 | lr=3.3e-05 ES=18/20
+2026-09-10 13:06:41,736  INFO        E027/50 (45s) | Tr: loss=0.2292 acc=0.9428 f1=0.9427 | Val: loss=0.2714 acc=0.8800 f1=0.8768 auroc=1.0000 | lr=3.1e-05 ES=19/20
+2026-09-10 13:06:41,760  INFO        Early stopping at epoch 27 (best: epoch=7, val_bal_acc=1.0000)
+2026-09-10 13:06:44,457  INFO      
+[test] classification report:
+              precision    recall  f1-score   support
+
+          HC       0.95      1.00      0.98        20
+          AD       1.00      0.95      0.98        22
+
+    accuracy                           0.98        42
+   macro avg       0.98      0.98      0.98        42
+weighted avg       0.98      0.98      0.98        42
+
+2026-09-10 13:06:44,457  INFO      
+  multimodal_no_kd_fold1 TEST: acc=0.9762 bal_acc=0.9773 f1=0.9762 auroc=0.9977 kappa=0.9524 (21.6 min)
+2026-09-10 13:06:44,482  INFO      
+======================================================================
+2026-09-10 13:06:44,483  INFO      EXPERIMENT: multimodal_no_kd_fold2  (mode=full, kd=False)
+2026-09-10 13:06:44,483  INFO      ======================================================================
+2026-09-10 13:06:44,483  INFO        Device: cuda
+2026-09-10 13:06:44,512  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-10 13:06:44,516  INFO      Loading tokenizer (roberta-base)...
+2026-09-10 13:06:44,699  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 13:06:44,830  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:06:44,956  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 13:06:45,078  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:06:45,212  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 13:06:45,513  INFO      Split: train=99 val=25 test=42 (fold=2)
+2026-09-10 13:06:45,514  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:06:45,514  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-10 13:06:45,515  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:06:45,516  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:06:45,824  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-10 13:06:45,954  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-09-10 13:06:46,222  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 13:06:46,345  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:06:46,467  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 13:06:46,589  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:06:46,724  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 13:06:47,186  INFO          audio_encoder                           :  4,919,168
+2026-09-10 13:06:47,187  INFO          text_encoder                            :    787,968
+2026-09-10 13:06:47,187  INFO          clinical_encoder                        :     59,014
+2026-09-10 13:06:47,187  INFO          fusion                                  :  1,054,720
+2026-09-10 13:06:47,187  INFO          classifiers                             :     66,308
+2026-09-10 13:06:47,187  INFO          total_trainable                         :  6,888,717
+2026-09-10 13:06:47,188  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+2026-09-10 13:07:30,150  INFO        E001/50 (43s) | Tr: loss=0.6928 acc=0.5286 f1=0.4947 | Val: loss=0.6836 acc=0.6800 f1=0.6324 auroc=0.8910 | lr=5.0e-06 ES=0/20
+2026-09-10 13:07:39,014  INFO        Saved checkpoint (epoch=1, val_bal_acc=0.6667)
+2026-09-10 13:08:18,443  INFO        E002/50 (39s) | Tr: loss=0.6885 acc=0.5286 f1=0.4552 | Val: loss=0.6663 acc=0.8800 f1=0.8768 auroc=0.9872 | lr=1.0e-05 ES=0/20
+2026-09-10 13:08:27,302  INFO        Saved checkpoint (epoch=2, val_bal_acc=0.8750)
+2026-09-10 13:09:13,413  INFO        E003/50 (46s) | Tr: loss=0.6809 acc=0.6128 f1=0.5914 | Val: loss=0.6453 acc=0.9200 f1=0.9199 auroc=0.9936 | lr=1.5e-05 ES=0/20
+2026-09-10 13:09:22,234  INFO        Saved checkpoint (epoch=3, val_bal_acc=0.9199)
+2026-09-10 13:10:12,572  INFO        E004/50 (50s) | Tr: loss=0.6618 acc=0.7980 f1=0.7891 | Val: loss=0.6010 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=2.0e-05 ES=0/20
+2026-09-10 13:10:21,413  INFO        Saved checkpoint (epoch=4, val_bal_acc=0.9615)
+2026-09-10 13:10:59,885  INFO        E005/50 (38s) | Tr: loss=0.6270 acc=0.8283 f1=0.8273 | Val: loss=0.5070 acc=0.9200 f1=0.9199 auroc=0.9936 | lr=2.5e-05 ES=0/20
+2026-09-10 13:11:47,666  INFO        E006/50 (48s) | Tr: loss=0.5628 acc=0.8754 f1=0.8746 | Val: loss=0.4174 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=3.0e-05 ES=1/20
+2026-09-10 13:12:35,638  INFO        E007/50 (48s) | Tr: loss=0.4809 acc=0.8990 f1=0.8984 | Val: loss=0.3455 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=3.5e-05 ES=2/20
+2026-09-10 13:13:23,386  INFO        E008/50 (48s) | Tr: loss=0.4000 acc=0.9360 f1=0.9360 | Val: loss=0.2857 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=4.0e-05 ES=3/20
+2026-09-10 13:14:13,373  INFO        E009/50 (50s) | Tr: loss=0.3030 acc=0.9360 f1=0.9359 | Val: loss=0.2451 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=4.5e-05 ES=4/20
+2026-09-10 13:15:07,623  INFO        E010/50 (54s) | Tr: loss=0.3647 acc=0.8822 f1=0.8818 | Val: loss=0.2233 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=5.0e-05 ES=5/20
+2026-09-10 13:15:54,943  INFO        E011/50 (47s) | Tr: loss=0.3153 acc=0.9293 f1=0.9292 | Val: loss=0.2083 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=5.0e-05 ES=6/20
+2026-09-10 13:16:39,853  INFO        E012/50 (45s) | Tr: loss=0.3012 acc=0.8990 f1=0.8987 | Val: loss=0.2056 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=5.0e-05 ES=7/20
+2026-09-10 13:17:21,517  INFO        E013/50 (42s) | Tr: loss=0.2669 acc=0.9192 f1=0.9190 | Val: loss=0.1969 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.9e-05 ES=8/20
+2026-09-10 13:18:05,457  INFO        E014/50 (44s) | Tr: loss=0.2831 acc=0.8990 f1=0.8980 | Val: loss=0.1984 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.9e-05 ES=9/20
+2026-09-10 13:18:51,742  INFO        E015/50 (46s) | Tr: loss=0.2902 acc=0.8889 f1=0.8886 | Val: loss=0.2055 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.8e-05 ES=10/20
+2026-09-10 13:19:36,738  INFO        E016/50 (45s) | Tr: loss=0.2552 acc=0.9125 f1=0.9123 | Val: loss=0.2035 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.7e-05 ES=11/20
+2026-09-10 13:20:23,289  INFO        E017/50 (47s) | Tr: loss=0.2660 acc=0.9057 f1=0.9055 | Val: loss=0.2148 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.6e-05 ES=12/20
+2026-09-10 13:21:04,652  INFO        E018/50 (41s) | Tr: loss=0.1980 acc=0.9529 f1=0.9528 | Val: loss=0.2161 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.5e-05 ES=13/20
+2026-09-10 13:21:53,235  INFO        E019/50 (49s) | Tr: loss=0.2722 acc=0.9226 f1=0.9226 | Val: loss=0.2130 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.4e-05 ES=14/20
+2026-09-10 13:22:37,565  INFO        E020/50 (44s) | Tr: loss=0.2535 acc=0.9259 f1=0.9259 | Val: loss=0.2200 acc=0.9600 f1=0.9600 auroc=0.9615 | lr=4.3e-05 ES=15/20
+2026-09-10 13:23:18,550  INFO        E021/50 (41s) | Tr: loss=0.2363 acc=0.9327 f1=0.9325 | Val: loss=0.2199 acc=0.9600 f1=0.9600 auroc=0.9615 | lr=4.1e-05 ES=16/20
+2026-09-10 13:24:08,875  INFO        E022/50 (50s) | Tr: loss=0.2969 acc=0.9125 f1=0.9114 | Val: loss=0.2147 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=4.0e-05 ES=17/20
+2026-09-10 13:24:52,388  INFO        E023/50 (44s) | Tr: loss=0.2440 acc=0.9327 f1=0.9326 | Val: loss=0.2237 acc=0.9600 f1=0.9600 auroc=0.9295 | lr=3.8e-05 ES=18/20
+2026-09-10 13:25:33,874  INFO        E024/50 (41s) | Tr: loss=0.2172 acc=0.9360 f1=0.9357 | Val: loss=0.2152 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=3.6e-05 ES=19/20
+2026-09-10 13:25:33,898  INFO        Early stopping at epoch 24 (best: epoch=4, val_bal_acc=0.9615)
+2026-09-10 13:25:36,791  INFO      
+[test] classification report:
+              precision    recall  f1-score   support
+
+          HC       0.95      1.00      0.98        20
+          AD       1.00      0.95      0.98        22
+
+    accuracy                           0.98        42
+   macro avg       0.98      0.98      0.98        42
+weighted avg       0.98      0.98      0.98        42
+
+2026-09-10 13:25:36,792  INFO      
+  multimodal_no_kd_fold2 TEST: acc=0.9762 bal_acc=0.9773 f1=0.9762 auroc=0.9750 kappa=0.9524 (18.8 min)
+2026-09-10 13:25:36,815  INFO      
+======================================================================
+2026-09-10 13:25:36,816  INFO      EXPERIMENT: multimodal_no_kd_fold3  (mode=full, kd=False)
+2026-09-10 13:25:36,817  INFO      ======================================================================
+2026-09-10 13:25:36,817  INFO        Device: cuda
+2026-09-10 13:25:36,846  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-10 13:25:36,849  INFO      Loading tokenizer (roberta-base)...
+2026-09-10 13:25:36,997  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 13:25:37,128  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:25:37,271  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 13:25:37,397  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:25:37,527  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 13:25:37,827  INFO      Split: train=99 val=25 test=42 (fold=3)
+2026-09-10 13:25:37,828  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:25:37,828  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-10 13:25:37,829  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:25:37,830  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:25:38,212  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-10 13:25:38,345  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-09-10 13:25:38,553  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 13:25:38,685  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:25:38,809  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 13:25:38,938  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:25:39,066  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 13:25:39,619  INFO          audio_encoder                           :  4,919,168
+2026-09-10 13:25:39,619  INFO          text_encoder                            :    787,968
+2026-09-10 13:25:39,619  INFO          clinical_encoder                        :     59,014
+2026-09-10 13:25:39,619  INFO          fusion                                  :  1,054,720
+2026-09-10 13:25:39,619  INFO          classifiers                             :     66,308
+2026-09-10 13:25:39,619  INFO          total_trainable                         :  6,888,717
+2026-09-10 13:25:39,620  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+2026-09-10 13:26:25,664  INFO        E001/50 (46s) | Tr: loss=0.6948 acc=0.4815 f1=0.4742 | Val: loss=0.6837 acc=0.4800 f1=0.4482 auroc=0.5769 | lr=5.0e-06 ES=0/20
+2026-09-10 13:26:34,398  INFO        Saved checkpoint (epoch=1, val_bal_acc=0.4712)
+2026-09-10 13:27:23,370  INFO        E002/50 (49s) | Tr: loss=0.6888 acc=0.5320 f1=0.4992 | Val: loss=0.6712 acc=0.6000 f1=0.5404 auroc=0.7949 | lr=1.0e-05 ES=0/20
+2026-09-10 13:27:32,084  INFO        Saved checkpoint (epoch=2, val_bal_acc=0.5865)
+2026-09-10 13:28:17,001  INFO        E003/50 (45s) | Tr: loss=0.6823 acc=0.6330 f1=0.5771 | Val: loss=0.6480 acc=0.6400 f1=0.5989 auroc=0.8782 | lr=1.5e-05 ES=0/20
+2026-09-10 13:28:25,801  INFO        Saved checkpoint (epoch=3, val_bal_acc=0.6282)
+2026-09-10 13:29:13,796  INFO        E004/50 (48s) | Tr: loss=0.6711 acc=0.6970 f1=0.6941 | Val: loss=0.6142 acc=0.8800 f1=0.8800 auroc=0.9231 | lr=2.0e-05 ES=0/20
+2026-09-10 13:29:22,604  INFO        Saved checkpoint (epoch=4, val_bal_acc=0.8814)
+2026-09-10 13:30:13,779  INFO        E005/50 (51s) | Tr: loss=0.6281 acc=0.8721 f1=0.8720 | Val: loss=0.5294 acc=0.8800 f1=0.8800 auroc=0.9167 | lr=2.5e-05 ES=0/20
+2026-09-10 13:31:03,473  INFO        E006/50 (50s) | Tr: loss=0.5628 acc=0.8552 f1=0.8552 | Val: loss=0.4430 acc=0.8800 f1=0.8800 auroc=0.9359 | lr=3.0e-05 ES=1/20
+2026-09-10 13:31:50,857  INFO        E007/50 (47s) | Tr: loss=0.4700 acc=0.8956 f1=0.8942 | Val: loss=0.3850 acc=0.8800 f1=0.8800 auroc=0.9423 | lr=3.5e-05 ES=2/20
+2026-09-10 13:32:39,617  INFO        E008/50 (49s) | Tr: loss=0.3551 acc=0.9428 f1=0.9421 | Val: loss=0.3353 acc=0.8800 f1=0.8800 auroc=0.9487 | lr=4.0e-05 ES=3/20
+2026-09-10 13:33:25,329  INFO        E009/50 (46s) | Tr: loss=0.3987 acc=0.8653 f1=0.8645 | Val: loss=0.3035 acc=0.9200 f1=0.9199 auroc=0.9551 | lr=4.5e-05 ES=4/20
+2026-09-10 13:33:34,150  INFO        Saved checkpoint (epoch=9, val_bal_acc=0.9199)
+2026-09-10 13:34:11,552  INFO        E010/50 (37s) | Tr: loss=0.3104 acc=0.9091 f1=0.9086 | Val: loss=0.2821 acc=0.9200 f1=0.9199 auroc=0.9744 | lr=5.0e-05 ES=0/20
+2026-09-10 13:35:02,687  INFO        E011/50 (51s) | Tr: loss=0.2950 acc=0.8990 f1=0.8987 | Val: loss=0.2432 acc=0.9600 f1=0.9600 auroc=0.9231 | lr=5.0e-05 ES=1/20
+2026-09-10 13:35:11,491  INFO        Saved checkpoint (epoch=11, val_bal_acc=0.9615)
+2026-09-10 13:35:54,598  INFO        E012/50 (43s) | Tr: loss=0.3362 acc=0.8788 f1=0.8767 | Val: loss=0.2831 acc=0.9200 f1=0.9199 auroc=0.9808 | lr=5.0e-05 ES=0/20
+2026-09-10 13:36:39,973  INFO        E013/50 (45s) | Tr: loss=0.3071 acc=0.8822 f1=0.8821 | Val: loss=0.2385 acc=0.9200 f1=0.9199 auroc=0.9551 | lr=4.9e-05 ES=1/20
+2026-09-10 13:37:27,023  INFO        E014/50 (47s) | Tr: loss=0.1868 acc=0.9697 f1=0.9697 | Val: loss=0.2535 acc=0.9200 f1=0.9199 auroc=0.9936 | lr=4.9e-05 ES=2/20
+2026-09-10 13:38:14,293  INFO        E015/50 (47s) | Tr: loss=0.2806 acc=0.9091 f1=0.9091 | Val: loss=0.2202 acc=0.9600 f1=0.9600 auroc=0.9487 | lr=4.8e-05 ES=3/20
+2026-09-10 13:38:59,321  INFO        E016/50 (45s) | Tr: loss=0.3161 acc=0.8721 f1=0.8716 | Val: loss=0.2219 acc=0.9600 f1=0.9600 auroc=0.9615 | lr=4.7e-05 ES=4/20
+2026-09-10 13:39:43,892  INFO        E017/50 (45s) | Tr: loss=0.2578 acc=0.9158 f1=0.9156 | Val: loss=0.2202 acc=0.9600 f1=0.9600 auroc=0.9872 | lr=4.6e-05 ES=5/20
+2026-09-10 13:40:31,800  INFO        E018/50 (48s) | Tr: loss=0.2184 acc=0.9394 f1=0.9392 | Val: loss=0.2218 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=4.5e-05 ES=6/20
+2026-09-10 13:41:16,050  INFO        E019/50 (44s) | Tr: loss=0.2328 acc=0.9192 f1=0.9192 | Val: loss=0.2233 acc=0.9600 f1=0.9600 auroc=0.9551 | lr=4.4e-05 ES=7/20
+2026-09-10 13:42:02,081  INFO        E020/50 (46s) | Tr: loss=0.2045 acc=0.9495 f1=0.9485 | Val: loss=0.2254 acc=0.9600 f1=0.9600 auroc=0.9487 | lr=4.3e-05 ES=8/20
+2026-09-10 13:42:49,155  INFO        E021/50 (47s) | Tr: loss=0.2762 acc=0.8990 f1=0.8989 | Val: loss=0.2270 acc=0.9600 f1=0.9600 auroc=0.9487 | lr=4.1e-05 ES=9/20
+2026-09-10 13:43:32,474  INFO        E022/50 (43s) | Tr: loss=0.2754 acc=0.8956 f1=0.8951 | Val: loss=0.2209 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=4.0e-05 ES=10/20
+2026-09-10 13:44:23,323  INFO        E023/50 (51s) | Tr: loss=0.2057 acc=0.9428 f1=0.9427 | Val: loss=0.2288 acc=0.9600 f1=0.9600 auroc=0.9359 | lr=3.8e-05 ES=11/20
+2026-09-10 13:45:07,124  INFO        E024/50 (44s) | Tr: loss=0.2768 acc=0.9293 f1=0.9288 | Val: loss=0.2299 acc=0.9600 f1=0.9600 auroc=0.9744 | lr=3.6e-05 ES=12/20
+2026-09-10 13:45:46,568  INFO        E025/50 (39s) | Tr: loss=0.2475 acc=0.9192 f1=0.9190 | Val: loss=0.2258 acc=0.9600 f1=0.9600 auroc=0.9936 | lr=3.5e-05 ES=13/20
+2026-09-10 13:46:33,547  INFO        E026/50 (47s) | Tr: loss=0.1670 acc=0.9630 f1=0.9629 | Val: loss=0.2268 acc=0.9600 f1=0.9600 auroc=0.9872 | lr=3.3e-05 ES=14/20
+2026-09-10 13:47:18,442  INFO        E027/50 (45s) | Tr: loss=0.1740 acc=0.9596 f1=0.9596 | Val: loss=0.2303 acc=0.9600 f1=0.9600 auroc=0.9872 | lr=3.1e-05 ES=15/20
+2026-09-10 13:48:01,139  INFO        E028/50 (43s) | Tr: loss=0.2315 acc=0.9293 f1=0.9293 | Val: loss=0.2308 acc=0.9600 f1=0.9600 auroc=0.9872 | lr=2.9e-05 ES=16/20
+2026-09-10 13:48:41,423  INFO        E029/50 (40s) | Tr: loss=0.1605 acc=0.9731 f1=0.9730 | Val: loss=0.2306 acc=0.9600 f1=0.9600 auroc=0.9872 | lr=2.7e-05 ES=17/20
+2026-09-10 13:49:26,143  INFO        E030/50 (45s) | Tr: loss=0.2333 acc=0.9192 f1=0.9188 | Val: loss=0.2325 acc=0.9600 f1=0.9600 auroc=0.9615 | lr=2.5e-05 ES=18/20
+2026-09-10 13:50:11,317  INFO        E031/50 (45s) | Tr: loss=0.1892 acc=0.9630 f1=0.9630 | Val: loss=0.2321 acc=0.9600 f1=0.9600 auroc=0.9744 | lr=2.3e-05 ES=19/20
+2026-09-10 13:50:11,342  INFO        Early stopping at epoch 31 (best: epoch=11, val_bal_acc=0.9615)
+2026-09-10 13:50:13,995  INFO      
+[test] classification report:
+              precision    recall  f1-score   support
+
+          HC       0.95      1.00      0.98        20
+          AD       1.00      0.95      0.98        22
+
+    accuracy                           0.98        42
+   macro avg       0.98      0.98      0.98        42
+weighted avg       0.98      0.98      0.98        42
+
+2026-09-10 13:50:13,995  INFO      
+  multimodal_no_kd_fold3 TEST: acc=0.9762 bal_acc=0.9773 f1=0.9762 auroc=0.9886 kappa=0.9524 (24.6 min)
+2026-09-10 13:50:14,020  INFO      
+======================================================================
+2026-09-10 13:50:14,022  INFO      EXPERIMENT: multimodal_no_kd_fold4  (mode=full, kd=False)
+2026-09-10 13:50:14,022  INFO      ======================================================================
+2026-09-10 13:50:14,022  INFO        Device: cuda
+2026-09-10 13:50:14,056  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-10 13:50:14,059  INFO      Loading tokenizer (roberta-base)...
+2026-09-10 13:50:14,245  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 13:50:14,387  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:50:14,535  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 13:50:14,666  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:50:14,798  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 13:50:15,099  INFO      Split: train=100 val=24 test=42 (fold=4)
+2026-09-10 13:50:15,100  INFO      ADReSSoDataset: 100 subjects | mode=full | HC=48 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:50:15,101  INFO      [train] augmentation: 100 + 200 aug (factor×2) = 300
+2026-09-10 13:50:15,102  INFO      ADReSSoDataset: 24 subjects | mode=full | HC=11 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:50:15,102  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 13:50:15,414  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-10 13:50:15,555  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-09-10 13:50:15,807  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 13:50:15,935  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:50:16,058  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 13:50:16,183  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 13:50:16,314  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 13:50:16,785  INFO          audio_encoder                           :  4,919,168
+2026-09-10 13:50:16,785  INFO          text_encoder                            :    787,968
+2026-09-10 13:50:16,785  INFO          clinical_encoder                        :     59,014
+2026-09-10 13:50:16,785  INFO          fusion                                  :  1,054,720
+2026-09-10 13:50:16,785  INFO          classifiers                             :     66,308
+2026-09-10 13:50:16,785  INFO          total_trainable                         :  6,888,717
+2026-09-10 13:50:16,787  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+2026-09-10 13:51:02,040  INFO        E001/50 (45s) | Tr: loss=0.6974 acc=0.4000 f1=0.3912 | Val: loss=0.6958 acc=0.3333 f1=0.3287 auroc=0.3077 | lr=5.0e-06 ES=0/20
+2026-09-10 13:51:10,879  INFO        Saved checkpoint (epoch=1, val_bal_acc=0.3427)
+2026-09-10 13:52:00,808  INFO        E002/50 (50s) | Tr: loss=0.6903 acc=0.5767 f1=0.5742 | Val: loss=0.6782 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=1.0e-05 ES=0/20
+2026-09-10 13:52:09,684  INFO        Saved checkpoint (epoch=2, val_bal_acc=0.9615)
+2026-09-10 13:52:55,747  INFO        E003/50 (46s) | Tr: loss=0.6782 acc=0.7467 f1=0.7461 | Val: loss=0.6481 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=1.5e-05 ES=0/20
+2026-09-10 13:53:04,607  INFO        Saved checkpoint (epoch=3, val_bal_acc=1.0000)
+2026-09-10 13:53:47,463  INFO        E004/50 (43s) | Tr: loss=0.6501 acc=0.8567 f1=0.8566 | Val: loss=0.5671 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=2.0e-05 ES=0/20
+2026-09-10 13:54:28,820  INFO        E005/50 (41s) | Tr: loss=0.6042 acc=0.8500 f1=0.8494 | Val: loss=0.4588 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=2.5e-05 ES=1/20
+2026-09-10 13:55:12,945  INFO        E006/50 (44s) | Tr: loss=0.5389 acc=0.8433 f1=0.8421 | Val: loss=0.3702 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=3.0e-05 ES=2/20
+2026-09-10 13:55:56,523  INFO        E007/50 (44s) | Tr: loss=0.4772 acc=0.8433 f1=0.8430 | Val: loss=0.3215 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=3.5e-05 ES=3/20
+2026-09-10 13:56:43,521  INFO        E008/50 (47s) | Tr: loss=0.4388 acc=0.8667 f1=0.8647 | Val: loss=0.2693 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=4.0e-05 ES=4/20
+2026-09-10 13:57:35,426  INFO        E009/50 (52s) | Tr: loss=0.3712 acc=0.8733 f1=0.8730 | Val: loss=0.2061 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.5e-05 ES=5/20
+2026-09-10 13:58:20,185  INFO        E010/50 (45s) | Tr: loss=0.3286 acc=0.8900 f1=0.8900 | Val: loss=0.1808 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=5.0e-05 ES=6/20
+2026-09-10 13:59:08,862  INFO        E011/50 (49s) | Tr: loss=0.3356 acc=0.8800 f1=0.8796 | Val: loss=0.2068 acc=0.9583 f1=0.9583 auroc=1.0000 | lr=5.0e-05 ES=7/20
+2026-09-10 13:59:58,937  INFO        E012/50 (50s) | Tr: loss=0.2503 acc=0.9267 f1=0.9267 | Val: loss=0.1347 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=5.0e-05 ES=8/20
+2026-09-10 14:00:44,489  INFO        E013/50 (46s) | Tr: loss=0.2881 acc=0.9200 f1=0.9193 | Val: loss=0.1405 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.9e-05 ES=9/20
+2026-09-10 14:01:35,474  INFO        E014/50 (51s) | Tr: loss=0.2406 acc=0.9167 f1=0.9158 | Val: loss=0.1351 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.9e-05 ES=10/20
+2026-09-10 14:02:21,839  INFO        E015/50 (46s) | Tr: loss=0.2393 acc=0.9300 f1=0.9300 | Val: loss=0.1252 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.8e-05 ES=11/20
+2026-09-10 14:03:10,696  INFO        E016/50 (49s) | Tr: loss=0.3381 acc=0.8633 f1=0.8631 | Val: loss=0.1220 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.7e-05 ES=12/20
+2026-09-10 14:03:56,862  INFO        E017/50 (46s) | Tr: loss=0.3300 acc=0.8567 f1=0.8567 | Val: loss=0.1330 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.6e-05 ES=13/20
+2026-09-10 14:04:43,273  INFO        E018/50 (46s) | Tr: loss=0.3121 acc=0.8700 f1=0.8691 | Val: loss=0.1212 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.5e-05 ES=14/20
+2026-09-10 14:05:25,991  INFO        E019/50 (43s) | Tr: loss=0.2386 acc=0.9200 f1=0.9182 | Val: loss=0.1199 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.4e-05 ES=15/20
+2026-09-10 14:06:13,847  INFO        E020/50 (48s) | Tr: loss=0.2922 acc=0.8767 f1=0.8765 | Val: loss=0.1209 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.3e-05 ES=16/20
+2026-09-10 14:06:54,007  INFO        E021/50 (40s) | Tr: loss=0.2980 acc=0.8700 f1=0.8700 | Val: loss=0.1197 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.1e-05 ES=17/20
+2026-09-10 14:07:41,573  INFO        E022/50 (48s) | Tr: loss=0.3308 acc=0.8567 f1=0.8549 | Val: loss=0.1179 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=4.0e-05 ES=18/20
+2026-09-10 14:08:28,090  INFO        E023/50 (47s) | Tr: loss=0.2464 acc=0.9067 f1=0.9066 | Val: loss=0.1179 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=3.8e-05 ES=19/20
+2026-09-10 14:08:28,114  INFO        Early stopping at epoch 23 (best: epoch=3, val_bal_acc=1.0000)
+2026-09-10 14:08:31,008  INFO      
+[test] classification report:
+              precision    recall  f1-score   support
+
+          HC       0.95      1.00      0.98        20
+          AD       1.00      0.95      0.98        22
+
+    accuracy                           0.98        42
+   macro avg       0.98      0.98      0.98        42
+weighted avg       0.98      0.98      0.98        42
+
+2026-09-10 14:08:31,008  INFO      
+  multimodal_no_kd_fold4 TEST: acc=0.9762 bal_acc=0.9773 f1=0.9762 auroc=0.9795 kappa=0.9524 (18.2 min)
+2026-09-10 14:08:31,032  INFO      
+  multimodal_no_kd — CV summary:
+2026-09-10 14:08:31,033  INFO          accuracy                 : 0.9714 ± 0.0095
+2026-09-10 14:08:31,033  INFO          balanced_accuracy        : 0.9727 ± 0.0091
+2026-09-10 14:08:31,034  INFO          f1_macro                 : 0.9714 ± 0.0095
+2026-09-10 14:08:31,034  INFO          auroc_macro              : 0.9845 ± 0.0079
+2026-09-10 14:08:31,034  INFO          kappa                    : 0.9429 ± 0.0190
+2026-09-10 14:08:31,034  INFO          sensitivity_AD           : 0.9455 ± 0.0182
+2026-09-10 14:08:31,034  INFO          specificity_AD           : 1.0000 ± 0.0000
+2026-09-10 14:08:31,044  INFO      
+======================================================================
+2026-09-10 14:08:31,044  INFO      EXPERIMENT: multimodal_kd_fold0  (mode=full, kd=True)
+2026-09-10 14:08:31,044  INFO      ======================================================================
+2026-09-10 14:08:31,044  INFO        Device: cuda
+2026-09-10 14:08:31,072  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-10 14:08:31,075  INFO      Loading tokenizer (roberta-base)...
+2026-09-10 14:08:31,254  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 14:08:31,382  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 14:08:31,514  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 14:08:31,640  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 14:08:31,784  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 14:08:32,084  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-10 14:08:32,085  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 14:08:32,085  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-10 14:08:32,086  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 14:08:32,087  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-10 14:08:32,397  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-10 14:08:32,538  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-09-10 14:08:32,801  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-10 14:08:32,928  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 14:08:33,058  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-10 14:08:33,187  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-10 14:08:33,310  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-10 14:08:33,768  INFO          audio_encoder                           :  4,919,168
+2026-09-10 14:08:33,769  INFO          text_encoder                            :    787,968
+2026-09-10 14:08:33,769  INFO          clinical_encoder                        :     59,014
+2026-09-10 14:08:33,769  INFO          fusion                                  :  1,054,720
+2026-09-10 14:08:33,769  INFO          classifiers                             :     66,308
+2026-09-10 14:08:33,769  INFO          total_trainable                         :  6,888,717
+2026-09-10 14:08:33,770  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+2026-09-10 14:09:24,663  INFO        E001/50 (51s) | Tr: loss=0.5323 acc=0.4646 f1=0.4617 | Val: loss=0.5615 acc=0.5200 f1=0.5130 auroc=0.5705 | lr=5.0e-06 ES=0/20
+2026-09-10 14:09:33,539  INFO        Saved checkpoint (epoch=1, val_bal_acc=0.5256)
+2026-09-10 14:10:17,976  INFO        E002/50 (44s) | Tr: loss=0.5294 acc=0.6094 f1=0.6026 | Val: loss=0.5471 acc=0.8400 f1=0.8397 auroc=0.9615 | lr=1.0e-05 ES=0/20
+2026-09-10 14:10:26,098  INFO        Saved checkpoint (epoch=2, val_bal_acc=0.8397)
+2026-09-10 14:11:13,249  INFO        E003/50 (47s) | Tr: loss=0.5271 acc=0.7912 f1=0.7801 | Val: loss=0.5287 acc=0.9600 f1=0.9600 auroc=1.0000 | lr=1.5e-05 ES=0/20
+2026-09-10 14:11:22,030  INFO        Saved checkpoint (epoch=3, val_bal_acc=0.9615)
+2026-09-10 14:12:00,462  INFO        E004/50 (38s) | Tr: loss=0.5037 acc=0.8283 f1=0.8220 | Val: loss=0.4774 acc=1.0000 f1=1.0000 auroc=1.0000 | lr=2.0e-05 ES=0/20
