@@ -1,0 +1,8 @@
+,accuracy,accuracy,balanced_accuracy,balanced_accuracy,f1_macro,f1_macro,auroc_macro,auroc_macro,kappa,kappa,sensitivity_AD,sensitivity_AD,specificity_AD,specificity_AD
+,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std
+ablation,,,,,,,,,,,,,,
+audio_only,0.9603,0.0147,0.962,0.0144,0.9603,0.0147,0.9878,0.0131,0.9207,0.0293,0.9273,0.023,0.9967,0.0129
+clinical_only,0.9381,0.0346,0.9391,0.0361,0.9378,0.0353,0.9677,0.0293,0.876,0.07,0.9182,0.0392,0.96,0.0784
+multimodal_kd,0.9619,0.0175,0.9636,0.0167,0.9619,0.0175,0.9845,0.011,0.924,0.0349,0.9273,0.0335,1.0,0.0
+multimodal_no_kd,0.9635,0.0152,0.9652,0.0145,0.9635,0.0152,0.982,0.0128,0.9271,0.0303,0.9303,0.0291,1.0,0.0
+text_only,0.9508,0.0277,0.9517,0.0285,0.9506,0.028,0.9764,0.0107,0.9015,0.0557,0.9333,0.0338,0.97,0.0561
