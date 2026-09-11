@@ -366,7 +366,7 @@ def build_dataloaders(
     enriched_csv:     Optional[Path] = None,
     transcripts_csv:  Optional[Path] = None,
     adni_teacher_embeddings_csv: Optional[Path] = None,
-    roberta_model:    str = "roberta-base",
+    text_encoder:    str = "roberta-base",
     temperature:      float = 3.0,
     batch_size:       int = 8,
     num_workers:      int = 4,
@@ -391,7 +391,7 @@ def build_dataloaders(
     """
     from sklearn.model_selection import train_test_split
     from torch.utils.data import WeightedRandomSampler
-    from transformers import RobertaTokenizerFast
+    from transformers import AutoTokenizer
 
     sl_csv  = soft_labels_csv  or cfg.SOFT_LABELS_T3_CSV
     enc_csv = enriched_csv     or cfg.ADRESSO_ENRICHED_CSV
@@ -401,8 +401,8 @@ def build_dataloaders(
     df          = build_merged_df(sl_csv, enc_csv, emb_csv, link_features=link_features)
     transcripts = load_transcripts(tr_csv)
 
-    log.info(f"Loading tokenizer ({roberta_model})...")
-    tokenizer = RobertaTokenizerFast.from_pretrained(roberta_model)
+    log.info(f"Loading tokenizer ({text_encoder})...")
+    tokenizer = AutoTokenizer.from_pretrained(text_encoder)
 
     labels = df["dx"].fillna(0).astype(int).values
     all_idx = np.arange(len(df))

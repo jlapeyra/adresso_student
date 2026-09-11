@@ -21,58 +21,153 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from transformers import AutoConfig, AutoModel, AutoTokenizer
 
+def _find_transformer_layers(model: nn.Module, num_layers: int) -> nn.ModuleList:
+    """
+    Find the Transformer layer stack in a Hugging Face model.
+
+    Supports common architectures such as:
+        - BERT / RoBERTa: encoder.layer
+        - DeBERTa: encoder.layer
+        - Wav2Vec2: encoder.layers
+        - HuBERT: encoder.layers
+        - WavLM: encoder.layers
+
+    Returns:
+        The ModuleList containing the Transformer layers.
+    """
+    candidates = []
+
+    for name, module in model.named_modules():
+        if isinstance(module, nn.ModuleList) and len(module) == num_layers:
+            candidates.append((name, module))
+
+    if not candidates:
+        raise ValueError(
+            f"Could not find a Transformer layer stack with "
+            f"{num_layers} layers in {model.__class__.__name__}."
+        )
+
+    # Prefer modules whose name suggests that they are the encoder layers.
+    preferred = [
+        (name, module)
+        for name, module in candidates
+        if name.endswith("encoder.layer")
+        or name.endswith("encoder.layers")
+    ]
+
+    if preferred:
+        return preferred[0][1]
+
+    # Otherwise use the first matching ModuleList.
+    return candidates[0][1]
+
+
+def _freeze_model_except_last_layers(
+    model: nn.Module,
+    trainable_layers: int,
+) -> None:
+    """
+    Freeze the entire model and unfreeze only the last `trainable_layers`
+    Transformer layers.
+
+    Everything outside those layers remains frozen.
+    """
+    if trainable_layers < 0:
+        raise ValueError("trainable_layers must be >= 0")
+
+    num_layers = getattr(model.config, "num_hidden_layers", None)
+
+    if num_layers is None:
+        raise ValueError(
+            f"{model.__class__.__name__} does not expose "
+            "`config.num_hidden_layers`."
+        )
+
+    if trainable_layers > num_layers:
+        raise ValueError(
+            f"trainable_layers={trainable_layers}, but the model only has "
+            f"{num_layers} Transformer layers."
+        )
+
+    # Freeze everything first.
+    for param in model.parameters():
+        param.requires_grad_(False)
+
+    # Find the Transformer layers.
+    layers = _find_transformer_layers(model, num_layers)
+
+    # Unfreeze only the last N layers.
+    if trainable_layers > 0:
+        for layer in layers[-trainable_layers:]:
+            for param in layer.parameters():
+                param.requires_grad_(True)
 # ============================================================================
 # Audio encoder (Wav2Vec2)
 # ============================================================================
 
 class AudioEncoder(nn.Module):
     """
-    Wav2Vec2-base with partial fine-tuning (last 4 transformer layers) +
-    SpecAugment + projection to fusion_dim.
+    Hugging Face audio encoder with partial fine-tuning.
+
+    The entire pretrained model is frozen except for the last
+    `trainable_layers` Transformer layers.
+
+    A trainable projection maps the model's hidden representation
+    to `output_dim`.
+
+    Compatible with common Hugging Face speech encoders such as:
+        - facebook/wav2vec2-base
+        - facebook/hubert-base-ls960
+        - microsoft/wavlm-base-plus
+        - facebook/data2vec-audio-base
     """
 
     def __init__(
         self,
         model_name:    str   = "facebook/wav2vec2-base",
         output_dim:    int   = 256,
-        freeze_layers: int   = 8,
+        trainable_layers: int = 4,
         dropout_p:     float = 0.1,
         spec_augment:  bool  = True,
     ):
         super().__init__()
+
         self.output_dim   = output_dim
         self.spec_augment = spec_augment
 
-        from transformers import Wav2Vec2Model
-        self.wav2vec2 = Wav2Vec2Model.from_pretrained(model_name)
-        self._freeze_layers(freeze_layers)
+        self.config = AutoConfig.from_pretrained(model_name)
+        self.audio_encoder = AutoModel.from_pretrained(model_name)
+
+        self.hidden_size = self.config.hidden_size
+        self.num_layers = self.config.num_hidden_layers
+
+        _freeze_model_except_last_layers(
+            self.audio_encoder,
+            trainable_layers=trainable_layers,
+        )
 
         self.proj = nn.Sequential(
-            nn.Linear(768, output_dim),
+            nn.Linear(self.hidden_size, output_dim),
             nn.LayerNorm(output_dim),
             nn.GELU(),
             nn.Dropout(dropout_p),
         )
+
         self._init_proj()
 
-    def _freeze_layers(self, n_freeze: int) -> None:
-        for param in self.wav2vec2.feature_extractor.parameters():
-            param.requires_grad_(False)
-        for param in self.wav2vec2.feature_projection.parameters():
-            param.requires_grad_(False)
-        for i, layer in enumerate(self.wav2vec2.encoder.layers):
-            if i < n_freeze:
-                for param in layer.parameters():
-                    param.requires_grad_(False)
-
     def _init_proj(self):
-        for m in self.proj.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_uniform_(m.weight, gain=0.5)
-                nn.init.zeros_(m.bias)
+        for module in self.proj.modules():
+            if isinstance(module, nn.Linear):
+                nn.init.xavier_uniform_(module.weight, gain=0.5)
+                nn.init.zeros_(module.bias)
 
-    def _spec_augment(self, hidden: torch.Tensor, mask_prob: float = 0.1) -> torch.Tensor:
+    def _spec_augment(
+        self,
+        hidden: torch.Tensor,
+        mask_prob: float = 0.1,
+    ) -> torch.Tensor:
         if not self.training:
             return hidden
         B, T, D = hidden.shape
@@ -80,8 +175,17 @@ class AudioEncoder(nn.Module):
         mask = torch.ones(B, T, 1, dtype=hidden.dtype, device=hidden.device)
         for b in range(B):
             if torch.rand(1).item() > 0.5:
-                start = torch.randint(0, max(1, T - mask_len), (1,)).item()
+                max_start = max(1, T - mask_len + 1)
+
+                start = torch.randint(
+                    0,
+                    max_start,
+                    (1,),
+                    device=hidden.device,
+                ).item()
+
                 mask[b, start:start + mask_len] = 0.0
+
         return hidden * mask
 
     def forward(
@@ -89,23 +193,35 @@ class AudioEncoder(nn.Module):
         input_values:   torch.Tensor,
         attention_mask: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
-        outputs = self.wav2vec2(
+
+        outputs = self.audio_encoder(
             input_values=input_values,
             attention_mask=attention_mask,
             output_hidden_states=False,
         )
-        hidden = outputs.last_hidden_state   # (B, T_feat, 768)
+
+        hidden = outputs.last_hidden_state
+        # (B, T_feat, hidden_size)
 
         if self.spec_augment:
             hidden = self._spec_augment(hidden)
 
         if attention_mask is not None:
-            feat_len   = hidden.shape[1]
+            feat_len = hidden.shape[1]
+
             mask_float = attention_mask.float()
+
             mask_interp = F.interpolate(
-                mask_float.unsqueeze(1), size=feat_len, mode="nearest"
-            ).squeeze(1).unsqueeze(-1)   # (B, T_feat, 1)
-            pooled = (hidden * mask_interp).sum(1) / (mask_interp.sum(1) + 1e-8)
+                mask_float.unsqueeze(1),
+                size=feat_len,
+                mode="nearest",
+            ).squeeze(1).unsqueeze(-1)
+            # (B, T_feat, 1)
+
+            pooled = (
+                (hidden * mask_interp).sum(dim=1)
+                / (mask_interp.sum(dim=1) + 1e-8)
+            )
         else:
             pooled = hidden.mean(dim=1)
 
@@ -115,53 +231,71 @@ class AudioEncoder(nn.Module):
 # ============================================================================
 # Text encoder (RoBERTa)
 # ============================================================================
-
 class TextEncoder(nn.Module):
     """
-    RoBERTa-base with partial fine-tuning (last 4 transformer layers).
-    Uses [CLS] token as sentence representation.
+    Hugging Face text encoder with partial fine-tuning.
+
+    The entire pretrained model is frozen except for the last
+    `trainable_layers` Transformer layers.
+
+    The first token ([CLS] for BERT/RoBERTa-like models) is used
+    as the sentence representation.
+
+    Compatible with models such as:
+        - roberta-base
+        - roberta-large
+        - microsoft/deberta-v3-base
+        - microsoft/deberta-v3-large
+        - bert-base-uncased
+        - FacebookAI/xlm-roberta-base
     """
 
     def __init__(
         self,
         model_name:    str   = "roberta-base",
         output_dim:    int   = 256,
-        freeze_layers: int   = 8,
+        trainable_layers: int = 4,
         dropout_p:     float = 0.1,
         max_length:    int   = 512,
     ):
         super().__init__()
+
         self.output_dim = output_dim
         self.max_length = max_length
 
-        from transformers import RobertaModel, RobertaTokenizerFast
-        self.roberta   = RobertaModel.from_pretrained(model_name)
-        self.tokenizer = RobertaTokenizerFast.from_pretrained(model_name)
-        self._freeze_layers(freeze_layers)
+        self.config = AutoConfig.from_pretrained(model_name)
+        self.text_model = AutoModel.from_pretrained(model_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+        self.hidden_size = self.config.hidden_size
+        self.num_layers = self.config.num_hidden_layers
+
+        _freeze_model_except_last_layers(
+            self.text_model,
+            trainable_layers=trainable_layers,
+        )
 
         self.proj = nn.Sequential(
-            nn.Linear(768, output_dim),
+            nn.Linear(self.hidden_size, output_dim),
             nn.LayerNorm(output_dim),
             nn.GELU(),
             nn.Dropout(dropout_p),
         )
+
         self._init_proj()
 
-    def _freeze_layers(self, n_freeze: int) -> None:
-        for param in self.roberta.embeddings.parameters():
-            param.requires_grad_(False)
-        for i, layer in enumerate(self.roberta.encoder.layer):
-            if i < n_freeze:
-                for param in layer.parameters():
-                    param.requires_grad_(False)
-
     def _init_proj(self):
-        for m in self.proj.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.xavier_uniform_(m.weight, gain=0.5)
-                nn.init.zeros_(m.bias)
+        for module in self.proj.modules():
+            if isinstance(module, nn.Linear):
+                nn.init.xavier_uniform_(module.weight, gain=0.5)
+                nn.init.zeros_(module.bias)
 
-    def tokenize(self, texts: List[str], device: torch.device) -> Dict[str, torch.Tensor]:
+    def tokenize(
+        self,
+        texts: List[str],
+        device: torch.device,
+    ) -> Dict[str, torch.Tensor]:
+
         encoding = self.tokenizer(
             texts,
             padding=True,
@@ -169,22 +303,26 @@ class TextEncoder(nn.Module):
             max_length=self.max_length,
             return_tensors="pt",
         )
-        return {k: v.to(device) for k, v in encoding.items()}
+
+        return {
+            key: value.to(device)
+            for key, value in encoding.items()
+        }
 
     def forward(
         self,
         input_ids:      torch.Tensor,
         attention_mask: torch.Tensor,
     ) -> torch.Tensor:
-        outputs = self.roberta(
+
+        outputs = self.text_model(
             input_ids=input_ids,
             attention_mask=attention_mask,
             output_hidden_states=False,
         )
+
         cls_token = outputs.last_hidden_state[:, 0, :]
         return self.proj(cls_token)
-
-
 # ============================================================================
 # Clinical encoder (MLP)
 # ============================================================================
@@ -333,8 +471,8 @@ class StudentModel(nn.Module):
         num_classes_hard: int   = 2,
         num_classes_soft: int   = 2,
         fusion_dim:       int   = 256,
-        wav2vec2_model:   str   = "facebook/wav2vec2-base",
-        roberta_model:    str   = "roberta-base",
+        audio_encoder:   str   = "facebook/wav2vec2-base",
+        text_encoder:    str   = "roberta-base",
         n_clinical:       Optional[int] = None,
         freeze_audio_n:   int   = 8,
         freeze_text_n:    int   = 8,
@@ -356,8 +494,8 @@ class StudentModel(nn.Module):
             import config as _cfg
             n_clinical = len(_cfg.CLINICAL_FEATURE_COLS)
 
-        self.audio_encoder    = AudioEncoder(wav2vec2_model, fusion_dim, freeze_audio_n, audio_dropout)
-        self.text_encoder     = TextEncoder(roberta_model, fusion_dim, freeze_text_n, text_dropout)
+        self.audio_encoder    = AudioEncoder(audio_encoder, fusion_dim, freeze_audio_n, audio_dropout)
+        self.text_encoder     = TextEncoder(text_encoder, fusion_dim, freeze_text_n, text_dropout)
         self.clinical_encoder = ClinicalEncoder(n_clinical, fusion_dim, clinical_dropout)
 
         self.modality_gate = ModalityGating(fusion_dim, n_modalities=3)

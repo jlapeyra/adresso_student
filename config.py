@@ -104,8 +104,8 @@ MODALITY_DROPOUT_P = 0.2
 # ---------------------------------------------------------------------------
 # Model architecture
 # ---------------------------------------------------------------------------
-WAV2VEC2_MODEL  = "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base"
-ROBERTA_MODEL   = "roberta-base"
+AUDIO_ENCODER  = "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base"
+TEXT_ENCODER   = "roberta-base"
 FUSION_DIM      = 256
 FREEZE_AUDIO_N  = 12   # freeze all 12 transformer layers of Wav2Vec2 (linear probe)
 FREEZE_TEXT_N   = 12   # freeze all 12 transformer layers of RoBERTa (linear probe)

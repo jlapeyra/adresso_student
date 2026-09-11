@@ -21,7 +21,7 @@ Experiments:
        python train.py --dry-run
 
 Ablation scheme:
-  Baseline 1: audio_only       -> Wav2Vec2 only, no KD
+  Baseline 1: audio_only       -> audio_encoder only, no KD
   Baseline 2: text_only        -> RoBERTa/Whisper only, no KD
   Baseline 3: multimodal_no_kd -> Audio+Text+Clinical, hard CE only
   Proposed:   multimodal_kd    -> Audio+Text+Clinical + KD
@@ -85,8 +85,8 @@ def parse_args():
     p.add_argument("--temperature",      type=float, default=cfg.KD_TEMPERATURE)
 
     # Model
-    p.add_argument("--wav2vec2",         default=cfg.WAV2VEC2_MODEL)
-    p.add_argument("--roberta",          default=cfg.ROBERTA_MODEL)
+    p.add_argument("--audio-encoder",    type=str,   default=[cfg.AUDIO_ENCODER],  nargs='+')
+    p.add_argument("--text-encoder",     type=str,   default=[cfg.TEXT_ENCODER],   nargs='+')
     p.add_argument("--fusion-dim",       type=int,   default=cfg.FUSION_DIM)
     p.add_argument("--freeze-audio",     type=int,   default=cfg.FREEZE_AUDIO_N)
     p.add_argument("--freeze-text",      type=int,   default=cfg.FREEZE_TEXT_N)
@@ -135,6 +135,7 @@ def parse_args():
     p.add_argument("--seed",             type=int, default=cfg.RANDOM_SEED)
     p.add_argument("--dry-run",          action="store_true")
     p.add_argument("--no-tb",            action="store_true", help="Disable TensorBoard")
+    p.add_argument('--results-dir', type=Path, default=None)
     return p.parse_args()
 
 
@@ -295,8 +296,10 @@ def train_experiment(
     ablation_name: str,
     mode:          str,
     use_kd:        bool,
-    link_features: str = "plain",
     fold:          Optional[int] = None,
+    link_features: str = "plain",
+    text_encoder:       str = cfg.TEXT_ENCODER,
+    audio_encoder:      str = cfg.AUDIO_ENCODER,
 ) -> Dict:
     fold_str = f"_fold{fold}" if fold is not None else ""
     exp_name = f"{ablation_name}{fold_str}"
@@ -317,7 +320,7 @@ def train_experiment(
         enriched_csv=args.enriched_csv,
         transcripts_csv=args.transcripts_csv,
         adni_teacher_embeddings_csv=args.adni_teacher_embeddings_csv,
-        roberta_model=args.roberta,
+        text_encoder=text_encoder,
         temperature=args.temperature,
         batch_size=args.batch_size,
         num_workers=args.num_workers,
@@ -334,8 +337,8 @@ def train_experiment(
         num_classes_hard=2,
         num_classes_soft=2,
         fusion_dim=args.fusion_dim,
-        wav2vec2_model=args.wav2vec2,
-        roberta_model=args.roberta,
+        audio_encoder=audio_encoder,
+        text_encoder=text_encoder,
         n_clinical=len(get_feature_cols(link_features)),
         freeze_audio_n=args.freeze_audio,
         freeze_text_n=args.freeze_text,
@@ -477,6 +480,39 @@ def train_experiment(
 # Ablation study
 # ============================================================================
 
+def run_ablation(args, abl_name: str, **kwargs) -> Dict:
+    try:
+        abl_cfg = cfg.ABLATION_MODES[abl_name]
+
+        if args.no_clinical and abl_cfg["mode"] == "clinical_only":
+            log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
+            return None
+
+        set_seed(args.seed)
+
+        if args.cv:
+            fold_range = [args.fold] if args.fold is not None else range(args.n_folds)
+            fold_results = []
+            for fold in fold_range:
+                set_seed(args.seed + fold)
+                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, **kwargs)
+                fold_results.append(res)
+
+
+            metrics = ["accuracy", "balanced_accuracy", "f1_macro", "auroc_macro",
+                    "kappa", "sensitivity_AD", "specificity_AD"]
+            log.info(f"\n  {abl_name} — CV summary:")
+            for m in metrics:
+                vals = [r[m] for r in fold_results if m in r]
+                if vals:
+                    log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
+            return res
+        else:
+            return train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], **kwargs)
+    except Exception as e:
+        log.error(f"Error during ablation '{abl_name}' ({kwargs}): {e}")
+        return {"ablation": abl_name, **kwargs, "error": str(e)}
+
 def run_ablations(args) -> pd.DataFrame:
     ablations = list(cfg.ABLATION_MODES.keys()) if "all" in args.ablation else args.ablation
     link_features = cfg.LINK_FEATURES_OPTIONS if "all" in args.link_features else args.link_features
@@ -486,38 +522,20 @@ def run_ablations(args) -> pd.DataFrame:
     for link_feat in link_features:
         log.info(f"\n{'='*70}\nLINK FEATURES: {link_feat}\n{'='*70}")
         for abl_name in ablations:
-            abl_cfg = cfg.ABLATION_MODES[abl_name]
+            log.info(f"\n{'-'*70}\nABALATION: {abl_name}\n{'-'*70}")
+            for text_encoder in args.text_encoder:
+                log.info(f"\n  Text_encoder: {text_encoder}")
+                for audio_encoder in args.audio_encoder:
+                    log.info(f"\n  audio_encoder: {audio_encoder}")
+                    res = run_ablation(args, abl_name, link_features=link_feat,
+                                       text_encoder=text_encoder, audio_encoder=audio_encoder)
+                    if res is not None:
+                        all_results.append(res)
 
-            if args.no_clinical and abl_cfg["mode"] == "clinical_only":
-                log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
-                continue
-
-            set_seed(args.seed)
-
-            if args.cv:
-                fold_range = [args.fold] if args.fold is not None else range(args.n_folds)
-                fold_results = []
-                for fold in fold_range:
-                    set_seed(args.seed + fold)
-                    res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, link_features=link_feat)
-                    fold_results.append(res)
-                    all_results.append(res)
-
-                metrics = ["accuracy", "balanced_accuracy", "f1_macro", "auroc_macro",
-                        "kappa", "sensitivity_AD", "specificity_AD"]
-                log.info(f"\n  {abl_name} — CV summary:")
-                for m in metrics:
-                    vals = [r[m] for r in fold_results if m in r]
-                    if vals:
-                        log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
-            else:
-                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], link_features=link_feat)
-                all_results.append(res)
-
-            df = pd.DataFrame(all_results)
-            df.to_csv(cfg.RESULTS_DIR / "results_so_far.csv", index=False)
-            with open(cfg.RESULTS_DIR / "results_so_far.json", "w") as f:
-                json.dump(df.to_dict(orient="records"), f, indent=2, default=str)
+                    df = pd.DataFrame(all_results)
+                    df.to_csv(cfg.RESULTS_DIR / "results_so_far.csv", index=False)
+                    with open(cfg.RESULTS_DIR / "results_so_far.json", "w") as f:
+                        json.dump(df.to_dict(orient="records"), f, indent=2, default=str)
 
     df = pd.DataFrame(all_results)
 
@@ -595,6 +613,11 @@ def main():
 
     if args.soft_labels_csv is None:
         args.soft_labels_csv = cfg.SOFT_LABELS_DIR / f"adresso_soft_labels_T{_fmt_temp(args.temperature)}.csv"
+
+    if args.results_dir is not None:
+        cfg.RESULTS_DIR = args.results_dir
+    cfg.RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+
 
     log.info("\n" + "=" * 70)
     log.info("ADReSSo Student — Knowledge Distillation Training")
