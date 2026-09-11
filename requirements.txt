@@ -5,8 +5,8 @@
 #   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # Deep learning
-torch==2.5.1
-torchaudio==2.5.1
+torch==2.6
+torchaudio==2.6
 
 # HuggingFace (Wav2Vec2, RoBERTa)
 transformers>=4.38.0
