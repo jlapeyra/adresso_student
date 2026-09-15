@@ -472,46 +472,48 @@ def train_experiment(
         f"kappa={test_m.get('kappa',0):.4f} "
         f"({elapsed_total/60:.1f} min)"
     )
-    return {"ablation": ablation_name, "link_features": link_features, "fold": fold,
-            "best_val_bacc": early_stop.best_score, **test_m}
+    return {"fold": fold, "best_val_bacc": early_stop.best_score, **test_m}
 
 
 # ============================================================================
 # Ablation study
 # ============================================================================
 
-def run_ablation(args, abl_name: str, **kwargs) -> Dict:
-    try:
-        abl_cfg = cfg.ABLATION_MODES[abl_name]
+def run_ablation(args, abl_name: str, **kwargs) -> List[Dict]:
 
-        if args.no_clinical and abl_cfg["mode"] == "clinical_only":
-            log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
-            return None
+    abl_cfg = cfg.ABLATION_MODES[abl_name]
 
-        set_seed(args.seed)
+    if args.no_clinical and abl_cfg["mode"] == "clinical_only":
+        log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
+        return []
 
-        if args.cv:
-            fold_range = [args.fold] if args.fold is not None else range(args.n_folds)
-            fold_results = []
-            for fold in fold_range:
-                set_seed(args.seed + fold)
-                res = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, **kwargs)
-                fold_results.append(res)
+    params = {"ablation": abl_name, **kwargs}
+
+    if not args.cv:         fold_range = [None]
+    elif args.fold != None: fold_range = [args.fold]
+    else:                   fold_range = range(args.n_folds)
+
+    fold_results = []
+    for fold in fold_range:
+        set_seed(args.seed + (fold or 0))
+        try:
+            result = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, **kwargs)
+        except Exception as e:
+            log.error(f"Error during ablation '{abl_name}' (fold={fold}, {kwargs}): {e}")
+            result = {"error": str(e)}
+
+        fold_results.append(params | result)
 
 
-            metrics = ["accuracy", "balanced_accuracy", "f1_macro", "auroc_macro",
-                    "kappa", "sensitivity_AD", "specificity_AD"]
-            log.info(f"\n  {abl_name} — CV summary:")
-            for m in metrics:
-                vals = [r[m] for r in fold_results if m in r]
-                if vals:
-                    log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
-            return res
-        else:
-            return train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], **kwargs)
-    except Exception as e:
-        log.error(f"Error during ablation '{abl_name}' ({kwargs}): {e}")
-        return {"ablation": abl_name, **kwargs, "error": str(e)}
+    metrics = ["accuracy", "balanced_accuracy", "f1_macro", "auroc_macro",
+            "kappa", "sensitivity_AD", "specificity_AD"]
+    log.info(f"\n  {abl_name} — CV summary:")
+    for m in metrics:
+        vals = [r[m] for r in fold_results if m in r]
+        if vals:
+            log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
+                
+
 
 def run_ablations(args) -> pd.DataFrame:
     ablations = list(cfg.ABLATION_MODES.keys()) if "all" in args.ablation else args.ablation
@@ -529,8 +531,7 @@ def run_ablations(args) -> pd.DataFrame:
                     log.info(f"\n  audio_encoder: {audio_encoder}")
                     res = run_ablation(args, abl_name, link_features=link_feat,
                                        text_encoder=text_encoder, audio_encoder=audio_encoder)
-                    if res is not None:
-                        all_results.append(res)
+                    all_results.extend(res)
 
                     df = pd.DataFrame(all_results)
                     df.to_csv(cfg.RESULTS_DIR / "results_so_far.csv", index=False)
