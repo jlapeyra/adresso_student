@@ -1,0 +1,258 @@
+Fri Sep 11 01:46:13 PM CEST 2026
+Fri Sep 11 13:46:13 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3090        Off |   00000000:41:00.0 Off |                  N/A |
+| 30%   41C    P8             23W /  350W |      15MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2587      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+2026-09-11 13:46:40,293  INFO      
+======================================================================
+2026-09-11 13:46:40,293  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-09-11 13:46:40,293  INFO      ======================================================================
+2026-09-11 13:46:40,294  INFO        Ablation:    ['audio_only']
+2026-09-11 13:46:40,294  INFO        CV:          True
+2026-09-11 13:46:40,294  INFO        No clinical: False
+2026-09-11 13:46:40,294  INFO        Temperature: 1.1861923153571683
+2026-09-11 13:46:40,294  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-09-11 13:46:40,294  INFO        Soft labels: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-09-11 13:46:40,294  INFO      
+======================================================================
+LINK FEATURES: plain
+======================================================================
+2026-09-11 13:46:40,294  INFO      
+----------------------------------------------------------------------
+ABALATION: audio_only
+----------------------------------------------------------------------
+2026-09-11 13:46:40,294  INFO      
+  Text_encoder: roberta-base
+2026-09-11 13:46:40,294  INFO      
+  audio_encoder: facebook/wav2vec2-base
+2026-09-11 13:46:40,295  INFO      
+======================================================================
+2026-09-11 13:46:40,295  INFO      EXPERIMENT: audio_only_fold0  (mode=audio_only, kd=False)
+2026-09-11 13:46:40,295  INFO      ======================================================================
+2026-09-11 13:46:40,479  INFO        Device: cuda
+2026-09-11 13:46:41,588  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-11 13:46:41,593  INFO      Loading tokenizer (roberta-base)...
+2026-09-11 13:46:41,810  INFO      HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-09-11 13:46:41,942  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-11 13:46:41,942  WARNING   Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-11 13:46:42,085  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:42,216  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:42,338  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:42,461  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:42,588  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-11 13:46:42,920  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-11 13:46:42,921  INFO      ADReSSoDataset: 99 subjects | mode=audio_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:46:42,921  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-11 13:46:43,012  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:46:43,013  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:46:43,139  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:43,153  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:43,180  INFO      HTTP Request: GET https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:43,344  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:43,358  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/wav2vec2-base/0b5b8e868dd84f03fd87d01f9c4ff0f080fecfe8/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:49,153  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:49,285  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:49,414  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-09-11 13:46:57,502  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:57,506  ERROR     Error during ablation 'audio_only' ({'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': 'facebook/wav2vec2-base'}): Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
+2026-09-11 13:46:57,553  INFO      
+  audio_encoder: facebook/hubert-base-ls960
+2026-09-11 13:46:57,603  INFO      
+======================================================================
+2026-09-11 13:46:57,603  INFO      EXPERIMENT: audio_only_fold0  (mode=audio_only, kd=False)
+2026-09-11 13:46:57,603  INFO      ======================================================================
+2026-09-11 13:46:57,603  INFO        Device: cuda
+2026-09-11 13:46:57,630  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base "HTTP/1.1 200 OK"
+2026-09-11 13:46:57,656  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-11 13:46:57,662  INFO      Loading tokenizer (roberta-base)...
+2026-09-11 13:46:57,762  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/commits/main "HTTP/1.1 200 OK"
+2026-09-11 13:46:57,812  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:57,903  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/discussions?p=0 "HTTP/1.1 200 OK"
+2026-09-11 13:46:57,946  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:58,037  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/wav2vec2-base/commits/refs%2Fpr%2F11 "HTTP/1.1 200 OK"
+2026-09-11 13:46:58,075  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:58,162  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/refs%2Fpr%2F11/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:58,205  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:58,288  INFO      HTTP Request: HEAD https://huggingface.co/facebook/wav2vec2-base/resolve/refs%2Fpr%2F11/model.safetensors "HTTP/1.1 302 Found"
+2026-09-11 13:46:58,332  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:58,463  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-11 13:46:58,684  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-11 13:46:58,685  INFO      ADReSSoDataset: 99 subjects | mode=audio_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:46:58,685  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-11 13:46:58,686  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:46:58,687  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:46:58,811  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:58,825  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/hubert-base-ls960/dba3bb02fda4248b6e082697eee756de8fe8aa8a/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:58,848  INFO      HTTP Request: GET https://huggingface.co/api/resolve-cache/models/facebook/hubert-base-ls960/dba3bb02fda4248b6e082697eee756de8fe8aa8a/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:59,027  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:46:59,041  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/hubert-base-ls960/dba3bb02fda4248b6e082697eee756de8fe8aa8a/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:46:59,191  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:59,319  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:46:59,465  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-09-11 13:47:08,711  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:08,713  ERROR     Error during ablation 'audio_only' ({'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': 'facebook/hubert-base-ls960'}): Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
+2026-09-11 13:47:08,736  INFO      
+  audio_encoder: microsoft/wavlm-base-plus
+2026-09-11 13:47:08,738  INFO      
+======================================================================
+2026-09-11 13:47:08,738  INFO      EXPERIMENT: audio_only_fold0  (mode=audio_only, kd=False)
+2026-09-11 13:47:08,738  INFO      ======================================================================
+2026-09-11 13:47:08,738  INFO        Device: cuda
+2026-09-11 13:47:08,784  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-11 13:47:08,788  INFO      Loading tokenizer (roberta-base)...
+2026-09-11 13:47:08,837  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/hubert-base-ls960 "HTTP/1.1 200 OK"
+2026-09-11 13:47:08,943  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:08,974  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/hubert-base-ls960/commits/main "HTTP/1.1 200 OK"
+2026-09-11 13:47:09,075  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:09,113  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/hubert-base-ls960/discussions?p=0 "HTTP/1.1 200 OK"
+2026-09-11 13:47:09,205  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:09,249  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/hubert-base-ls960/commits/refs%2Fpr%2F2 "HTTP/1.1 200 OK"
+2026-09-11 13:47:09,331  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:09,375  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/refs%2Fpr%2F2/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:09,458  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:09,510  INFO      HTTP Request: HEAD https://huggingface.co/facebook/hubert-base-ls960/resolve/refs%2Fpr%2F2/model.safetensors "HTTP/1.1 302 Found"
+2026-09-11 13:47:09,585  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-11 13:47:09,829  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-11 13:47:09,830  INFO      ADReSSoDataset: 99 subjects | mode=audio_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:09,831  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-11 13:47:09,831  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:09,832  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:09,962  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:09,976  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/wavlm-base-plus/4c66d4806a428f2e922ccfa1a962776e232d487b/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:09,999  INFO      HTTP Request: GET https://huggingface.co/api/resolve-cache/models/microsoft/wavlm-base-plus/4c66d4806a428f2e922ccfa1a962776e232d487b/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:10,193  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:10,207  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/wavlm-base-plus/4c66d4806a428f2e922ccfa1a962776e232d487b/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:10,382  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:10,514  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:10,667  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-09-11 13:47:20,277  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:20,403  INFO      HTTP Request: GET https://huggingface.co/api/models/microsoft/wavlm-base-plus "HTTP/1.1 200 OK"
+2026-09-11 13:47:20,581  INFO      HTTP Request: GET https://huggingface.co/api/models/microsoft/wavlm-base-plus/commits/main "HTTP/1.1 200 OK"
+2026-09-11 13:47:20,668  ERROR     Error during ablation 'audio_only' ({'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': 'microsoft/wavlm-base-plus'}): Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
+2026-09-11 13:47:20,684  INFO      
+  audio_encoder: facebook/data2vec-audio-base-960h
+2026-09-11 13:47:20,686  INFO      
+======================================================================
+2026-09-11 13:47:20,686  INFO      EXPERIMENT: audio_only_fold0  (mode=audio_only, kd=False)
+2026-09-11 13:47:20,686  INFO      ======================================================================
+2026-09-11 13:47:20,686  INFO        Device: cuda
+2026-09-11 13:47:20,711  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-11 13:47:20,714  INFO      Loading tokenizer (roberta-base)...
+2026-09-11 13:47:20,721  INFO      HTTP Request: GET https://huggingface.co/api/models/microsoft/wavlm-base-plus/discussions?p=0 "HTTP/1.1 200 OK"
+2026-09-11 13:47:20,859  INFO      HTTP Request: GET https://huggingface.co/api/models/microsoft/wavlm-base-plus/commits/refs%2Fpr%2F2 "HTTP/1.1 200 OK"
+2026-09-11 13:47:20,864  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:20,993  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/refs%2Fpr%2F2/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:21,048  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:21,131  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/wavlm-base-plus/resolve/refs%2Fpr%2F2/model.safetensors "HTTP/1.1 302 Found"
+2026-09-11 13:47:21,174  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:21,304  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:21,427  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:21,556  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-11 13:47:21,795  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-11 13:47:21,797  INFO      ADReSSoDataset: 99 subjects | mode=audio_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:21,797  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-11 13:47:21,798  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:21,799  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:21,929  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:22,046  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/data2vec-audio-base-960h/32331f3123e703528918aa688a9a38232d58c872/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:22,222  INFO      HTTP Request: GET https://huggingface.co/api/resolve-cache/models/facebook/data2vec-audio-base-960h/32331f3123e703528918aa688a9a38232d58c872/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:22,416  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:22,445  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/facebook/data2vec-audio-base-960h/32331f3123e703528918aa688a9a38232d58c872/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:22,778  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:22,960  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/main/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:23,169  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/main/pytorch_model.bin "HTTP/1.1 302 Found"
+2026-09-11 13:47:31,642  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/main/model.safetensors "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:31,701  ERROR     Error during ablation 'audio_only' ({'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': 'facebook/data2vec-audio-base-960h'}): Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
+2026-09-11 13:47:31,718  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-09-11 13:47:31,720  INFO      
+======================================================================
+2026-09-11 13:47:31,720  INFO      EXPERIMENT: audio_only_fold0  (mode=audio_only, kd=False)
+2026-09-11 13:47:31,720  INFO      ======================================================================
+2026-09-11 13:47:31,720  INFO        Device: cuda
+2026-09-11 13:47:31,753  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-11 13:47:31,757  INFO      Loading tokenizer (roberta-base)...
+2026-09-11 13:47:31,772  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/data2vec-audio-base-960h "HTTP/1.1 200 OK"
+2026-09-11 13:47:31,902  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:31,910  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/data2vec-audio-base-960h/commits/main "HTTP/1.1 200 OK"
+2026-09-11 13:47:32,038  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:32,057  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/data2vec-audio-base-960h/discussions?p=0 "HTTP/1.1 200 OK"
+2026-09-11 13:47:32,170  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:32,211  INFO      HTTP Request: GET https://huggingface.co/api/models/facebook/data2vec-audio-base-960h/commits/refs%2Fpr%2F3 "HTTP/1.1 200 OK"
+2026-09-11 13:47:32,300  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:32,341  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/refs%2Fpr%2F3/model.safetensors.index.json "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:32,430  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:32,473  INFO      HTTP Request: HEAD https://huggingface.co/facebook/data2vec-audio-base-960h/resolve/refs%2Fpr%2F3/model.safetensors "HTTP/1.1 302 Found"
+2026-09-11 13:47:32,562  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-11 13:47:32,784  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-09-11 13:47:32,785  INFO      ADReSSoDataset: 99 subjects | mode=audio_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:32,785  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-09-11 13:47:32,786  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-11 13:47:32,787  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights:  13%|█▎        | 27/211 [00:00<00:00, 269.49it/s]Loading weights:  27%|██▋       | 58/211 [00:00<00:00, 289.77it/s]Loading weights:  42%|████▏     | 88/211 [00:00<00:00, 280.15it/s]Loading weights:  70%|███████   | 148/211 [00:00<00:00, 388.65it/s]Loading weights:  91%|█████████ | 191/211 [00:00<00:00, 401.59it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 361.28it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_q.bias               | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-09-11 13:47:34,023  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:34,161  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  14%|█▎        | 27/197 [00:00<00:00, 191.27it/s]Loading weights:  24%|██▍       | 47/197 [00:00<00:02, 56.92it/s] Loading weights:  37%|███▋      | 73/197 [00:00<00:01, 84.55it/s]Loading weights:  44%|████▍     | 87/197 [00:01<00:01, 87.83it/s]Loading weights:  57%|█████▋    | 113/197 [00:01<00:00, 97.27it/s]Loading weights:  66%|██████▋   | 131/197 [00:01<00:00, 108.54it/s]Loading weights:  92%|█████████▏| 181/197 [00:01<00:00, 182.76it/s]Loading weights: 100%|██████████| 197/197 [00:01<00:00, 131.87it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-09-11 13:47:36,686  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:36,821  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 13:47:36,955  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:37,081  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 13:47:37,205  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 13:47:37,337  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-11 13:47:49,614  INFO          audio_encoder                           : 85,251,840
+2026-09-11 13:47:49,614  INFO          text_encoder                            : 85,251,840
+2026-09-11 13:47:49,614  INFO          clinical_encoder                        :     42,118
+2026-09-11 13:47:49,614  INFO          fusion                                  :  1,054,720
+2026-09-11 13:47:49,614  INFO          classifiers                             :     66,308
+2026-09-11 13:47:49,614  INFO          total_trainable                         : 171,668,365
+2026-09-11 13:47:49,624  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]E001 [train]:   3%|█▌                                                          | 1/38 [00:13<08:37, 13.99s/it]E001 [train]:   5%|███▏                                                        | 2/38 [00:15<04:04,  6.79s/it]E001 [train]:   8%|████▋                                                       | 3/38 [00:17<02:29,  4.28s/it]E001 [train]:  11%|██████▎                                                     | 4/38 [00:17<01:32,  2.72s/it]E001 [train]:  13%|███████▉                                                    | 5/38 [00:18<01:12,  2.20s/it]E001 [train]:  18%|███████████                                                 | 7/38 [00:19<00:43,  1.42s/it]E001 [train]:  21%|████████████▋                                               | 8/38 [00:21<00:41,  1.38s/it]E001 [train]:  24%|██████████████▏                                             | 9/38 [00:22<00:39,  1.35s/it]E001 [train]:  26%|███████████████▌                                           | 10/38 [00:23<00:37,  1.34s/it]E001 [train]:  29%|█████████████████                                          | 11/38 [00:25<00:35,  1.32s/it]E001 [train]:  32%|██████████████████▋                                        | 12/38 [00:26<00:34,  1.32s/it]E001 [train]:  34%|████████████████████▏                                      | 13/38 [00:27<00:32,  1.31s/it]E001 [train]:  37%|█████████████████████▋                                     | 14/38 [00:29<00:31,  1.31s/it]E001 [train]:  39%|███████████████████████▎                                   | 15/38 [00:30<00:30,  1.31s/it]E001 [train]:  42%|████████████████████████▊                                  | 16/38 [00:31<00:28,  1.31s/it]E001 [train]:  45%|██████████████████████████▍                                | 17/38 [00:32<00:27,  1.30s/it]E001 [train]:  47%|███████████████████████████▉                               | 18/38 [00:34<00:26,  1.31s/it]E001 [train]:  50%|█████████████████████████████▌                             | 19/38 [00:35<00:24,  1.30s/it]E001 [train]:  53%|███████████████████████████████                            | 20/38 [00:36<00:23,  1.31s/it]E001 [train]:  55%|████████████████████████████████▌                          | 21/38 [00:38<00:22,  1.31s/it]E001 [train]:  58%|██████████████████████████████████▏                        | 22/38 [00:39<00:21,  1.31s/it]E001 [train]:  61%|███████████████████████████████████▋                       | 23/38 [00:40<00:19,  1.31s/it]E001 [train]:  63%|█████████████████████████████████████▎                     | 24/38 [00:42<00:18,  1.32s/it]E001 [train]:  68%|████████████████████████████████████████▎                  | 26/38 [00:43<00:12,  1.01s/it]E001 [train]:  71%|█████████████████████████████████████████▉                 | 27/38 [00:44<00:11,  1.09s/it]E001 [train]:  74%|███████████████████████████████████████████▍               | 28/38 [00:46<00:11,  1.15s/it]E001 [train]:  76%|█████████████████████████████████████████████              | 29/38 [00:47<00:10,  1.20s/it]E001 [train]:  82%|████████████████████████████████████████████████▏          | 31/38 [00:48<00:06,  1.03it/s]E001 [train]:  84%|█████████████████████████████████████████████████▋         | 32/38 [00:50<00:06,  1.05s/it]E001 [train]:  89%|████████████████████████████████████████████████████▊      | 34/38 [00:51<00:03,  1.11it/s]slurmstepd: error: *** JOB 2676928 ON veuc12 CANCELLED AT 2026-09-11T13:48:41 ***

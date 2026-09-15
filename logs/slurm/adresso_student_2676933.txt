@@ -1,0 +1,65 @@
+Fri Sep 11 02:22:39 PM CEST 2026
+Fri Sep 11 14:22:39 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3090        Off |   00000000:25:00.0 Off |                  N/A |
+| 30%   31C    P8             23W /  350W |      15MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2587      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+2026-09-11 14:22:48,806  INFO      
+======================================================================
+2026-09-11 14:22:48,806  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-09-11 14:22:48,806  INFO      ======================================================================
+2026-09-11 14:22:48,806  INFO        Ablation:    ['text_only']
+2026-09-11 14:22:48,806  INFO        CV:          True
+2026-09-11 14:22:48,807  INFO        No clinical: False
+2026-09-11 14:22:48,807  INFO        Temperature: 1.1861923153571683
+2026-09-11 14:22:48,807  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-09-11 14:22:48,807  INFO        Soft labels: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-09-11 14:22:48,807  INFO      
+======================================================================
+LINK FEATURES: plain
+======================================================================
+2026-09-11 14:22:48,807  INFO      
+----------------------------------------------------------------------
+ABALATION: text_only
+----------------------------------------------------------------------
+2026-09-11 14:22:48,807  INFO      
+  Text_encoder: microsoft/deberta-v3-base
+2026-09-11 14:22:48,807  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-09-11 14:22:48,808  INFO      
+======================================================================
+2026-09-11 14:22:48,808  INFO      EXPERIMENT: text_only_fold0  (mode=text_only, kd=False)
+2026-09-11 14:22:48,808  INFO      ======================================================================
+2026-09-11 14:22:49,028  INFO        Device: cuda
+2026-09-11 14:22:49,269  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-11 14:22:49,274  INFO      Loading tokenizer (microsoft/deberta-v3-base)...
+2026-09-11 14:22:49,506  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-11 14:22:49,507  WARNING   Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-11 14:22:49,520  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/config.json "HTTP/1.1 200 OK"
+2026-09-11 14:22:49,662  INFO      HTTP Request: HEAD https://huggingface.co/microsoft/deberta-v3-base/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-09-11 14:22:49,680  INFO      HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/microsoft/deberta-v3-base/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-11 14:22:49,810  INFO      HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-11 14:22:49,950  INFO      HTTP Request: GET https://huggingface.co/api/models/microsoft/deberta-v3-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[transformers] Could not extract SentencePiece model from /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/.cache/huggingface/hub/models--microsoft--deberta-v3-base/snapshots/8ccc9b6f36199bec6961081d44eb72fb3f7353f3/spm.model using sentencepiece library due to 
+SentencePieceExtractor requires the SentencePiece library but it was not found in your environment. Check out the instructions on the
+installation page of its repo: https://github.com/google/sentencepiece#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+. Falling back to TikToken extractor.
+slurmstepd: error: *** JOB 2676933 ON veuc12 CANCELLED AT 2026-09-11T14:22:50 ***
