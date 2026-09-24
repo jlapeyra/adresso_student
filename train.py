@@ -512,7 +512,7 @@ def run_ablation(args, abl_name: str, **kwargs) -> List[Dict]:
         vals = [r[m] for r in fold_results if m in r]
         if vals:
             log.info(f"    {m:25s}: {np.mean(vals):.4f} ± {np.std(vals):.4f}")
-                
+    return fold_results                
 
 
 def run_ablations(args) -> pd.DataFrame:
