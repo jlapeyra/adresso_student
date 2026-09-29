@@ -39,9 +39,6 @@ python -u train.py \
   --results-dir $KD_DIR/adresso_student/outputs/results_audio \
   --audio-encoder \
       facebook/wav2vec2-base \
-      facebook/hubert-base-ls960 \
-      microsoft/wavlm-base-plus \
-      facebook/data2vec-audio-base-960h \
       $KD_DIR/pretrained/wav2vec2-base \
   --link-features plain emb \
   --cv \
