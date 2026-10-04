@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#SBATCH --job-name=adresso_student
+
 #SBATCH --output=/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/logs/slurm/%x_%j.txt
 #SBATCH -A veu
 #SBATCH -p veu
