@@ -1,0 +1,1405 @@
+Fri Sep 25 02:30:44 PM CEST 2026
+Fri Sep 25 14:30:44 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3090        Off |   00000000:25:00.0 Off |                  N/A |
+| 79%   63C    P3            129W /  350W |      15MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2542      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/logs/trace/260925-143045.log
+2026-09-25 14:30:54,840  INFO      
+======================================================================
+2026-09-25 14:30:54,840  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-09-25 14:30:54,840  INFO      ======================================================================
+2026-09-25 14:30:54,840  INFO        Ablation:    ['multimodal_no_kd']
+2026-09-25 14:30:54,840  INFO        CV:          True
+2026-09-25 14:30:54,840  INFO        No clinical: False
+2026-09-25 14:30:54,841  INFO        Temperature: 1.1861923153571683
+2026-09-25 14:30:54,841  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-09-25 14:30:54,841  INFO        Soft labels: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-09-25 14:30:54,841  INFO      
+======================================================================
+LINK FEATURES: plain
+======================================================================
+2026-09-25 14:30:54,841  INFO      
+----------------------------------------------------------------------
+ABALATION: multimodal_no_kd
+----------------------------------------------------------------------
+2026-09-25 14:30:54,841  INFO      
+  Text_encoder: roberta-base
+2026-09-25 14:30:54,841  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-09-25 14:30:54,842  INFO      
+======================================================================
+2026-09-25 14:30:54,843  INFO      EXPERIMENT: multimodal_no_kd_fold0  (mode=full, kd=False)
+2026-09-25 14:30:54,843  INFO      ======================================================================
+2026-09-25 14:30:55,001  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-09-25 14:30:55,241  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-25 14:30:55,274  INFO      Loading tokenizer (roberta-base)...
+2026-09-25 14:30:55,467  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-25 14:30:55,617  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-25 14:30:55,618  WARNING   Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-09-25 14:30:55,763  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:30:55,893  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-25 14:30:56,021  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:30:56,151  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-25 14:30:56,425  INFO      Split: train=62 val=62 test=42 (fold=0)
+2026-09-25 14:30:56,468  INFO      ADReSSoDataset: 62 subjects | mode=full | HC=29 AD=33 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-25 14:30:56,470  INFO      [train] augmentation: 62 + 124 aug (factor×2) = 186
+2026-09-25 14:30:56,517  INFO      ADReSSoDataset: 62 subjects | mode=full | HC=30 AD=32 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-25 14:30:56,575  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4491.56it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-09-25 14:30:57,966  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-25 14:30:58,106  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3597.69it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-09-25 14:30:58,708  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-25 14:30:58,852  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-25 14:30:58,990  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:30:59,118  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-25 14:30:59,247  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:30:59,377  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-25 14:31:00,011  INFO          audio_encoder                           : 85,251,840
+2026-09-25 14:31:00,011  INFO          text_encoder                            : 85,251,840
+2026-09-25 14:31:00,011  INFO          clinical_encoder                        :     42,118
+2026-09-25 14:31:00,011  INFO          fusion                                  :  1,054,720
+2026-09-25 14:31:00,011  INFO          classifiers                             :     66,308
+2026-09-25 14:31:00,012  INFO          total_trainable                         : 171,668,365
+2026-09-25 14:31:00,024  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+2026-09-25 14:31:00,033  ERROR     Error during ablation 'multimodal_no_kd' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): log() takes 1 positional argument but 3 were given
+2026-09-25 14:31:00,034  INFO      
+======================================================================
+2026-09-25 14:31:00,035  INFO      EXPERIMENT: multimodal_no_kd_fold1  (mode=full, kd=False)
+2026-09-25 14:31:00,035  INFO      ======================================================================
+2026-09-25 14:31:00,035  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-09-25 14:31:00,059  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-09-25 14:31:00,062  INFO      Loading tokenizer (roberta-base)...
+2026-09-25 14:31:00,190  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-25 14:31:00,321  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-25 14:31:00,452  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:31:00,583  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-25 14:31:00,712  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:31:00,836  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-25 14:31:01,047  INFO      Split: train=62 val=62 test=42 (fold=1)
+2026-09-25 14:31:01,048  INFO      ADReSSoDataset: 62 subjects | mode=full | HC=30 AD=32 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-25 14:31:01,048  INFO      [train] augmentation: 62 + 124 aug (factor×2) = 186
+2026-09-25 14:31:01,049  INFO      ADReSSoDataset: 62 subjects | mode=full | HC=29 AD=33 | soft_label_classes=3 (CN/MCI/AD)
+2026-09-25 14:31:01,050  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4323.43it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-09-25 14:31:01,385  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-25 14:31:01,518  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 4339.35it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.dense.weight      | UNEXPECTED | 
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-09-25 14:31:01,782  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-09-25 14:31:01,925  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-09-25 14:31:02,053  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:31:02,187  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-09-25 14:31:02,317  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-09-25 14:31:02,444  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-09-25 14:31:02,876  INFO          audio_encoder                           : 85,251,840
+2026-09-25 14:31:02,876  INFO          text_encoder                            : 85,251,840
+2026-09-25 14:31:02,876  INFO          clinical_encoder                        :     42,118
+2026-09-25 14:31:02,876  INFO          fusion                                  :  1,054,720
+2026-09-25 14:31:02,876  INFO          classifiers                             :     66,308
+2026-09-25 14:31:02,876  INFO          total_trainable                         : 171,668,365
+2026-09-25 14:31:02,878  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E001 [train]:   4%|██▌                                                         | 1/24 [00:03<01:12,  3.15s/it]E001 [train]:   8%|█████                                                       | 2/24 [00:04<00:46,  2.10s/it]E001 [train]:  12%|███████▌                                                    | 3/24 [00:05<00:36,  1.75s/it]E001 [train]:  17%|██████████                                                  | 4/24 [00:07<00:32,  1.61s/it]E001 [train]:  21%|████████████▌                                               | 5/24 [00:08<00:28,  1.52s/it]E001 [train]:  25%|███████████████                                             | 6/24 [00:09<00:26,  1.47s/it]E001 [train]:  33%|████████████████████                                        | 8/24 [00:11<00:17,  1.08s/it]E001 [train]:  42%|████████████████████████▌                                  | 10/24 [00:12<00:13,  1.07it/s]E001 [train]:  46%|███████████████████████████                                | 11/24 [00:14<00:13,  1.03s/it]E001 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:15<00:13,  1.11s/it]E001 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:16<00:12,  1.17s/it]E001 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:18<00:08,  1.02it/s]E001 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:19<00:08,  1.05s/it]E001 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:20<00:07,  1.13s/it]E001 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:22<00:04,  1.07it/s]E001 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:23<00:04,  1.03s/it]E001 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:24<00:03,  1.10s/it]E001 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:26<00:02,  1.17s/it]E001 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:27<00:01,  1.22s/it]E001 [train]: 100%|███████████████████████████████████████████████████████████| 24/24 [00:27<00:00,  1.03it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ad000027ca'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+Traceback (most recent call last):
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ab000027cb'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01af000027cc'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01a9000027ca'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:08,  1.26s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.44it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.97it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.37it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  1.96it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:03<00:00,  2.30it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.59it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.00it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+Traceback (most recent call last):
+Traceback (most recent call last):
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01af000027ce'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b3000027cd'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ad000027d0'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b1000027cf'
+                                                                                                    2026-09-25 14:31:34,759  INFO        E001/10 (32s) | Tr: loss=0.6989 acc=0.3763 f1=0.3675 | Val: loss=0.6999 acc=0.5323 f1=0.3763 auroc=0.0794 | lr=5.0e-06 ES=0/20
+2026-09-25 14:31:43,058  INFO        Saved checkpoint (epoch=1, val_bal_acc=0.5021)
+E002 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E002 [train]:   4%|██▌                                                         | 1/24 [00:02<01:01,  2.68s/it]E002 [train]:   8%|█████                                                       | 2/24 [00:02<00:25,  1.17s/it]E002 [train]:  17%|██████████                                                  | 4/24 [00:04<00:17,  1.13it/s]E002 [train]:  21%|████████████▌                                               | 5/24 [00:05<00:19,  1.03s/it]E002 [train]:  25%|███████████████                                             | 6/24 [00:06<00:20,  1.12s/it]E002 [train]:  33%|████████████████████                                        | 8/24 [00:08<00:14,  1.09it/s]E002 [train]:  38%|██████████████████████▌                                     | 9/24 [00:09<00:15,  1.03s/it]E002 [train]:  42%|████████████████████████▌                                  | 10/24 [00:11<00:15,  1.12s/it]E002 [train]:  46%|███████████████████████████                                | 11/24 [00:12<00:15,  1.17s/it]E002 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:13<00:14,  1.23s/it]E002 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:15<00:10,  1.00s/it]E002 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:16<00:09,  1.09s/it]E002 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:16<00:06,  1.20it/s]E002 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:17<00:06,  1.04it/s]E002 [train]:  75%|████████████████████████████████████████████▎              | 18/24 [00:19<00:06,  1.07s/it]E002 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:20<00:05,  1.15s/it]E002 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:22<00:02,  1.05it/s]E002 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:23<00:00,  1.16it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b3000027d1'
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b7000027d1'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b5000027d3'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01af000027d2'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:09,  1.32s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.40it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.92it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.33it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  1.93it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:03<00:00,  2.28it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.56it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  2.98it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b9000027d6'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b5000027d4'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b7000027d7'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01bb000027d5'
+                                                                                                    2026-09-25 14:32:10,451  INFO        E002/10 (27s) | Tr: loss=0.6877 acc=0.5215 f1=0.4549 | Val: loss=0.6694 acc=0.8065 f1=0.8013 auroc=0.9143 | lr=1.0e-05 ES=0/20
+2026-09-25 14:32:19,202  INFO        Saved checkpoint (epoch=2, val_bal_acc=0.7994)
+E003 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E003 [train]:   4%|██▌                                                         | 1/24 [00:00<00:22,  1.00it/s]E003 [train]:   8%|█████                                                       | 2/24 [00:02<00:29,  1.32s/it]E003 [train]:  12%|███████▌                                                    | 3/24 [00:03<00:27,  1.33s/it]E003 [train]:  17%|██████████                                                  | 4/24 [00:05<00:26,  1.35s/it]E003 [train]:  25%|███████████████                                             | 6/24 [00:05<00:12,  1.48it/s]E003 [train]:  33%|████████████████████                                        | 8/24 [00:06<00:10,  1.46it/s]E003 [train]:  38%|██████████████████████▌                                     | 9/24 [00:08<00:12,  1.21it/s]E003 [train]:  42%|████████████████████████▌                                  | 10/24 [00:09<00:13,  1.04it/s]E003 [train]:  46%|███████████████████████████                                | 11/24 [00:10<00:13,  1.05s/it]E003 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:12<00:13,  1.14s/it]E003 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:13<00:13,  1.20s/it]E003 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:14<00:12,  1.25s/it]E003 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:15<00:05,  1.38it/s]E003 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:16<00:06,  1.14it/s]E003 [train]:  75%|████████████████████████████████████████████▎              | 18/24 [00:17<00:06,  1.01s/it]E003 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:19<00:05,  1.10s/it]E003 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:20<00:04,  1.18s/it]E003 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:21<00:03,  1.21s/it]E003 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:23<00:00,  1.02it/s]E003 [train]: 100%|███████████████████████████████████████████████████████████| 24/24 [00:23<00:00,  1.22it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01b7000027d9'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01bc000027d8'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01bd000027db'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01bf000027da'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:09,  1.29s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.37it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.89it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.30it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  2.04it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:03<00:00,  2.37it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.65it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.05it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c3000027dc'
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01bf000027df'
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c1000027de'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01bd000027dd'
+                                                                                                    2026-09-25 14:32:46,490  INFO        E003/10 (27s) | Tr: loss=0.6620 acc=0.8172 f1=0.8123 | Val: loss=0.6355 acc=0.8871 f1=0.8864 auroc=0.9446 | lr=1.5e-05 ES=0/20
+2026-09-25 14:32:55,322  INFO        Saved checkpoint (epoch=3, val_bal_acc=0.8856)
+E004 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E004 [train]:   4%|██▌                                                         | 1/24 [00:02<00:58,  2.55s/it]E004 [train]:   8%|█████                                                       | 2/24 [00:03<00:40,  1.86s/it]E004 [train]:  17%|██████████                                                  | 4/24 [00:04<00:14,  1.34it/s]E004 [train]:  21%|████████████▌                                               | 5/24 [00:05<00:17,  1.10it/s]E004 [train]:  25%|███████████████                                             | 6/24 [00:06<00:18,  1.03s/it]E004 [train]:  29%|█████████████████▌                                          | 7/24 [00:08<00:19,  1.13s/it]E004 [train]:  33%|████████████████████                                        | 8/24 [00:09<00:19,  1.20s/it]E004 [train]:  38%|██████████████████████▌                                     | 9/24 [00:10<00:18,  1.25s/it]E004 [train]:  42%|████████████████████████▌                                  | 10/24 [00:12<00:18,  1.29s/it]E004 [train]:  46%|███████████████████████████                                | 11/24 [00:13<00:16,  1.30s/it]E004 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:15<00:16,  1.39s/it]E004 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:16<00:15,  1.38s/it]E004 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:17<00:13,  1.38s/it]E004 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:19<00:12,  1.37s/it]E004 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:20<00:10,  1.36s/it]E004 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:21<00:09,  1.36s/it]E004 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:23<00:05,  1.04s/it]E004 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:24<00:04,  1.12s/it]E004 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:25<00:01,  1.04it/s]E004 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:27<00:01,  1.05s/it]E004 [train]: 100%|███████████████████████████████████████████████████████████| 24/24 [00:27<00:00,  1.15it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c5000027e1'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c7000027e2'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c3000027e3'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c1000027e0'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:09,  1.30s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.41it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.93it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.34it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  1.89it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:03<00:00,  2.23it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.53it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  2.95it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c5000027e6'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01cb000027e7'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c7000027e5'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01c9000027e4'
+                                                                                                    2026-09-25 14:33:26,871  INFO        E004/10 (32s) | Tr: loss=0.6344 acc=0.8065 f1=0.7989 | Val: loss=0.5842 acc=0.8387 f1=0.8360 auroc=0.9634 | lr=2.0e-05 ES=0/20
+E005 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E005 [train]:   4%|██▌                                                         | 1/24 [00:01<00:27,  1.20s/it]E005 [train]:   8%|█████                                                       | 2/24 [00:02<00:28,  1.30s/it]E005 [train]:  12%|███████▌                                                    | 3/24 [00:03<00:27,  1.33s/it]E005 [train]:  17%|██████████                                                  | 4/24 [00:05<00:26,  1.35s/it]E005 [train]:  25%|███████████████                                             | 6/24 [00:05<00:12,  1.48it/s]E005 [train]:  33%|████████████████████                                        | 8/24 [00:06<00:10,  1.46it/s]E005 [train]:  38%|██████████████████████▌                                     | 9/24 [00:08<00:12,  1.18it/s]E005 [train]:  42%|████████████████████████▌                                  | 10/24 [00:09<00:13,  1.02it/s]E005 [train]:  46%|███████████████████████████                                | 11/24 [00:10<00:14,  1.08s/it]E005 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:12<00:13,  1.15s/it]E005 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:13<00:13,  1.21s/it]E005 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:13<00:08,  1.12it/s]E005 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:15<00:06,  1.24it/s]E005 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:16<00:06,  1.07it/s]E005 [train]:  75%|████████████████████████████████████████████▎              | 18/24 [00:17<00:06,  1.05s/it]E005 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:19<00:05,  1.14s/it]E005 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:20<00:04,  1.21s/it]E005 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:22<00:03,  1.25s/it]E005 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:23<00:02,  1.29s/it]E005 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:24<00:01,  1.29s/it]E005 [train]: 100%|███████████████████████████████████████████████████████████| 24/24 [00:24<00:00,  1.00s/it]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01cb000027ea'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01cd000027e8'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ce000027eb'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01cf000027e9'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:08,  1.28s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.39it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.91it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.32it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  2.17it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:02<00:00,  2.49it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.74it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.14it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01cf000027ec'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d1000027ed'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ce000027ee'
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d3000027ec'
+                                                                                                    2026-09-25 14:33:55,559  INFO        E005/10 (29s) | Tr: loss=0.5841 acc=0.9247 f1=0.9232 | Val: loss=0.5200 acc=0.9194 f1=0.9193 auroc=0.9603 | lr=2.5e-05 ES=1/20
+2026-09-25 14:34:04,394  INFO        Saved checkpoint (epoch=5, val_bal_acc=0.9222)
+E006 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E006 [train]:   4%|██▌                                                         | 1/24 [00:02<00:57,  2.52s/it]E006 [train]:   8%|█████                                                       | 2/24 [00:03<00:40,  1.84s/it]E006 [train]:  12%|███████▌                                                    | 3/24 [00:05<00:33,  1.62s/it]E006 [train]:  17%|██████████                                                  | 4/24 [00:06<00:29,  1.50s/it]E006 [train]:  21%|████████████▌                                               | 5/24 [00:07<00:27,  1.44s/it]E006 [train]:  25%|███████████████                                             | 6/24 [00:09<00:25,  1.42s/it]E006 [train]:  29%|█████████████████▌                                          | 7/24 [00:10<00:23,  1.38s/it]E006 [train]:  33%|████████████████████                                        | 8/24 [00:11<00:21,  1.36s/it]E006 [train]:  38%|██████████████████████▌                                     | 9/24 [00:13<00:20,  1.36s/it]E006 [train]:  42%|████████████████████████▌                                  | 10/24 [00:14<00:18,  1.35s/it]E006 [train]:  46%|███████████████████████████                                | 11/24 [00:15<00:17,  1.33s/it]E006 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:17<00:16,  1.34s/it]E006 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:18<00:14,  1.35s/it]E006 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:19<00:13,  1.36s/it]E006 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:21<00:08,  1.07s/it]E006 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:22<00:07,  1.14s/it]E006 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:24<00:04,  1.05it/s]E006 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:25<00:04,  1.05s/it]E006 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:26<00:03,  1.13s/it]E006 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:28<00:02,  1.18s/it]E006 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:29<00:01,  1.23s/it]E006 [train]: 100%|███████████████████████████████████████████████████████████| 24/24 [00:29<00:00,  1.01it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d3000027f1'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+Traceback (most recent call last):
+Traceback (most recent call last):
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d5000027f0'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d1000027ef'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d7000027ef'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:08,  1.28s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.40it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.92it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.32it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  1.96it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:03<00:00,  2.30it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.58it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  2.99it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d9000027f5'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d5000027f2'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01db000027f3'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d7000027f4'
+                                                                                                    2026-09-25 14:34:38,187  INFO        E006/10 (34s) | Tr: loss=0.5371 acc=0.8871 f1=0.8861 | Val: loss=0.4706 acc=0.9355 f1=0.9354 auroc=0.9749 | lr=3.0e-05 ES=0/20
+2026-09-25 14:34:47,028  INFO        Saved checkpoint (epoch=6, val_bal_acc=0.9373)
+E007 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E007 [train]:   4%|██▌                                                         | 1/24 [00:02<01:00,  2.64s/it]E007 [train]:   8%|█████                                                       | 2/24 [00:04<00:41,  1.89s/it]E007 [train]:  17%|██████████                                                  | 4/24 [00:05<00:20,  1.03s/it]E007 [train]:  25%|███████████████                                             | 6/24 [00:06<00:15,  1.13it/s]E007 [train]:  29%|█████████████████▌                                          | 7/24 [00:07<00:17,  1.00s/it]E007 [train]:  33%|████████████████████                                        | 8/24 [00:09<00:17,  1.10s/it]E007 [train]:  42%|████████████████████████▌                                  | 10/24 [00:10<00:12,  1.08it/s]E007 [train]:  46%|███████████████████████████                                | 11/24 [00:11<00:13,  1.03s/it]E007 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:12<00:11,  1.01it/s]E007 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:14<00:11,  1.07s/it]E007 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:15<00:08,  1.08it/s]E007 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:16<00:08,  1.03s/it]E007 [train]:  75%|████████████████████████████████████████████▎              | 18/24 [00:18<00:05,  1.12it/s]E007 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:18<00:02,  1.67it/s]E007 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:19<00:02,  1.33it/s]E007 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:21<00:01,  1.11it/s]E007 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:22<00:01,  1.01s/it]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01dc000027f6'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01dd000027f9'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01d7000027f7'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01df000027f8'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:09,  1.37s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.36it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.88it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.29it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  2.10it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:03<00:00,  2.43it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.70it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.10it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e3000027fa'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01dc000027fb'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+Traceback (most recent call last):
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e1000027fd'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01df000027fc'
+                                                                                                    2026-09-25 14:35:13,493  INFO        E007/10 (26s) | Tr: loss=0.4426 acc=0.9570 f1=0.9570 | Val: loss=0.4576 acc=0.8871 f1=0.8864 auroc=0.9478 | lr=3.5e-05 ES=0/20
+E008 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E008 [train]:   4%|██▌                                                         | 1/24 [00:02<00:57,  2.49s/it]E008 [train]:   8%|█████                                                       | 2/24 [00:03<00:40,  1.84s/it]E008 [train]:  12%|███████▌                                                    | 3/24 [00:05<00:33,  1.62s/it]E008 [train]:  17%|██████████                                                  | 4/24 [00:06<00:30,  1.52s/it]E008 [train]:  21%|████████████▌                                               | 5/24 [00:07<00:27,  1.44s/it]E008 [train]:  25%|███████████████                                             | 6/24 [00:09<00:25,  1.42s/it]E008 [train]:  29%|█████████████████▌                                          | 7/24 [00:10<00:23,  1.40s/it]E008 [train]:  33%|████████████████████                                        | 8/24 [00:10<00:15,  1.01it/s]E008 [train]:  38%|██████████████████████▌                                     | 9/24 [00:12<00:16,  1.10s/it]E008 [train]:  42%|████████████████████████▌                                  | 10/24 [00:13<00:16,  1.19s/it]E008 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:13<00:07,  1.52it/s]E008 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:14<00:09,  1.20it/s]E008 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:15<00:06,  1.56it/s]E008 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:16<00:07,  1.21it/s]E008 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:17<00:07,  1.02it/s]E008 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:19<00:07,  1.09s/it]E008 [train]:  75%|████████████████████████████████████████████▎              | 18/24 [00:20<00:07,  1.18s/it]E008 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:21<00:03,  1.04it/s]E008 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:23<00:03,  1.04s/it]E008 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:24<00:02,  1.11s/it]E008 [train]: 100%|███████████████████████████████████████████████████████████| 24/24 [00:24<00:00,  1.50it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+Traceback (most recent call last):
+Traceback (most recent call last):
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e500002800'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e4000027fe'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e7000027fe'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01df000027ff'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:09,  1.31s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.40it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.92it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.33it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  2.20it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:02<00:00,  2.51it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.76it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.15it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e500002803'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01eb00002802'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e700002801'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e900002804'
+                                                                                                    2026-09-25 14:35:41,819  INFO        E008/10 (28s) | Tr: loss=0.3899 acc=0.9839 f1=0.9838 | Val: loss=0.3991 acc=0.9355 f1=0.9349 auroc=0.9702 | lr=4.0e-05 ES=1/20
+E009 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E009 [train]:   4%|██▌                                                         | 1/24 [00:02<00:58,  2.55s/it]E009 [train]:   8%|█████                                                       | 2/24 [00:03<00:41,  1.87s/it]E009 [train]:  17%|██████████                                                  | 4/24 [00:05<00:23,  1.15s/it]E009 [train]:  21%|████████████▌                                               | 5/24 [00:06<00:22,  1.20s/it]E009 [train]:  25%|███████████████                                             | 6/24 [00:08<00:22,  1.25s/it]E009 [train]:  33%|████████████████████                                        | 8/24 [00:09<00:16,  1.01s/it]E009 [train]:  42%|████████████████████████▌                                  | 10/24 [00:11<00:12,  1.11it/s]E009 [train]:  46%|███████████████████████████                                | 11/24 [00:12<00:13,  1.00s/it]E009 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:13<00:13,  1.09s/it]E009 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:15<00:12,  1.16s/it]E009 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:16<00:08,  1.02it/s]E009 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:17<00:08,  1.06s/it]E009 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:19<00:07,  1.12s/it]E009 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:20<00:04,  1.05it/s]E009 [train]:  83%|█████████████████████████████████████████████████▏         | 20/24 [00:22<00:04,  1.05s/it]E009 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:23<00:03,  1.13s/it]E009 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:24<00:02,  1.18s/it]E009 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:26<00:01,  1.23s/it]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ef00002806'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ed00002807'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01e700002805'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01eb00002805'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:08,  1.26s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.45it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.97it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.37it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  2.14it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:02<00:00,  2.46it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.71it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.11it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f10000280b'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+Traceback (most recent call last):
+Traceback (most recent call last):
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f300002808'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ef00002809'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01eb0000280a'
+                                                                                                    2026-09-25 14:36:11,636  INFO        E009/10 (30s) | Tr: loss=0.3247 acc=0.9839 f1=0.9836 | Val: loss=0.4104 acc=0.8387 f1=0.8344 auroc=0.9321 | lr=4.5e-05 ES=2/20
+E010 [train]:   0%|                                                                    | 0/24 [00:00<?, ?it/s]E010 [train]:   4%|██▌                                                         | 1/24 [00:02<01:02,  2.71s/it]E010 [train]:   8%|█████                                                       | 2/24 [00:04<00:42,  1.93s/it]E010 [train]:  12%|███████▌                                                    | 3/24 [00:04<00:30,  1.45s/it]E010 [train]:  21%|████████████▌                                               | 5/24 [00:06<00:19,  1.02s/it]E010 [train]:  25%|███████████████                                             | 6/24 [00:07<00:19,  1.11s/it]E010 [train]:  29%|█████████████████▌                                          | 7/24 [00:09<00:20,  1.18s/it]E010 [train]:  33%|████████████████████                                        | 8/24 [00:10<00:19,  1.24s/it]E010 [train]:  42%|████████████████████████▌                                  | 10/24 [00:11<00:13,  1.01it/s]E010 [train]:  46%|███████████████████████████                                | 11/24 [00:13<00:14,  1.08s/it]E010 [train]:  50%|█████████████████████████████▌                             | 12/24 [00:13<00:09,  1.21it/s]E010 [train]:  54%|███████████████████████████████▉                           | 13/24 [00:14<00:10,  1.03it/s]E010 [train]:  58%|██████████████████████████████████▍                        | 14/24 [00:16<00:10,  1.09s/it]E010 [train]:  62%|████████████████████████████████████▉                      | 15/24 [00:17<00:10,  1.17s/it]E010 [train]:  67%|███████████████████████████████████████▎                   | 16/24 [00:18<00:09,  1.23s/it]E010 [train]:  71%|█████████████████████████████████████████▊                 | 17/24 [00:20<00:08,  1.27s/it]E010 [train]:  75%|████████████████████████████████████████████▎              | 18/24 [00:21<00:07,  1.30s/it]E010 [train]:  79%|██████████████████████████████████████████████▋            | 19/24 [00:23<00:06,  1.37s/it]E010 [train]:  88%|███████████████████████████████████████████████████▋       | 21/24 [00:24<00:03,  1.07s/it]E010 [train]:  92%|██████████████████████████████████████████████████████     | 22/24 [00:25<00:02,  1.14s/it]E010 [train]:  96%|████████████████████████████████████████████████████████▌  | 23/24 [00:27<00:01,  1.20s/it]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f40000280c'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f70000280d'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ef0000280e'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f50000280f'
+                                                                                                              [val]:   0%|                                                                  | 0/8 [00:00<?, ?it/s][val]:  12%|███████▎                                                  | 1/8 [00:01<00:09,  1.32s/it][val]:  25%|██████████████▌                                           | 2/8 [00:01<00:04,  1.40it/s][val]:  38%|█████████████████████▊                                    | 3/8 [00:01<00:02,  1.92it/s][val]:  50%|█████████████████████████████                             | 4/8 [00:02<00:01,  2.32it/s][val]:  62%|████████████████████████████████████▎                     | 5/8 [00:02<00:01,  2.19it/s][val]:  75%|███████████████████████████████████████████▌              | 6/8 [00:02<00:00,  2.50it/s][val]:  88%|██████████████████████████████████████████████████▊       | 7/8 [00:03<00:00,  2.75it/s][val]: 100%|██████████████████████████████████████████████████████████| 8/8 [00:03<00:00,  3.14it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f900002812'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01fb00002810'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f700002811'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f500002813'
+                                                                                                    2026-09-25 14:36:42,637  INFO        E010/10 (31s) | Tr: loss=0.2891 acc=0.9731 f1=0.9728 | Val: loss=0.3790 acc=0.8871 f1=0.8871 auroc=0.9681 | lr=5.0e-05 ES=3/20
+[test]:   0%|                                                                 | 0/6 [00:00<?, ?it/s][test]:  17%|█████████▌                                               | 1/6 [00:01<00:06,  1.28s/it][test]:  33%|███████████████████                                      | 2/6 [00:01<00:02,  1.44it/s][test]:  50%|████████████████████████████▌                            | 3/6 [00:01<00:01,  2.03it/s][test]:  67%|██████████████████████████████████████                   | 4/6 [00:02<00:00,  2.43it/s][test]:  83%|███████████████████████████████████████████████▌         | 5/6 [00:02<00:00,  2.72it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01ff00002815'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01fb00002814'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01f700002817'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000d9a01fd00002816'
+                                                                                                    2026-09-25 14:36:45,240  INFO      
+[test] classification report:
+              precision    recall  f1-score   support
+
+          HC       0.95      0.95      0.95        20
+          AD       0.95      0.95      0.95        22
+
+    accuracy                           0.95        42
+   macro avg       0.95      0.95      0.95        42
+weighted avg       0.95      0.95      0.95        42
+
+2026-09-25 14:36:45,240  INFO      
+  multimodal_no_kd_fold1 TEST: acc=0.9524 bal_acc=0.9523 f1=0.9523 auroc=0.9977 kappa=0.9045 (5.7 min)
+2026-09-25 14:36:45,272  INFO      
+  multimodal_no_kd — CV summary:
+2026-09-25 14:36:45,272  INFO          accuracy                 : 0.9524 ± 0.0000
+2026-09-25 14:36:45,272  INFO          balanced_accuracy        : 0.9523 ± 0.0000
+2026-09-25 14:36:45,272  INFO          f1_macro                 : 0.9523 ± 0.0000
+2026-09-25 14:36:45,272  INFO          auroc_macro              : 0.9977 ± 0.0000
+2026-09-25 14:36:45,272  INFO          kappa                    : 0.9045 ± 0.0000
+2026-09-25 14:36:45,273  INFO          sensitivity_AD           : 0.9545 ± 0.0000
+2026-09-25 14:36:45,273  INFO          specificity_AD           : 0.9500 ± 0.0000
+2026-09-25 14:36:45,473  INFO      
+======================================================================
+2026-09-25 14:36:45,473  INFO      ABLATION TABLE
+2026-09-25 14:36:45,473  INFO      ======================================================================
+2026-09-25 14:36:45,481  INFO                       accuracy     balanced_accuracy     f1_macro     auroc_macro       kappa     sensitivity_AD     specificity_AD    
+                     mean std              mean std     mean std        mean std    mean std           mean std           mean std
+ablation                                                                                                                          
+multimodal_no_kd   0.9524 NaN            0.9523 NaN   0.9523 NaN      0.9977 NaN  0.9045 NaN         0.9545 NaN           0.95 NaN
+2026-09-25 14:36:45,489  INFO      
+Results saved in: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/outputs/results
+2026-09-25 14:36:45,490  INFO      
+======================================================================
+2026-09-25 14:36:45,490  INFO      Training completed.
+2026-09-25 14:36:45,490  INFO      ======================================================================
+Fri Sep 25 02:36:46 PM CEST 2026
+Student training completed.

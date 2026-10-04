@@ -1,0 +1,55 @@
+train.main()
+    train.run_ablations(args=Namespace(soft_labels_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/knowledge_di…)
+        train.run_ablation(args=Namespace(soft_labels_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/knowledge_di…, abl_name='multimodal_no_kd', **kwargs={'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'})
+            train.train_experiment(args=Namespace(soft_labels_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/knowledge_di…, ablation_name='multimodal_no_kd', mode='full', use_kd=<bool False>, fold=0, link_features='plain', text_encoder='roberta-base', audio_encoder='/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base')
+                datasets.adresso_dataset.build_dataloaders(soft_labels_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlab…, enriched_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/tfm_alzheimer/data_processed/adresso/a…, transcripts_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/tfm_alzheimer/data_processed/adresso/t…, adni_teacher_embeddings_csv=PosixPath('/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/ou…, text_encoder='roberta-base', temperature=1.1861923153571683, batch_size=8, num_workers=4, mode='full', fold=0, n_folds=2, augment_train=<bool True>, aug_factor=2, link_features='plain')
+                    [TRACK] df = build_merged_df(sl_csv, enc_csv, emb_csv, link_features=link_features)
+                            df = <DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 0 adrso002 0 CN ..…>
+                    [TRACK] labels = df["dx"].fillna(0).astype(int).values
+                            labels = <ndarray array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1…>
+                    [TRACK] all_idx = np.arange(len(df))
+                            all_idx = <ndarray array([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20…>
+                    [TRACK] splits = list(skf.split(tv_idx, labels[tv_idx]))
+                            splits = [(array([ 2, 4, 5, 6, 7, 9, 11, 12, 14, 17, 18, 19, 22, 24, 25, 29, 30, 31, 34, …
+                    [TRACK] train_rel, val_rel = splits[fold % n_folds]
+                            train_rel = <ndarray array([ 2, 4, 5, 6, 7, 9, 11, 12, 14, 17, 18, 19, 22, 24, 25, 29, 30, 31, 34, 35…>
+                            val_rel = <ndarray array([ 0, 1, 3, 8, 10, 13, 15, 16, 20, 21, 23, 26, 27, 28, 32, 33, 36, 37, 39, …>
+                    [TRACK] train_idx = tv_idx[train_rel]
+                            train_idx = <ndarray array([ 9, 63, 12, 6, 87, 31, 137, 59, 135, 82, 157, 108, 42, 53, 110, 93, 54, 2…>
+                    [TRACK] val_idx = tv_idx[val_rel]
+                            val_idx = <ndarray array([152, 155, 68, 40, 154, 86, 126, 79, 159, 107, 151, 8, 67, 120, 113, 65, 1…>
+                    [TRACK] split_map = {"train": train_idx, "val": val_idx, "test": test_idx}
+                            split_map = {'train': array([ 9, 63, 12, 6, 87, 31, 137, 59, 135, 82, 157, 108, 42, 53, 110,…
+                    [TRACK] split_df = df.iloc[idx].copy()
+                            split_df = <DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 9 adrso016 0 CN ..…>
+                    datasets.adresso_dataset.ADReSSoDataset.__init__(self=<datasets.adresso_dataset.ADReSSoDataset object at 0x7fc9bbe5de40>, df=<DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 9 adrso016 0 CN ..…>, transcripts={'adrso024': "There's a cookie jar and the lid that is off the cookie jar. The b…, text_tokenizer=RobertaTokenizer(name_or_path='roberta-base', vocab_size=50265, model_max_length…, feature_cols=['MMSE_norm', 'AGE_norm', 'PTGENDER_enc'], mode='full', max_text_len=512)
+                    [TRACK] orig_dx = split_df["dx"].fillna(0).astype(int).values
+                            orig_dx = <ndarray array([0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0…>
+                    [TRACK] all_dx = np.concatenate([orig_dx, np.tile(orig_dx, aug_factor)])
+                            all_dx = <ndarray array([0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0…>
+                    [TRACK] class_cnt = np.bincount(all_dx, minlength=2)
+                            class_cnt = <ndarray array([87, 99])>
+                    [TRACK] class_wt = 1.0 / (class_cnt + 1e-8)
+                            class_wt = <ndarray array([0.01149425, 0.01010101])>
+                    [TRACK] sw = torch.tensor([class_wt[d] for d in all_dx], dtype=torch.float32)
+                            sw = <Tensor tensor([0.0115, 0.0101, 0.0115, 0.0115, 0.0115, 0.0101, 0.0115, 0.0101, 0.0115, …>
+                    [TRACK] sampler = WeightedRandomSampler(sw, len(sw), replacement=True)
+                            sampler = <torch.utils.data.sampler.WeightedRandomSampler object at 0x7fc9a2c1e680>
+                    [TRACK] split_df = df.iloc[idx].copy()
+                            split_df = <DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 152 adrso291 0 CN …>
+                    datasets.adresso_dataset.ADReSSoDataset.__init__(self=<datasets.adresso_dataset.ADReSSoDataset object at 0x7fc9bbe5d7e0>, df=<DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 152 adrso291 0 CN …>, transcripts={'adrso024': "There's a cookie jar and the lid that is off the cookie jar. The b…, text_tokenizer=RobertaTokenizer(name_or_path='roberta-base', vocab_size=50265, model_max_length…, feature_cols=['MMSE_norm', 'AGE_norm', 'PTGENDER_enc'], mode='full', max_text_len=512)
+                    [TRACK] all_dx = split_df["dx"].fillna(0).astype(int).values
+                            all_dx = <ndarray array([0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1…>
+                    [TRACK] split_df = df.iloc[idx].copy()
+                            split_df = <DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 158 adrso302 0 CN …>
+                    datasets.adresso_dataset.ADReSSoDataset.__init__(self=<datasets.adresso_dataset.ADReSSoDataset object at 0x7fc9a2d8f7c0>, df=<DataFrame  subject_id dx true_label ... MMSE_norm AGE_norm PTGENDER_enc 158 adrso302 0 CN …>, transcripts={'adrso024': "There's a cookie jar and the lid that is off the cookie jar. The b…, text_tokenizer=RobertaTokenizer(name_or_path='roberta-base', vocab_size=50265, model_max_length…, feature_cols=['MMSE_norm', 'AGE_norm', 'PTGENDER_enc'], mode='full', max_text_len=512)
+                    [TRACK] all_dx = split_df["dx"].fillna(0).astype(int).values
+                            all_dx = <ndarray array([0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1…>
+                    RETURN {'train': <torch.utils.data.dataloader.DataLoader object at 0x7fc9a2c1ead0>, 'va…
+                [TRACK] steps_per_epoch = len(loaders["train"])
+                        steps_per_epoch = 24
+                [TRACK] warmup_steps = cfg.WARMUP_EPOCHS * steps_per_epoch // args.grad_accum
+                        warmup_steps = 120
+                [TRACK] total_steps = args.epochs * steps_per_epoch // args.grad_accum
+                        total_steps = 120
+                train._lr_lambda(step=0)

@@ -314,6 +314,8 @@ def build_merged_df(
 
     Only subjects with audio (has_audio=True in soft labels CSV) are kept.
     """
+    print("build_merged_df")
+    print(f"Loading soft labels CSV: {soft_labels_csv}")
     soft_labels_df  = pd.read_csv(soft_labels_csv)
     enriched_df = pd.read_csv(enriched_csv)
     teacher_embeddings_df = pd.read_csv(adni_teacher_embeddings_csv) if adni_teacher_embeddings_csv else None
