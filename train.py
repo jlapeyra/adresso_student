@@ -47,6 +47,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.amp import GradScaler, autocast
 from tqdm import tqdm
+from torch.utils.data import DataLoader
 
 sys.path.insert(0, str(Path(__file__).parent))
 from models.student import StudentModel
@@ -70,6 +71,17 @@ log = logging.getLogger(__name__)
 # ============================================================================
 # CLI arguments
 # ============================================================================
+
+def str2bool(v:str) -> bool:
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 
 def parse_args():
     p = argparse.ArgumentParser(
@@ -136,6 +148,7 @@ def parse_args():
     p.add_argument("--dry-run",          action="store_true")
     p.add_argument("--no-tb",            action="store_true", help="Disable TensorBoard")
     p.add_argument('--results-dir', type=Path, default=None)
+    p.add_argument('--dont-save', action="store_true", help="Do not save checkpoints")
     return p.parse_args()
 
 
@@ -172,7 +185,7 @@ def build_optimizer(model, args):
 # Training loop
 # ============================================================================
 
-def train_epoch(model:StudentModel, loader, optimizer, loss_fn, scaler:GradScaler, scheduler,
+def train_epoch(model:StudentModel, loader:DataLoader, optimizer, loss_fn, scaler:GradScaler, scheduler,
                 device, args, tracker, epoch) -> Dict:
     model.train()
     tracker.reset()
@@ -432,7 +445,7 @@ def train_experiment(
         monitor    = val_m.get("balanced_accuracy", 0.0)
         should_stop = early_stop(monitor, model, epoch)
 
-        if early_stop.best_epoch == epoch:
+        if early_stop.best_epoch == epoch and not args.dont_save:
             ckpt_dir = cfg.CKPT_DIR / exp_name
             ckpt_dir.mkdir(parents=True, exist_ok=True)
             torch.save({
