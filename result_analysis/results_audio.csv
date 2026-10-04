@@ -1,6 +1,0 @@
-link_features,ablation,text_encoder,audio_encoder,fold,accuracy,balanced_accuracy,f1,auroc,kappa
-plain,audio_only,roberta-base,facebook/wav2vec2-base,0,0.9524,0.9545,0.9524,0.9932,0.905
-plain,audio_only,roberta-base,facebook/wav2vec2-base,1,0.9524,0.9523,0.9523,0.9761,0.9045
-plain,audio_only,roberta-base,facebook/wav2vec2-base,2,0.9286,0.9273,0.9282,0.9568,0.8565
-plain,audio_only,roberta-base,facebook/wav2vec2-base,3,0.9524,0.9545,0.9524,0.9841,0.905
-plain,audio_only,roberta-base,facebook/wav2vec2-base,4,0.9762,0.9773,0.9762,0.9955,0.9524
