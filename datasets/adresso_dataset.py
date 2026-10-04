@@ -134,13 +134,11 @@ class ADReSSoDataset(Dataset):
             sl = sl / sl.sum()
 
         # Clinical features
-        clinical = None
-        if self.mode in ("full", "clinical_only"):
-            clin_vals = []
-            for col in self.feature_cols:
-                v = row.get(col, 0.0)
-                clin_vals.append(float(v) if not pd.isna(v) else 0.0)
-            clinical = torch.tensor(clin_vals, dtype=torch.float32)
+        clin_vals = []
+        for col in self.feature_cols:
+            v = row.get(col, 0.0)
+            clin_vals.append(float(v) if not pd.isna(v) else 0.0)
+        clinical = torch.tensor(clin_vals, dtype=torch.float32)
 
         # Audio — not loaded in text_only or clinical_only
         audio_values = None

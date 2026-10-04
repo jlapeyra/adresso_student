@@ -268,7 +268,7 @@ def eval_epoch(model, loader, loss_fn, device, args, tracker, split="val") -> Di
     for batch in tqdm(loader, desc=f"[{split}]", leave=False, ncols=100):
         label      = batch["label"].to(device)
         soft_label = batch["soft_label"].to(device)
-        clinical   = batch["clinical"].to(device)
+        clinical   = None #batch["clinical"].to(device)
 
         audio_values = batch.get("audio_values")
         audio_mask   = batch.get("audio_attention_mask")
@@ -280,8 +280,8 @@ def eval_epoch(model, loader, loss_fn, device, args, tracker, split="val") -> Di
         if text_ids     is not None: text_ids     = text_ids.to(device)
         if text_mask    is not None: text_mask    = text_mask.to(device)
 
-        if args.no_clinical:
-            clinical = None
+        # if args.no_clinical:
+        #     clinical = None
 
         use_amp = not args.no_amp and device.type == "cuda"
         with autocast("cuda", enabled=use_amp):
