@@ -1,0 +1,51 @@
+ablation,link_features,text_encoder,audio_encoder,error
+audio_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py"", line 55, in fetch
+    return self.collate_fn(data)
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py"", line 256, in __call__
+    clinical    = torch.stack([b[""clinical""]   for b in batch])
+TypeError: expected Tensor as element 0 in argument 0, but got NoneType
+"
+audio_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py"", line 55, in fetch
+    return self.collate_fn(data)
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py"", line 256, in __call__
+    clinical    = torch.stack([b[""clinical""]   for b in batch])
+TypeError: expected Tensor as element 0 in argument 0, but got NoneType
+"
+audio_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py"", line 55, in fetch
+    return self.collate_fn(data)
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py"", line 256, in __call__
+    clinical    = torch.stack([b[""clinical""]   for b in batch])
+TypeError: expected Tensor as element 0 in argument 0, but got NoneType
+"
+audio_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py"", line 55, in fetch
+    return self.collate_fn(data)
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py"", line 256, in __call__
+    clinical    = torch.stack([b[""clinical""]   for b in batch])
+TypeError: expected Tensor as element 0 in argument 0, but got NoneType
+"
+audio_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py"", line 55, in fetch
+    return self.collate_fn(data)
+  File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py"", line 256, in __call__
+    clinical    = torch.stack([b[""clinical""]   for b in batch])
+TypeError: expected Tensor as element 0 in argument 0, but got NoneType
+"

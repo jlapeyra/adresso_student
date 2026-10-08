@@ -1,0 +1,4 @@
+,accuracy,accuracy,balanced_accuracy,balanced_accuracy,f1_macro,f1_macro,auroc_macro,auroc_macro,kappa,kappa,sensitivity_AD,sensitivity_AD,specificity_AD,specificity_AD
+,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std,mean,std
+ablation,,,,,,,,,,,,,,
+multimodal_no_kd,0.7762,0.0538,0.7736,0.0588,0.7675,0.0608,0.8585,0.0642,0.5485,0.1127,0.8273,0.1265,0.72,0.2051

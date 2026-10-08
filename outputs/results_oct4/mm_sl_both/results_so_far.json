@@ -1,0 +1,37 @@
+[
+  {
+    "ablation": "multimodal_kd",
+    "link_features": "both",
+    "text_encoder": "roberta-base",
+    "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
+    "error": "CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.85 GiB is free. Including non-PyTorch memory, this process has 9.05 GiB memory in use. Of the allocated memory 8.58 GiB is allocated by PyTorch, and 346.00 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  },
+  {
+    "ablation": "multimodal_kd",
+    "link_features": "both",
+    "text_encoder": "roberta-base",
+    "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
+    "error": "CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.46 GiB is free. Including non-PyTorch memory, this process has 9.45 GiB memory in use. Of the allocated memory 8.92 GiB is allocated by PyTorch, and 406.72 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  },
+  {
+    "ablation": "multimodal_kd",
+    "link_features": "both",
+    "text_encoder": "roberta-base",
+    "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
+    "error": "CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.85 GiB is free. Including non-PyTorch memory, this process has 9.05 GiB memory in use. Of the allocated memory 8.62 GiB is allocated by PyTorch, and 309.99 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  },
+  {
+    "ablation": "multimodal_kd",
+    "link_features": "both",
+    "text_encoder": "roberta-base",
+    "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
+    "error": "CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.59 GiB is free. Including non-PyTorch memory, this process has 9.31 GiB memory in use. Of the allocated memory 8.95 GiB is allocated by PyTorch, and 230.77 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  },
+  {
+    "ablation": "multimodal_kd",
+    "link_features": "both",
+    "text_encoder": "roberta-base",
+    "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
+    "error": "CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.34 GiB is free. Including non-PyTorch memory, this process has 9.57 GiB memory in use. Of the allocated memory 8.97 GiB is allocated by PyTorch, and 472.71 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
+  }
+]

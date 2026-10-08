@@ -1,0 +1,677 @@
+Sun Oct  4 04:36:35 PM CEST 2026
+Sun Oct  4 16:36:35 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce GTX TITAN X     Off |   00000000:04:00.0 Off |                  N/A |
+| 22%   42C    P0             63W /  250W |       7MiB /  12288MiB |     66%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2159      G   /usr/lib/xorg/Xorg                        3MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+2026-10-04 16:36:44,115  INFO      
+======================================================================
+2026-10-04 16:36:44,115  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-10-04 16:36:44,115  INFO      ======================================================================
+2026-10-04 16:36:44,115  INFO        Ablation:    ['multimodal_kd']
+2026-10-04 16:36:44,115  INFO        CV:          True
+2026-10-04 16:36:44,115  INFO        No clinical: False
+2026-10-04 16:36:44,115  INFO        Temperature: 1.1861923153571683
+2026-10-04 16:36:44,115  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-10-04 16:36:44,115  INFO        Soft labels: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-10-04 16:36:44,115  INFO      
+======================================================================
+LINK FEATURES: both
+======================================================================
+2026-10-04 16:36:44,115  INFO      
+----------------------------------------------------------------------
+ABALATION: multimodal_kd
+----------------------------------------------------------------------
+2026-10-04 16:36:44,115  INFO      
+  Text_encoder: roberta-base
+2026-10-04 16:36:44,116  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-04 16:36:44,116  INFO      
+======================================================================
+2026-10-04 16:36:44,116  INFO      EXPERIMENT: multimodal_kd_fold0  (mode=full, kd=True)
+2026-10-04 16:36:44,116  INFO      ======================================================================
+2026-10-04 16:36:44,137  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-10-04 16:36:44,332  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-10-04 16:36:44,336  INFO      Loading tokenizer (roberta-base)...
+2026-10-04 16:36:44,541  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-04 16:36:44,542  WARNING   Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-04 16:36:44,687  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:36:44,833  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:36:44,970  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:36:45,098  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:36:45,228  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:36:45,616  INFO      Split: train=99 val=25 test=42 (fold=0)
+2026-10-04 16:36:45,618  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:36:45,618  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-10-04 16:36:45,620  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:36:45,622  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4007.71it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-10-04 16:36:47,003  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:36:47,136  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3389.55it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-10-04 16:36:47,742  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:36:47,887  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:36:48,020  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:36:48,153  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:36:48,286  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:36:48,420  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:36:49,278  INFO          audio_encoder                           : 85,251,840
+2026-10-04 16:36:49,278  INFO          text_encoder                            : 85,251,840
+2026-10-04 16:36:49,278  INFO          clinical_encoder                        :     59,014
+2026-10-04 16:36:49,278  INFO          fusion                                  :  1,054,720
+2026-10-04 16:36:49,278  INFO          classifiers                             :     66,308
+2026-10-04 16:36:49,279  INFO          total_trainable                         : 171,685,261
+2026-10-04 16:36:49,285  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9eec0000066f'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9ee800000670'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9ef000000672'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9eeb00000671'
+                                                                                                              2026-10-04 16:38:52,101  ERROR     Error during ablation 'multimodal_kd' (fold=0, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.85 GiB is free. Including non-PyTorch memory, this process has 9.05 GiB memory in use. Of the allocated memory 8.58 GiB is allocated by PyTorch, and 346.00 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2026-10-04 16:38:52,172  INFO      
+======================================================================
+2026-10-04 16:38:52,173  INFO      EXPERIMENT: multimodal_kd_fold1  (mode=full, kd=True)
+2026-10-04 16:38:52,173  INFO      ======================================================================
+2026-10-04 16:38:52,173  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-10-04 16:38:52,222  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-10-04 16:38:52,227  INFO      Loading tokenizer (roberta-base)...
+2026-10-04 16:38:52,383  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:38:52,523  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:38:52,656  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:38:52,786  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:38:52,918  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:38:53,062  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:38:53,415  INFO      Split: train=99 val=25 test=42 (fold=1)
+2026-10-04 16:38:53,417  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:38:53,417  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-10-04 16:38:53,419  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:38:53,420  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 3560.73it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-10-04 16:38:53,867  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:38:53,998  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 2971.67it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-10-04 16:38:54,322  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:38:54,472  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:38:54,608  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:38:54,752  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:38:54,883  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:38:55,015  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:38:55,649  INFO          audio_encoder                           : 85,251,840
+2026-10-04 16:38:55,650  INFO          text_encoder                            : 85,251,840
+2026-10-04 16:38:55,650  INFO          clinical_encoder                        :     59,014
+2026-10-04 16:38:55,650  INFO          fusion                                  :  1,054,720
+2026-10-04 16:38:55,650  INFO          classifiers                             :     66,308
+2026-10-04 16:38:55,650  INFO          total_trainable                         : 171,685,261
+2026-10-04 16:38:55,653  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9eec0000067d'
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9f320000067e'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9ee80000067b'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9ede0000067c'
+                                                                                                              2026-10-04 16:41:04,748  ERROR     Error during ablation 'multimodal_kd' (fold=1, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.46 GiB is free. Including non-PyTorch memory, this process has 9.45 GiB memory in use. Of the allocated memory 8.92 GiB is allocated by PyTorch, and 406.72 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2026-10-04 16:41:04,795  INFO      
+======================================================================
+2026-10-04 16:41:04,795  INFO      EXPERIMENT: multimodal_kd_fold2  (mode=full, kd=True)
+2026-10-04 16:41:04,795  INFO      ======================================================================
+2026-10-04 16:41:04,795  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-10-04 16:41:04,836  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-10-04 16:41:04,840  INFO      Loading tokenizer (roberta-base)...
+2026-10-04 16:41:04,994  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:41:05,131  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:41:05,266  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:41:05,402  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:41:05,531  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:41:05,665  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:41:06,022  INFO      Split: train=99 val=25 test=42 (fold=2)
+2026-10-04 16:41:06,024  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:41:06,024  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-10-04 16:41:06,026  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:41:06,027  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 3580.31it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-10-04 16:41:06,473  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:41:06,607  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3152.47it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-10-04 16:41:06,925  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:41:07,061  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:41:07,195  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:41:07,326  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:41:07,460  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:41:07,591  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:41:08,210  INFO          audio_encoder                           : 85,251,840
+2026-10-04 16:41:08,210  INFO          text_encoder                            : 85,251,840
+2026-10-04 16:41:08,210  INFO          clinical_encoder                        :     59,014
+2026-10-04 16:41:08,210  INFO          fusion                                  :  1,054,720
+2026-10-04 16:41:08,211  INFO          classifiers                             :     66,308
+2026-10-04 16:41:08,211  INFO          total_trainable                         : 171,685,261
+2026-10-04 16:41:08,214  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]E001 [train]:   3%|█▌                                                          | 1/38 [00:01<00:58,  1.57s/it]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9f8a0000068a'
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9f8800000689'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9f3200000687'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9f8c00000688'
+                                                                                                              2026-10-04 16:43:15,450  ERROR     Error during ablation 'multimodal_kd' (fold=2, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.85 GiB is free. Including non-PyTorch memory, this process has 9.05 GiB memory in use. Of the allocated memory 8.62 GiB is allocated by PyTorch, and 309.99 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2026-10-04 16:43:15,492  INFO      
+======================================================================
+2026-10-04 16:43:15,493  INFO      EXPERIMENT: multimodal_kd_fold3  (mode=full, kd=True)
+2026-10-04 16:43:15,493  INFO      ======================================================================
+2026-10-04 16:43:15,493  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-10-04 16:43:15,530  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-10-04 16:43:15,533  INFO      Loading tokenizer (roberta-base)...
+2026-10-04 16:43:15,693  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:43:15,832  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:43:15,968  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:43:16,099  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:43:16,231  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:43:16,364  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:43:16,659  INFO      Split: train=99 val=25 test=42 (fold=3)
+2026-10-04 16:43:16,661  INFO      ADReSSoDataset: 99 subjects | mode=full | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:43:16,661  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
+2026-10-04 16:43:16,662  INFO      ADReSSoDataset: 25 subjects | mode=full | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:43:16,663  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4301.95it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-10-04 16:43:17,075  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:43:17,210  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3042.08it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-10-04 16:43:17,527  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:43:17,666  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:43:17,801  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:43:17,936  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:43:18,067  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:43:18,198  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:43:18,816  INFO          audio_encoder                           : 85,251,840
+2026-10-04 16:43:18,816  INFO          text_encoder                            : 85,251,840
+2026-10-04 16:43:18,816  INFO          clinical_encoder                        :     59,014
+2026-10-04 16:43:18,816  INFO          fusion                                  :  1,054,720
+2026-10-04 16:43:18,816  INFO          classifiers                             :     66,308
+2026-10-04 16:43:18,816  INFO          total_trainable                         : 171,685,261
+2026-10-04 16:43:18,820  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]E001 [train]:   3%|█▌                                                          | 1/38 [00:04<02:47,  4.52s/it]Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9f8a00000693'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9fe100000696'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9fe300000694'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9fe000000695'
+                                                                                                              2026-10-04 16:45:23,781  ERROR     Error during ablation 'multimodal_kd' (fold=3, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.59 GiB is free. Including non-PyTorch memory, this process has 9.31 GiB memory in use. Of the allocated memory 8.95 GiB is allocated by PyTorch, and 230.77 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2026-10-04 16:45:23,824  INFO      
+======================================================================
+2026-10-04 16:45:23,824  INFO      EXPERIMENT: multimodal_kd_fold4  (mode=full, kd=True)
+2026-10-04 16:45:23,825  INFO      ======================================================================
+2026-10-04 16:45:23,825  INFO        Device: cuda
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+2026-10-04 16:45:23,862  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
+2026-10-04 16:45:23,866  INFO      Loading tokenizer (roberta-base)...
+2026-10-04 16:45:24,019  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:45:24,157  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:45:24,291  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:45:24,423  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:45:24,553  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:45:24,683  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:45:24,978  INFO      Split: train=100 val=24 test=42 (fold=4)
+2026-10-04 16:45:24,980  INFO      ADReSSoDataset: 100 subjects | mode=full | HC=48 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:45:24,980  INFO      [train] augmentation: 100 + 200 aug (factor×2) = 300
+2026-10-04 16:45:24,981  INFO      ADReSSoDataset: 24 subjects | mode=full | HC=11 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:45:24,982  INFO      ADReSSoDataset: 42 subjects | mode=full | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4050.19it/s]
+[transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+Key                          | Status     |  | 
+-----------------------------+------------+--+-
+quantizer.weight_proj.bias   | UNEXPECTED |  | 
+project_hid.bias             | UNEXPECTED |  | 
+project_hid.weight           | UNEXPECTED |  | 
+project_q.weight             | UNEXPECTED |  | 
+quantizer.codevectors        | UNEXPECTED |  | 
+project_q.bias               | UNEXPECTED |  | 
+quantizer.weight_proj.weight | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+2026-10-04 16:45:25,358  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:45:25,489  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 4258.46it/s]
+[transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
+Key                       | Status     | 
+--------------------------+------------+-
+lm_head.layer_norm.bias   | UNEXPECTED | 
+lm_head.dense.bias        | UNEXPECTED | 
+lm_head.layer_norm.weight | UNEXPECTED | 
+lm_head.bias              | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | 
+pooler.dense.weight       | MISSING    | 
+pooler.dense.bias         | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+2026-10-04 16:45:25,742  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:45:25,877  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-10-04 16:45:26,017  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:45:26,148  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-04 16:45:26,282  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:45:26,411  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-04 16:45:27,053  INFO          audio_encoder                           : 85,251,840
+2026-10-04 16:45:27,053  INFO          text_encoder                            : 85,251,840
+2026-10-04 16:45:27,053  INFO          clinical_encoder                        :     59,014
+2026-10-04 16:45:27,053  INFO          fusion                                  :  1,054,720
+2026-10-04 16:45:27,053  INFO          classifiers                             :     66,308
+2026-10-04 16:45:27,053  INFO          total_trainable                         : 171,685,261
+2026-10-04 16:45:27,056  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5aa0310000069d'
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5a9fe10000069f'
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5aa0330000069c'
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+    finalizer()
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+    res = self._callback(*self._args, **self._kwargs)
+  File "/usr/lib/python3.10/multiprocessing/util.py", line 133, in _remove_temp_dir
+    rmtree(tempdir)
+  File "/usr/lib/python3.10/shutil.py", line 725, in rmtree
+    _rmtree_safe_fd(fd, path, onerror)
+  File "/usr/lib/python3.10/shutil.py", line 681, in _rmtree_safe_fd
+    onerror(os.unlink, fullname, sys.exc_info())
+  File "/usr/lib/python3.10/shutil.py", line 679, in _rmtree_safe_fd
+    os.unlink(entry.name, dir_fd=topfd)
+OSError: [Errno 16] Device or resource busy: '.nfs000000000e5aa02f0000069e'
+                                                                                                              2026-10-04 16:47:30,685  ERROR     Error during ablation 'multimodal_kd' (fold=4, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): CUDA out of memory. Tried to allocate 2.93 GiB. GPU 0 has a total capacity of 11.91 GiB of which 2.34 GiB is free. Including non-PyTorch memory, this process has 9.57 GiB memory in use. Of the allocated memory 8.97 GiB is allocated by PyTorch, and 472.71 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2026-10-04 16:47:30,746  INFO      
+  multimodal_kd — CV summary:
+Traceback (most recent call last):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 658, in <module>
+    main()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 650, in main
+    run_ablations(args)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 560, in run_ablations
+    table = df.groupby("ablation")[[c for c in table_cols if c != "ablation"]].agg(
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/groupby/generic.py", line 1432, in aggregate
+    result = op.agg()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/apply.py", line 193, in agg
+    return self.agg_list_like()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/apply.py", line 326, in agg_list_like
+    return self.agg_or_apply_list_like(op_name="agg")
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/apply.py", line 1567, in agg_or_apply_list_like
+    result = self.wrap_results_list_like(keys, results)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/apply.py", line 402, in wrap_results_list_like
+    return concat(results, keys=keys, axis=1, sort=False)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/reshape/concat.py", line 382, in concat
+    op = _Concatenator(
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/reshape/concat.py", line 445, in __init__
+    objs, keys = self._clean_keys_and_objs(objs, keys)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/reshape/concat.py", line 507, in _clean_keys_and_objs
+    raise ValueError("No objects to concatenate")
+ValueError: No objects to concatenate

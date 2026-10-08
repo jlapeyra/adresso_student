@@ -8,7 +8,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
 #SBATCH --time=96:00:00
-#SBATCH --nodelist=veuc12
+
 
 # time with one link-feature set = 48:00:00
 # mem  idem = 32GB
