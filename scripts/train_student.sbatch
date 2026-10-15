@@ -8,7 +8,6 @@
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks=1
 #SBATCH --time=96:00:00
-#SBATCH --nodelist=veuc12
 
 # time with one link-feature set = 48:00:00
 # mem  idem = 32GB
@@ -37,6 +36,7 @@ echo "Starting ADReSSo Student training..."
 python -u train.py \
   --ablation all \
   --link-features plain emb both \
+  --no-mmse \
   --cv \
   --n-folds 5 \
   --epochs 50 \

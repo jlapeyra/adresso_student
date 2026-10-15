@@ -35,7 +35,7 @@ nvidia-smi
 echo "Starting ADReSSo Student training..."
 
 python -u train.py \
-  --ablation audio_only \
+  --ablation clinical+audio \
   --results-dir $KD_DIR/adresso_student/outputs/results_audio \
   --audio-encoder \
       facebook/wav2vec2-base \

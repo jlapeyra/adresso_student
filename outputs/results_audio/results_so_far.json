@@ -1,6 +1,6 @@
 [
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "link_features": "plain",
     "fold": 4.0,
     "best_val_bacc": 0.9615384615384616,
@@ -21,7 +21,7 @@
     "error": NaN
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "link_features": "plain",
     "fold": NaN,
     "best_val_bacc": NaN,
@@ -42,7 +42,7 @@
     "error": "CUDA out of memory. Tried to allocate 72.00 MiB. GPU 0 has a total capacity of 23.56 GiB of which 33.38 MiB is free. Including non-PyTorch memory, this process has 23.50 GiB memory in use. Of the allocated memory 22.83 GiB is allocated by PyTorch, and 358.62 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "link_features": "plain",
     "fold": NaN,
     "best_val_bacc": NaN,
@@ -63,7 +63,7 @@
     "error": "CUDA out of memory. Tried to allocate 1.61 GiB. GPU 0 has a total capacity of 23.56 GiB of which 1.54 GiB is free. Including non-PyTorch memory, this process has 22.00 GiB memory in use. Of the allocated memory 21.54 GiB is allocated by PyTorch, and 131.08 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "link_features": "plain",
     "fold": NaN,
     "best_val_bacc": NaN,

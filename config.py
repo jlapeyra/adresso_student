@@ -14,10 +14,6 @@ BASE_DIR = Path(__file__).parent
 
 # Teacher soft labels — sibling folder within knowledge_distillation/
 KD_ROOT         = BASE_DIR.parent   # knowledge_distillation/
-SOFT_LABELS_DIR = KD_ROOT / "adresso_softlabels" / "outputs"
-SOFT_LABELS_T1_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T1.csv"
-SOFT_LABELS_T2_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T2.csv"
-SOFT_LABELS_T3_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T3.csv"
 
 # ADReSSo enriched CSV from tfm_alzheimer (has audio_path + normalised clinical features)
 TFM_DIR              = BASE_DIR.parent.parent / "tfm_alzheimer"
@@ -29,7 +25,16 @@ ADRESSO_AUDIO_ROOT   = Path(
     "/home/usuaris/veu/roger.esteve.sanchez/adresso/ADReSSo21/diagnosis"
 )
 
-ADNI_TEACHER_EMBEDDINGS_CSV = KD_ROOT / "adni_teacher" / "outputs" / "adni_teacher_embeddings.csv"
+SOFT_LABELS_DIR = KD_ROOT / "adresso_softlabels" / "outputs"
+SOFT_LABELS_T1_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T1.csv"
+SOFT_LABELS_T2_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T2.csv"
+SOFT_LABELS_T3_CSV = SOFT_LABELS_DIR / "adresso_soft_labels_T3.csv"
+
+SOFT_LABELS_NO_MMSE_CSV = KD_ROOT / "adni_teacher" / "outputs" / "without_mmse" / "adni_teacher_soft_labels.csv"
+
+ADNI_TEACHER_EMBEDDINGS_CSV = KD_ROOT / "adni_teacher" / "outputs" / "with_mmse" / "adni_teacher_embeddings.csv"
+ADNI_TEACHER_EMBEDDINGS_NO_MMSE_CSV = KD_ROOT / "adni_teacher" / "outputs" / "without_mmse" / "adni_teacher_embeddings.csv"
+
 
 LOGS_DIR     = BASE_DIR / "logs"
 OUTPUTS_DIR  = BASE_DIR / "outputs"
@@ -117,11 +122,11 @@ MAX_TEXT_LEN    = 512
 # Ablation experiment definitions
 # ---------------------------------------------------------------------------
 ABLATION_MODES = {
-    "clinical_only":    {"mode": "clinical_only", "use_kd": False},
-    "audio_only":       {"mode": "audio_only",    "use_kd": False},
-    "text_only":        {"mode": "text_only",     "use_kd": False},
-    "multimodal_no_kd": {"mode": "full",          "use_kd": False},
-    "multimodal_kd":    {"mode": "full",          "use_kd": True},
+    "clinical":                 {"mode": "clinical",        "use_kd": False},
+    "clinical+audio":           {"mode": "clinical+audio",  "use_kd": False},
+    "clinical+text":            {"mode": "clinical+text",   "use_kd": False},
+    "clinical+audio+text":      {"mode": "full",            "use_kd": False},
+    "clinical+audio+text+soft": {"mode": "full",            "use_kd": True},
 }
 
 LINK_FEATURES_OPTIONS = ["plain", "emb", "both"]

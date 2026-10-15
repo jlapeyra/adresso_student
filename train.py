@@ -12,19 +12,19 @@ Experiments:
        python train.py --ablation all
 
   D) Single ablation:
-       python train.py --ablation audio_only
-       python train.py --ablation text_only
-       python train.py --ablation multimodal_no_kd
-       python train.py --ablation multimodal_kd    (default, proposed)
+       python train.py --ablation clinical+audio
+       python train.py --ablation clinical+text
+       python train.py --ablation clinical+audio+text
+       python train.py --ablation clinical+audio+text+soft    (default, proposed)
 
   E) Dry-run (architecture check without real data):
        python train.py --dry-run
 
 Ablation scheme:
-  Baseline 1: audio_only       -> audio_encoder only, no KD
-  Baseline 2: text_only        -> RoBERTa/Whisper only, no KD
-  Baseline 3: multimodal_no_kd -> Audio+Text+Clinical, hard CE only
-  Proposed:   multimodal_kd    -> Audio+Text+Clinical + KD
+  Baseline 1: clinical+audio       -> audio_encoder only, no KD
+  Baseline 2: clinical+text        -> RoBERTa/Whisper only, no KD
+  Baseline 3: clinical+audio+text -> Audio+Text+Clinical, hard CE only
+  Proposed:   clinical+audio+text+soft    -> Audio+Text+Clinical + KD
 
 Original: tfm_alzheimer/train_student.py (adapted for new soft-label CSV format)
 """
@@ -38,6 +38,7 @@ import random
 import sys
 import time
 from pathlib import Path
+import traceback
 from typing import Dict, List, Optional
 
 import numpy as np
@@ -89,11 +90,8 @@ def parse_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     # Data
-    p.add_argument("--soft-labels-csv",  type=Path, default=None,
-                   help="Soft-labels CSV. Auto-derived from --temperature if not set.")
     p.add_argument("--enriched-csv",     type=Path, default=cfg.ADRESSO_ENRICHED_CSV)
     p.add_argument("--transcripts-csv",  type=Path, default=cfg.TRANSCRIPTIONS_CSV)
-    p.add_argument("--adni-teacher-embeddings-csv", type=Path, default=cfg.ADNI_TEACHER_EMBEDDINGS_CSV)
     p.add_argument("--temperature",      type=float, default=cfg.KD_TEMPERATURE)
 
     # Model
@@ -132,7 +130,7 @@ def parse_args():
     p.add_argument("--label-smoothing",  type=float, default=cfg.LABEL_SMOOTHING)
 
     # Experiment mode
-    p.add_argument("--ablation", nargs='+', default=["multimodal_kd"],
+    p.add_argument("--ablation", nargs='+', default=["clinical+audio+text+soft"],
                    choices=list(cfg.ABLATION_MODES.keys()) + ["all"])
     p.add_argument("--cv",               action="store_true", help="5-fold cross-validation")
     p.add_argument("--n-folds",          type=int, default=5)
@@ -142,6 +140,8 @@ def parse_args():
     p.add_argument("--aug-factor",       type=int, default=1)
     p.add_argument("--no-clinical",      action="store_true",
                    help="Exclude clinical features (MMSE/age/sex) from the Student input.")
+    p.add_argument("--no-mmse",          action="store_true",
+                   help="Exclude MMSE feature from the Student input.")
 
     # Misc
     p.add_argument("--seed",             type=int, default=cfg.RANDOM_SEED)
@@ -268,7 +268,7 @@ def eval_epoch(model, loader, loss_fn, device, args, tracker, split="val") -> Di
     for batch in tqdm(loader, desc=f"[{split}]", leave=False, ncols=100):
         label      = batch["label"].to(device)
         soft_label = batch["soft_label"].to(device)
-        clinical   = None #batch["clinical"].to(device)
+        clinical   = batch["clinical"].to(device)
 
         audio_values = batch.get("audio_values")
         audio_mask   = batch.get("audio_attention_mask")
@@ -309,6 +309,7 @@ def train_experiment(
     ablation_name: str,
     mode:          str,
     use_kd:        bool,
+    use_mmse:      bool = True,
     fold:          Optional[int] = None,
     link_features: str = "plain",
     text_encoder:       str = cfg.TEXT_ENCODER,
@@ -327,12 +328,21 @@ def train_experiment(
     )
     log.info(f"  Device: {device}")
 
+    if use_mmse:
+        log.info(f"  Clinical features: MMSE + age + sex")
+        soft_labels_csv = cfg.SOFT_LABELS_T3_CSV
+        adni_teacher_embeddings_csv = cfg.ADNI_TEACHER_EMBEDDINGS_CSV
+    else:
+        log.info(f"  Clinical features: age + sex (MMSE excluded)")
+        soft_labels_csv = cfg.SOFT_LABELS_NO_MMSE_CSV
+        adni_teacher_embeddings_csv = cfg.ADNI_TEACHER_EMBEDDINGS_NO_MMSE_CSV
+
     from datasets.adresso_dataset import build_dataloaders, get_feature_cols
     loaders = build_dataloaders(
-        soft_labels_csv=args.soft_labels_csv,
+        soft_labels_csv=soft_labels_csv,
         enriched_csv=args.enriched_csv,
         transcripts_csv=args.transcripts_csv,
-        adni_teacher_embeddings_csv=args.adni_teacher_embeddings_csv,
+        adni_teacher_embeddings_csv=adni_teacher_embeddings_csv,
         text_encoder=text_encoder,
         temperature=args.temperature,
         batch_size=args.batch_size,
@@ -496,8 +506,8 @@ def run_ablation(args, abl_name: str, **kwargs) -> List[Dict]:
 
     abl_cfg = cfg.ABLATION_MODES[abl_name]
 
-    if args.no_clinical and abl_cfg["mode"] == "clinical_only":
-        log.warning(f"Skipping '{abl_name}': clinical_only mode is incompatible with --no-clinical.")
+    if args.no_clinical and abl_cfg["mode"] == "clinical":
+        log.warning(f"Skipping '{abl_name}': clinical mode is incompatible with --no-clinical.")
         return []
 
     params = {"ablation": abl_name, **kwargs}
@@ -510,10 +520,11 @@ def run_ablation(args, abl_name: str, **kwargs) -> List[Dict]:
     for fold in fold_range:
         set_seed(args.seed + (fold or 0))
         try:
-            result = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], fold=fold, **kwargs)
+            result = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"], 
+                                      use_mmse=not args.no_mmse, fold=fold, **kwargs)
         except Exception as e:
-            log.error(f"Error during ablation '{abl_name}' (fold={fold}, {kwargs}): {e}")
-            result = {"error": str(e)}
+            log.exception(f"Error during ablation '{abl_name}' (fold={fold}, {kwargs}):")
+            result = {"error": repr(e)}
 
         fold_results.append(params | result)
 
@@ -553,18 +564,18 @@ def run_ablations(args) -> pd.DataFrame:
 
     df = pd.DataFrame(all_results)
 
-    table_cols = ["ablation", "accuracy", "balanced_accuracy", "f1_macro",
-                  "auroc_macro", "kappa", "sensitivity_AD", "specificity_AD"]
-    table_cols = [c for c in table_cols if c in df.columns]
-    if len(df) > 1:
-        table = df.groupby("ablation")[[c for c in table_cols if c != "ablation"]].agg(
-            ["mean", "std"]
-        ).round(4)
-        log.info("\n" + "=" * 70)
-        log.info("ABLATION TABLE")
-        log.info("=" * 70)
-        log.info(table.to_string())
-        table.to_csv(cfg.RESULTS_DIR / "ablation_summary.csv")
+    # table_cols = ["ablation", "accuracy", "balanced_accuracy", "f1_macro",
+    #               "auroc_macro", "kappa", "sensitivity_AD", "specificity_AD"]
+    # table_cols = [c for c in table_cols if c in df.columns]
+    # if len(df) > 1:
+    #     table = df.groupby("ablation")[[c for c in table_cols if c != "ablation"]].agg(
+    #         ["mean", "std"]
+    #     ).round(4)
+    #     log.info("\n" + "=" * 70)
+    #     log.info("ABLATION TABLE")
+    #     log.info("=" * 70)
+    #     log.info(table.to_string())
+    #     table.to_csv(cfg.RESULTS_DIR / "ablation_summary.csv")
 
     df.to_csv(cfg.RESULTS_DIR / "all_results.csv", index=False)
     with open(cfg.RESULTS_DIR / "all_results.json", "w") as f:
@@ -624,10 +635,7 @@ def _fmt_temp(T: float) -> str:
 def main():
     args = parse_args()
     set_seed(args.seed)
-
-    if args.soft_labels_csv is None:
-        args.soft_labels_csv = cfg.SOFT_LABELS_DIR / f"adresso_soft_labels_T{_fmt_temp(args.temperature)}.csv"
-
+    
     if args.results_dir is not None:
         cfg.RESULTS_DIR = args.results_dir
     cfg.RESULTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -641,7 +649,6 @@ def main():
     log.info(f"  No clinical: {args.no_clinical}")
     log.info(f"  Temperature: {args.temperature}")
     log.info(f"  alpha={args.alpha}  beta={args.beta} feat_kd_weight={args.feat_kd_weight}")
-    log.info(f"  Soft labels: {args.soft_labels_csv}")
 
     if args.dry_run:
         dry_run(args)

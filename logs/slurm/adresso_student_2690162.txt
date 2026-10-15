@@ -1,0 +1,89 @@
+Wed Oct 14 08:30:16 PM CEST 2026
+Wed Oct 14 20:30:16 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:1A:00.0 Off |                  N/A |
+| 31%   33C    P8              1W /  250W |       6MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2168      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+2026-10-14 20:30:24,924  INFO      
+======================================================================
+2026-10-14 20:30:24,924  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-10-14 20:30:24,924  INFO      ======================================================================
+2026-10-14 20:30:24,924  INFO        Ablation:    ['all']
+2026-10-14 20:30:24,924  INFO        CV:          True
+2026-10-14 20:30:24,924  INFO        No clinical: False
+2026-10-14 20:30:24,924  INFO        Temperature: 1.1861923153571683
+2026-10-14 20:30:24,924  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-10-14 20:30:24,924  INFO      
+======================================================================
+LINK FEATURES: plain
+======================================================================
+2026-10-14 20:30:24,924  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical
+----------------------------------------------------------------------
+2026-10-14 20:30:24,924  INFO      
+  Text_encoder: roberta-base
+2026-10-14 20:30:24,924  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 20:30:24,925  INFO      
+======================================================================
+2026-10-14 20:30:24,925  INFO      EXPERIMENT: clinical_fold0  (mode=clinical, kd=False)
+2026-10-14 20:30:24,925  INFO      ======================================================================
+2026-10-14 20:30:25,049  INFO        Device: cuda
+2026-10-14 20:30:25,049  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+Traceback (most recent call last):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'has_audio'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 522, in run_ablation
+    result = train_experiment(args, abl_name, abl_cfg["mode"], abl_cfg["use_kd"],
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 340, in train_experiment
+    loaders = build_dataloaders(
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py", line 407, in build_dataloaders
+    df          = build_merged_df(sl_csv, enc_csv, emb_csv, link_features=link_features, use_mmse=use_mmse)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py", line 325, in build_merged_df
+    soft_labels_df = soft_labels_df[soft_labels_df["has_audio"] == True].copy()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/frame.py", line 4113, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'has_audio'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 665, in <module>
+    main()
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 657, in main
+    run_ablations(args)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 556, in run_ablations
+    res = run_ablation(args, abl_name, link_features=link_feat,
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/train.py", line 525, in run_ablation
+    log.error(f"Error during ablation '{abl_name}' (fold={fold}, {kwargs}): {e.with_traceback()}")
+TypeError: BaseException.with_traceback() takes exactly one argument (0 given)

@@ -36,7 +36,7 @@ echo "Starting ADReSSo Student training..."
 
 
 python -u train.py \
-  --ablation text_only \
+  --ablation clinical+text \
   --results-dir $KD_DIR/adresso_student/outputs/results_fbIA \
   --text-encoder \
       FacebookAI/xlm-roberta-base \

@@ -1,6 +1,6 @@
 [
   {
-    "ablation": "clinical_only",
+    "ablation": "clinical",
     "fold": 0,
     "best_val_bacc": 1.0,
     "loss": 0.4360797852277756,
@@ -17,7 +17,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "clinical_only",
+    "ablation": "clinical",
     "fold": 1,
     "best_val_bacc": 0.9583333333333333,
     "loss": 0.6277396976947784,
@@ -34,7 +34,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "clinical_only",
+    "ablation": "clinical",
     "fold": 2,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.6757939557234446,
@@ -51,7 +51,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "clinical_only",
+    "ablation": "clinical",
     "fold": 3,
     "best_val_bacc": 0.842948717948718,
     "loss": 0.656112402677536,
@@ -68,7 +68,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "clinical_only",
+    "ablation": "clinical",
     "fold": 4,
     "best_val_bacc": 1.0,
     "loss": 0.6705067853132883,
@@ -85,7 +85,7 @@
     "specificity_AD": 0.749999999625
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "fold": 0,
     "best_val_bacc": 1.0,
     "loss": 0.641369620958964,
@@ -102,7 +102,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "fold": 1,
     "best_val_bacc": 1.0,
     "loss": 0.18962751825650534,
@@ -119,7 +119,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "fold": 2,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.6468554139137268,
@@ -136,7 +136,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "fold": 3,
     "best_val_bacc": 0.8814102564102564,
     "loss": 0.18495356912414232,
@@ -153,7 +153,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "audio_only",
+    "ablation": "clinical+audio",
     "fold": 4,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.2555664082368215,
@@ -170,7 +170,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "fold": 0,
     "best_val_bacc": 1.0,
     "loss": 0.6310559511184692,
@@ -187,7 +187,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "fold": 1,
     "best_val_bacc": 0.9583333333333333,
     "loss": 0.6471216777960459,
@@ -204,7 +204,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "fold": 2,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.6375785569349924,
@@ -221,7 +221,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "fold": 3,
     "best_val_bacc": 0.842948717948718,
     "loss": 0.6777793566385905,
@@ -238,7 +238,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "fold": 4,
     "best_val_bacc": 1.0,
     "loss": 0.6426872114340464,
@@ -255,7 +255,7 @@
     "specificity_AD": 0.7999999996
   },
   {
-    "ablation": "multimodal_no_kd",
+    "ablation": "clinical+audio+text",
     "fold": 0,
     "best_val_bacc": 1.0,
     "loss": 0.6485308309396108,
@@ -272,7 +272,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_no_kd",
+    "ablation": "clinical+audio+text",
     "fold": 1,
     "best_val_bacc": 1.0,
     "loss": 0.19725522647301355,
@@ -289,7 +289,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_no_kd",
+    "ablation": "clinical+audio+text",
     "fold": 2,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.6540504495302836,
@@ -306,7 +306,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_no_kd",
+    "ablation": "clinical+audio+text",
     "fold": 3,
     "best_val_bacc": 0.8846153846153846,
     "loss": 0.6486610372861227,
@@ -323,7 +323,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_no_kd",
+    "ablation": "clinical+audio+text",
     "fold": 4,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.24436855067809424,
@@ -340,7 +340,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_kd",
+    "ablation": "clinical+audio+text+soft",
     "fold": 0,
     "best_val_bacc": 1.0,
     "loss": 0.4813741495211919,
@@ -357,7 +357,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_kd",
+    "ablation": "clinical+audio+text+soft",
     "fold": 1,
     "best_val_bacc": 1.0,
     "loss": 0.2927445073922475,
@@ -374,7 +374,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_kd",
+    "ablation": "clinical+audio+text+soft",
     "fold": 2,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.5125399380922318,
@@ -391,7 +391,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_kd",
+    "ablation": "clinical+audio+text+soft",
     "fold": 3,
     "best_val_bacc": 0.8846153846153846,
     "loss": 0.5164354691902796,
@@ -408,7 +408,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "multimodal_kd",
+    "ablation": "clinical+audio+text+soft",
     "fold": 4,
     "best_val_bacc": 0.9615384615384616,
     "loss": 0.15377380698919296,

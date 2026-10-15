@@ -3,7 +3,7 @@ train_softlabel_source_ablation.py — Soft-label source ablation for the Studen
 
 Compares 21 teacher soft-label sources from adni_teacher_ablation/
 (9 buildup stages + 12 subtractive ablations), each evaluated with the full
-multimodal_kd student under two clinical settings (with / without clinical
+clinical+audio+text+soft student under two clinical settings (with / without clinical
 features), in 5-fold CV. Total: 21 sources x 2 clinical x 5 folds = 210 runs.
 
 Examples:
@@ -168,7 +168,7 @@ def build_train_args(opts) -> argparse.Namespace:
     args.seed             = opts.seed
 
     # CV settings — train_experiment is called per fold, so no_folds is informative only
-    args.ablation         = "multimodal_kd"
+    args.ablation         = "clinical+audio+text+soft"
     args.cv               = True
     args.n_folds          = opts.n_folds
     args.fold             = None
@@ -329,7 +329,7 @@ def write_results_md(df: pd.DataFrame, metrics: List[str]) -> Path:
     lines.append(
         "Each row corresponds to one teacher soft-label source "
         "(buildup stage or subtractive ablation from `adni_teacher_ablation/`). "
-        "The student is the standard `multimodal_kd` model (audio + text + clinical "
+        "The student is the standard `clinical+audio+text+soft` model (audio + text + clinical "
         f"+ KD), trained from scratch in {df['fold'].nunique() if 'fold' in df else 5}-fold CV. "
         f"Reference: **`{REFERENCE_SOURCE}` with clinical** (the current production "
         "soft-label source used by the student).\n"

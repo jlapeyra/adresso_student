@@ -1,6 +1,6 @@
 [
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "plain",
     "text_encoder": "microsoft/deberta-v3-base",
     "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
@@ -21,7 +21,7 @@
     "specificity_AD": NaN
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "plain",
     "text_encoder": NaN,
     "audio_encoder": NaN,
@@ -42,7 +42,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "plain",
     "text_encoder": NaN,
     "audio_encoder": NaN,
@@ -63,7 +63,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "plain",
     "text_encoder": "microsoft/mdeberta-v3-base",
     "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
@@ -84,7 +84,7 @@
     "specificity_AD": NaN
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "plain",
     "text_encoder": NaN,
     "audio_encoder": NaN,
@@ -105,7 +105,7 @@
     "specificity_AD": 0.9499999995249999
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "emb",
     "text_encoder": "microsoft/deberta-v3-base",
     "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
@@ -126,7 +126,7 @@
     "specificity_AD": NaN
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "emb",
     "text_encoder": NaN,
     "audio_encoder": NaN,
@@ -147,7 +147,7 @@
     "specificity_AD": 0.9499999995249999
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "emb",
     "text_encoder": NaN,
     "audio_encoder": NaN,
@@ -168,7 +168,7 @@
     "specificity_AD": 0.9999999995
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "emb",
     "text_encoder": "microsoft/mdeberta-v3-base",
     "audio_encoder": "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base",
@@ -189,7 +189,7 @@
     "specificity_AD": NaN
   },
   {
-    "ablation": "text_only",
+    "ablation": "clinical+text",
     "link_features": "emb",
     "text_encoder": NaN,
     "audio_encoder": NaN,

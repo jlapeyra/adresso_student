@@ -218,12 +218,12 @@ Columns: `subject_id, dx, mmse, age, sex, subset, has_audio, prob_CN, prob_MCI, 
 
 | Name | Modalities | KD | Description |
 |------|-----------|-----|-------------|
-| `audio_only` | Audio | No | Baseline 1 — Wav2Vec2 unimodal |
-| `text_only` | Text | No | Baseline 2 — RoBERTa/Whisper unimodal |
-| `multimodal_no_kd` | Audio+Text+Clinical | No | Baseline 3 — hard CE only |
-| `multimodal_kd` | Audio+Text+Clinical | **Yes** | **Proposed** — full KD |
+| `clinical+audio` | Audio | No | Baseline 1 — Wav2Vec2 unimodal |
+| `clinical+text` | Text | No | Baseline 2 — RoBERTa/Whisper unimodal |
+| `clinical+audio+text` | Audio+Text+Clinical | No | Baseline 3 — hard CE only |
+| `clinical+audio+text+soft` | Audio+Text+Clinical | **Yes** | **Proposed** — full KD |
 
-The delta between `multimodal_no_kd` and `multimodal_kd` measures the contribution of cross-modal knowledge distillation.
+The delta between `clinical+audio+text` and `clinical+audio+text+soft` measures the contribution of cross-modal knowledge distillation.
 
 ### Metrics Reported
 
@@ -270,7 +270,7 @@ MCI->AD collapse check:
 
 ```bash
 python train.py \
-  --ablation multimodal_kd \
+  --ablation clinical+audio+text+soft \
   --epochs 50 \
   --batch-size 8 \
   --augment-train \
@@ -281,7 +281,7 @@ python train.py \
 
 ```bash
 python train.py \
-  --ablation multimodal_kd \
+  --ablation clinical+audio+text+soft \
   --cv \
   --n-folds 5 \
   --augment-train \
@@ -335,7 +335,7 @@ tensorboard --logdir logs/tb/
 
 Load with:
 ```python
-ckpt = torch.load("outputs/checkpoints/multimodal_kd/best_student.pt")
+ckpt = torch.load("outputs/checkpoints/clinical+audio+text+soft/best_student.pt")
 model.load_state_dict(ckpt["model"])
 ```
 

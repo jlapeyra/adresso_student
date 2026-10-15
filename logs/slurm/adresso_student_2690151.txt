@@ -1,0 +1,876 @@
+Wed Oct 14 07:52:36 PM CEST 2026
+Wed Oct 14 19:52:36 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     Off |   00000000:1A:00.0 Off |                  N/A |
+| 31%   33C    P8              1W /  250W |       6MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2168      G   /usr/lib/xorg/Xorg                        4MiB |
++-----------------------------------------------------------------------------------------+
+Starting ADReSSo Student training...
+2026-10-14 19:52:44,641  INFO      
+======================================================================
+2026-10-14 19:52:44,641  INFO      ADReSSo Student — Knowledge Distillation Training
+2026-10-14 19:52:44,641  INFO      ======================================================================
+2026-10-14 19:52:44,641  INFO        Ablation:    ['all']
+2026-10-14 19:52:44,641  INFO        CV:          True
+2026-10-14 19:52:44,641  INFO        No clinical: False
+2026-10-14 19:52:44,641  INFO        Temperature: 1.1861923153571683
+2026-10-14 19:52:44,641  INFO        alpha=0.6  beta=0.4 feat_kd_weight=0.1
+2026-10-14 19:52:44,641  INFO      
+======================================================================
+LINK FEATURES: plain
+======================================================================
+2026-10-14 19:52:44,641  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical
+----------------------------------------------------------------------
+2026-10-14 19:52:44,641  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:44,642  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:44,642  INFO      
+======================================================================
+2026-10-14 19:52:44,642  INFO      EXPERIMENT: clinical_fold0  (mode=clinical, kd=False)
+2026-10-14 19:52:44,642  INFO      ======================================================================
+2026-10-14 19:52:44,768  INFO        Device: cuda
+2026-10-14 19:52:44,768  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,012  ERROR     Error during ablation 'clinical' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,013  INFO      
+======================================================================
+2026-10-14 19:52:45,013  INFO      EXPERIMENT: clinical_fold1  (mode=clinical, kd=False)
+2026-10-14 19:52:45,013  INFO      ======================================================================
+2026-10-14 19:52:45,013  INFO        Device: cuda
+2026-10-14 19:52:45,013  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,059  ERROR     Error during ablation 'clinical' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,059  INFO      
+======================================================================
+2026-10-14 19:52:45,059  INFO      EXPERIMENT: clinical_fold2  (mode=clinical, kd=False)
+2026-10-14 19:52:45,059  INFO      ======================================================================
+2026-10-14 19:52:45,059  INFO        Device: cuda
+2026-10-14 19:52:45,059  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,105  ERROR     Error during ablation 'clinical' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,105  INFO      
+======================================================================
+2026-10-14 19:52:45,105  INFO      EXPERIMENT: clinical_fold3  (mode=clinical, kd=False)
+2026-10-14 19:52:45,105  INFO      ======================================================================
+2026-10-14 19:52:45,105  INFO        Device: cuda
+2026-10-14 19:52:45,105  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,151  ERROR     Error during ablation 'clinical' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,151  INFO      
+======================================================================
+2026-10-14 19:52:45,151  INFO      EXPERIMENT: clinical_fold4  (mode=clinical, kd=False)
+2026-10-14 19:52:45,151  INFO      ======================================================================
+2026-10-14 19:52:45,151  INFO        Device: cuda
+2026-10-14 19:52:45,152  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,197  ERROR     Error during ablation 'clinical' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,197  INFO      
+  clinical — CV summary:
+2026-10-14 19:52:45,204  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio
+----------------------------------------------------------------------
+2026-10-14 19:52:45,204  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:45,204  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:45,204  INFO      
+======================================================================
+2026-10-14 19:52:45,205  INFO      EXPERIMENT: clinical+audio_fold0  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:45,205  INFO      ======================================================================
+2026-10-14 19:52:45,205  INFO        Device: cuda
+2026-10-14 19:52:45,205  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,250  ERROR     Error during ablation 'clinical+audio' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,250  INFO      
+======================================================================
+2026-10-14 19:52:45,250  INFO      EXPERIMENT: clinical+audio_fold1  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:45,250  INFO      ======================================================================
+2026-10-14 19:52:45,250  INFO        Device: cuda
+2026-10-14 19:52:45,251  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,296  ERROR     Error during ablation 'clinical+audio' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,297  INFO      
+======================================================================
+2026-10-14 19:52:45,297  INFO      EXPERIMENT: clinical+audio_fold2  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:45,297  INFO      ======================================================================
+2026-10-14 19:52:45,297  INFO        Device: cuda
+2026-10-14 19:52:45,297  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,342  ERROR     Error during ablation 'clinical+audio' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,343  INFO      
+======================================================================
+2026-10-14 19:52:45,343  INFO      EXPERIMENT: clinical+audio_fold3  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:45,343  INFO      ======================================================================
+2026-10-14 19:52:45,343  INFO        Device: cuda
+2026-10-14 19:52:45,343  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,387  ERROR     Error during ablation 'clinical+audio' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,388  INFO      
+======================================================================
+2026-10-14 19:52:45,388  INFO      EXPERIMENT: clinical+audio_fold4  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:45,388  INFO      ======================================================================
+2026-10-14 19:52:45,388  INFO        Device: cuda
+2026-10-14 19:52:45,388  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,433  ERROR     Error during ablation 'clinical+audio' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,433  INFO      
+  clinical+audio — CV summary:
+2026-10-14 19:52:45,437  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+text
+----------------------------------------------------------------------
+2026-10-14 19:52:45,437  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:45,437  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:45,438  INFO      
+======================================================================
+2026-10-14 19:52:45,438  INFO      EXPERIMENT: clinical+text_fold0  (mode=clinical+text, kd=False)
+2026-10-14 19:52:45,438  INFO      ======================================================================
+2026-10-14 19:52:45,438  INFO        Device: cuda
+2026-10-14 19:52:45,438  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,486  ERROR     Error during ablation 'clinical+text' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,486  INFO      
+======================================================================
+2026-10-14 19:52:45,486  INFO      EXPERIMENT: clinical+text_fold1  (mode=clinical+text, kd=False)
+2026-10-14 19:52:45,486  INFO      ======================================================================
+2026-10-14 19:52:45,486  INFO        Device: cuda
+2026-10-14 19:52:45,486  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,532  ERROR     Error during ablation 'clinical+text' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,533  INFO      
+======================================================================
+2026-10-14 19:52:45,533  INFO      EXPERIMENT: clinical+text_fold2  (mode=clinical+text, kd=False)
+2026-10-14 19:52:45,533  INFO      ======================================================================
+2026-10-14 19:52:45,533  INFO        Device: cuda
+2026-10-14 19:52:45,533  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,578  ERROR     Error during ablation 'clinical+text' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,579  INFO      
+======================================================================
+2026-10-14 19:52:45,579  INFO      EXPERIMENT: clinical+text_fold3  (mode=clinical+text, kd=False)
+2026-10-14 19:52:45,579  INFO      ======================================================================
+2026-10-14 19:52:45,579  INFO        Device: cuda
+2026-10-14 19:52:45,579  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,624  ERROR     Error during ablation 'clinical+text' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,624  INFO      
+======================================================================
+2026-10-14 19:52:45,625  INFO      EXPERIMENT: clinical+text_fold4  (mode=clinical+text, kd=False)
+2026-10-14 19:52:45,625  INFO      ======================================================================
+2026-10-14 19:52:45,625  INFO        Device: cuda
+2026-10-14 19:52:45,625  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,670  ERROR     Error during ablation 'clinical+text' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,671  INFO      
+  clinical+text — CV summary:
+2026-10-14 19:52:45,675  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio+text
+----------------------------------------------------------------------
+2026-10-14 19:52:45,675  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:45,675  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:45,675  INFO      
+======================================================================
+2026-10-14 19:52:45,675  INFO      EXPERIMENT: clinical+audio+text_fold0  (mode=full, kd=False)
+2026-10-14 19:52:45,675  INFO      ======================================================================
+2026-10-14 19:52:45,675  INFO        Device: cuda
+2026-10-14 19:52:45,676  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,720  ERROR     Error during ablation 'clinical+audio+text' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,721  INFO      
+======================================================================
+2026-10-14 19:52:45,721  INFO      EXPERIMENT: clinical+audio+text_fold1  (mode=full, kd=False)
+2026-10-14 19:52:45,721  INFO      ======================================================================
+2026-10-14 19:52:45,721  INFO        Device: cuda
+2026-10-14 19:52:45,721  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,771  ERROR     Error during ablation 'clinical+audio+text' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,772  INFO      
+======================================================================
+2026-10-14 19:52:45,772  INFO      EXPERIMENT: clinical+audio+text_fold2  (mode=full, kd=False)
+2026-10-14 19:52:45,772  INFO      ======================================================================
+2026-10-14 19:52:45,772  INFO        Device: cuda
+2026-10-14 19:52:45,772  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,817  ERROR     Error during ablation 'clinical+audio+text' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,817  INFO      
+======================================================================
+2026-10-14 19:52:45,817  INFO      EXPERIMENT: clinical+audio+text_fold3  (mode=full, kd=False)
+2026-10-14 19:52:45,817  INFO      ======================================================================
+2026-10-14 19:52:45,818  INFO        Device: cuda
+2026-10-14 19:52:45,818  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,862  ERROR     Error during ablation 'clinical+audio+text' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,863  INFO      
+======================================================================
+2026-10-14 19:52:45,863  INFO      EXPERIMENT: clinical+audio+text_fold4  (mode=full, kd=False)
+2026-10-14 19:52:45,863  INFO      ======================================================================
+2026-10-14 19:52:45,863  INFO        Device: cuda
+2026-10-14 19:52:45,863  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,908  ERROR     Error during ablation 'clinical+audio+text' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,908  INFO      
+  clinical+audio+text — CV summary:
+2026-10-14 19:52:45,912  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio+text+soft
+----------------------------------------------------------------------
+2026-10-14 19:52:45,913  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:45,913  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:45,913  INFO      
+======================================================================
+2026-10-14 19:52:45,913  INFO      EXPERIMENT: clinical+audio+text+soft_fold0  (mode=full, kd=True)
+2026-10-14 19:52:45,913  INFO      ======================================================================
+2026-10-14 19:52:45,913  INFO        Device: cuda
+2026-10-14 19:52:45,913  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:45,960  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:45,960  INFO      
+======================================================================
+2026-10-14 19:52:45,960  INFO      EXPERIMENT: clinical+audio+text+soft_fold1  (mode=full, kd=True)
+2026-10-14 19:52:45,960  INFO      ======================================================================
+2026-10-14 19:52:45,960  INFO        Device: cuda
+2026-10-14 19:52:45,960  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,006  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,006  INFO      
+======================================================================
+2026-10-14 19:52:46,006  INFO      EXPERIMENT: clinical+audio+text+soft_fold2  (mode=full, kd=True)
+2026-10-14 19:52:46,006  INFO      ======================================================================
+2026-10-14 19:52:46,007  INFO        Device: cuda
+2026-10-14 19:52:46,007  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,052  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,052  INFO      
+======================================================================
+2026-10-14 19:52:46,052  INFO      EXPERIMENT: clinical+audio+text+soft_fold3  (mode=full, kd=True)
+2026-10-14 19:52:46,052  INFO      ======================================================================
+2026-10-14 19:52:46,052  INFO        Device: cuda
+2026-10-14 19:52:46,052  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,097  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,098  INFO      
+======================================================================
+2026-10-14 19:52:46,098  INFO      EXPERIMENT: clinical+audio+text+soft_fold4  (mode=full, kd=True)
+2026-10-14 19:52:46,098  INFO      ======================================================================
+2026-10-14 19:52:46,098  INFO        Device: cuda
+2026-10-14 19:52:46,098  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,155  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,155  INFO      
+  clinical+audio+text+soft — CV summary:
+2026-10-14 19:52:46,159  INFO      
+======================================================================
+LINK FEATURES: emb
+======================================================================
+2026-10-14 19:52:46,160  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical
+----------------------------------------------------------------------
+2026-10-14 19:52:46,160  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:46,160  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:46,160  INFO      
+======================================================================
+2026-10-14 19:52:46,160  INFO      EXPERIMENT: clinical_fold0  (mode=clinical, kd=False)
+2026-10-14 19:52:46,160  INFO      ======================================================================
+2026-10-14 19:52:46,160  INFO        Device: cuda
+2026-10-14 19:52:46,160  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,213  ERROR     Error during ablation 'clinical' (fold=0, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,214  INFO      
+======================================================================
+2026-10-14 19:52:46,214  INFO      EXPERIMENT: clinical_fold1  (mode=clinical, kd=False)
+2026-10-14 19:52:46,214  INFO      ======================================================================
+2026-10-14 19:52:46,214  INFO        Device: cuda
+2026-10-14 19:52:46,214  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,269  ERROR     Error during ablation 'clinical' (fold=1, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,270  INFO      
+======================================================================
+2026-10-14 19:52:46,270  INFO      EXPERIMENT: clinical_fold2  (mode=clinical, kd=False)
+2026-10-14 19:52:46,270  INFO      ======================================================================
+2026-10-14 19:52:46,270  INFO        Device: cuda
+2026-10-14 19:52:46,270  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,326  ERROR     Error during ablation 'clinical' (fold=2, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,326  INFO      
+======================================================================
+2026-10-14 19:52:46,326  INFO      EXPERIMENT: clinical_fold3  (mode=clinical, kd=False)
+2026-10-14 19:52:46,326  INFO      ======================================================================
+2026-10-14 19:52:46,327  INFO        Device: cuda
+2026-10-14 19:52:46,327  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,381  ERROR     Error during ablation 'clinical' (fold=3, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,382  INFO      
+======================================================================
+2026-10-14 19:52:46,382  INFO      EXPERIMENT: clinical_fold4  (mode=clinical, kd=False)
+2026-10-14 19:52:46,382  INFO      ======================================================================
+2026-10-14 19:52:46,382  INFO        Device: cuda
+2026-10-14 19:52:46,382  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,430  ERROR     Error during ablation 'clinical' (fold=4, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,430  INFO      
+  clinical — CV summary:
+2026-10-14 19:52:46,435  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio
+----------------------------------------------------------------------
+2026-10-14 19:52:46,435  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:46,435  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:46,435  INFO      
+======================================================================
+2026-10-14 19:52:46,435  INFO      EXPERIMENT: clinical+audio_fold0  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:46,435  INFO      ======================================================================
+2026-10-14 19:52:46,436  INFO        Device: cuda
+2026-10-14 19:52:46,436  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,486  ERROR     Error during ablation 'clinical+audio' (fold=0, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,487  INFO      
+======================================================================
+2026-10-14 19:52:46,487  INFO      EXPERIMENT: clinical+audio_fold1  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:46,487  INFO      ======================================================================
+2026-10-14 19:52:46,487  INFO        Device: cuda
+2026-10-14 19:52:46,487  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,535  ERROR     Error during ablation 'clinical+audio' (fold=1, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,536  INFO      
+======================================================================
+2026-10-14 19:52:46,536  INFO      EXPERIMENT: clinical+audio_fold2  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:46,536  INFO      ======================================================================
+2026-10-14 19:52:46,536  INFO        Device: cuda
+2026-10-14 19:52:46,536  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,584  ERROR     Error during ablation 'clinical+audio' (fold=2, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,584  INFO      
+======================================================================
+2026-10-14 19:52:46,585  INFO      EXPERIMENT: clinical+audio_fold3  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:46,585  INFO      ======================================================================
+2026-10-14 19:52:46,585  INFO        Device: cuda
+2026-10-14 19:52:46,585  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,633  ERROR     Error during ablation 'clinical+audio' (fold=3, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,633  INFO      
+======================================================================
+2026-10-14 19:52:46,633  INFO      EXPERIMENT: clinical+audio_fold4  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:46,634  INFO      ======================================================================
+2026-10-14 19:52:46,634  INFO        Device: cuda
+2026-10-14 19:52:46,634  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,681  ERROR     Error during ablation 'clinical+audio' (fold=4, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,682  INFO      
+  clinical+audio — CV summary:
+2026-10-14 19:52:46,686  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+text
+----------------------------------------------------------------------
+2026-10-14 19:52:46,686  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:46,686  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:46,686  INFO      
+======================================================================
+2026-10-14 19:52:46,687  INFO      EXPERIMENT: clinical+text_fold0  (mode=clinical+text, kd=False)
+2026-10-14 19:52:46,687  INFO      ======================================================================
+2026-10-14 19:52:46,687  INFO        Device: cuda
+2026-10-14 19:52:46,687  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,734  ERROR     Error during ablation 'clinical+text' (fold=0, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,735  INFO      
+======================================================================
+2026-10-14 19:52:46,735  INFO      EXPERIMENT: clinical+text_fold1  (mode=clinical+text, kd=False)
+2026-10-14 19:52:46,735  INFO      ======================================================================
+2026-10-14 19:52:46,735  INFO        Device: cuda
+2026-10-14 19:52:46,735  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,783  ERROR     Error during ablation 'clinical+text' (fold=1, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,783  INFO      
+======================================================================
+2026-10-14 19:52:46,783  INFO      EXPERIMENT: clinical+text_fold2  (mode=clinical+text, kd=False)
+2026-10-14 19:52:46,783  INFO      ======================================================================
+2026-10-14 19:52:46,784  INFO        Device: cuda
+2026-10-14 19:52:46,784  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,831  ERROR     Error during ablation 'clinical+text' (fold=2, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,832  INFO      
+======================================================================
+2026-10-14 19:52:46,832  INFO      EXPERIMENT: clinical+text_fold3  (mode=clinical+text, kd=False)
+2026-10-14 19:52:46,832  INFO      ======================================================================
+2026-10-14 19:52:46,832  INFO        Device: cuda
+2026-10-14 19:52:46,832  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,879  ERROR     Error during ablation 'clinical+text' (fold=3, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,880  INFO      
+======================================================================
+2026-10-14 19:52:46,880  INFO      EXPERIMENT: clinical+text_fold4  (mode=clinical+text, kd=False)
+2026-10-14 19:52:46,880  INFO      ======================================================================
+2026-10-14 19:52:46,880  INFO        Device: cuda
+2026-10-14 19:52:46,880  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,928  ERROR     Error during ablation 'clinical+text' (fold=4, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,928  INFO      
+  clinical+text — CV summary:
+2026-10-14 19:52:46,932  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio+text
+----------------------------------------------------------------------
+2026-10-14 19:52:46,932  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:46,932  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:46,933  INFO      
+======================================================================
+2026-10-14 19:52:46,933  INFO      EXPERIMENT: clinical+audio+text_fold0  (mode=full, kd=False)
+2026-10-14 19:52:46,933  INFO      ======================================================================
+2026-10-14 19:52:46,933  INFO        Device: cuda
+2026-10-14 19:52:46,933  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:46,982  ERROR     Error during ablation 'clinical+audio+text' (fold=0, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:46,983  INFO      
+======================================================================
+2026-10-14 19:52:46,983  INFO      EXPERIMENT: clinical+audio+text_fold1  (mode=full, kd=False)
+2026-10-14 19:52:46,983  INFO      ======================================================================
+2026-10-14 19:52:46,983  INFO        Device: cuda
+2026-10-14 19:52:46,983  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,031  ERROR     Error during ablation 'clinical+audio+text' (fold=1, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,032  INFO      
+======================================================================
+2026-10-14 19:52:47,032  INFO      EXPERIMENT: clinical+audio+text_fold2  (mode=full, kd=False)
+2026-10-14 19:52:47,032  INFO      ======================================================================
+2026-10-14 19:52:47,032  INFO        Device: cuda
+2026-10-14 19:52:47,032  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,080  ERROR     Error during ablation 'clinical+audio+text' (fold=2, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,081  INFO      
+======================================================================
+2026-10-14 19:52:47,081  INFO      EXPERIMENT: clinical+audio+text_fold3  (mode=full, kd=False)
+2026-10-14 19:52:47,081  INFO      ======================================================================
+2026-10-14 19:52:47,081  INFO        Device: cuda
+2026-10-14 19:52:47,081  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,128  ERROR     Error during ablation 'clinical+audio+text' (fold=3, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,128  INFO      
+======================================================================
+2026-10-14 19:52:47,128  INFO      EXPERIMENT: clinical+audio+text_fold4  (mode=full, kd=False)
+2026-10-14 19:52:47,128  INFO      ======================================================================
+2026-10-14 19:52:47,128  INFO        Device: cuda
+2026-10-14 19:52:47,128  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,174  ERROR     Error during ablation 'clinical+audio+text' (fold=4, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,174  INFO      
+  clinical+audio+text — CV summary:
+2026-10-14 19:52:47,178  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio+text+soft
+----------------------------------------------------------------------
+2026-10-14 19:52:47,179  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:47,179  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:47,179  INFO      
+======================================================================
+2026-10-14 19:52:47,179  INFO      EXPERIMENT: clinical+audio+text+soft_fold0  (mode=full, kd=True)
+2026-10-14 19:52:47,179  INFO      ======================================================================
+2026-10-14 19:52:47,180  INFO        Device: cuda
+2026-10-14 19:52:47,180  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,226  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=0, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,226  INFO      
+======================================================================
+2026-10-14 19:52:47,226  INFO      EXPERIMENT: clinical+audio+text+soft_fold1  (mode=full, kd=True)
+2026-10-14 19:52:47,226  INFO      ======================================================================
+2026-10-14 19:52:47,227  INFO        Device: cuda
+2026-10-14 19:52:47,227  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,272  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=1, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,272  INFO      
+======================================================================
+2026-10-14 19:52:47,272  INFO      EXPERIMENT: clinical+audio+text+soft_fold2  (mode=full, kd=True)
+2026-10-14 19:52:47,273  INFO      ======================================================================
+2026-10-14 19:52:47,273  INFO        Device: cuda
+2026-10-14 19:52:47,273  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,318  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=2, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,319  INFO      
+======================================================================
+2026-10-14 19:52:47,319  INFO      EXPERIMENT: clinical+audio+text+soft_fold3  (mode=full, kd=True)
+2026-10-14 19:52:47,319  INFO      ======================================================================
+2026-10-14 19:52:47,319  INFO        Device: cuda
+2026-10-14 19:52:47,319  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,364  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=3, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,365  INFO      
+======================================================================
+2026-10-14 19:52:47,365  INFO      EXPERIMENT: clinical+audio+text+soft_fold4  (mode=full, kd=True)
+2026-10-14 19:52:47,365  INFO      ======================================================================
+2026-10-14 19:52:47,365  INFO        Device: cuda
+2026-10-14 19:52:47,365  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,411  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=4, {'link_features': 'emb', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,411  INFO      
+  clinical+audio+text+soft — CV summary:
+2026-10-14 19:52:47,415  INFO      
+======================================================================
+LINK FEATURES: both
+======================================================================
+2026-10-14 19:52:47,416  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical
+----------------------------------------------------------------------
+2026-10-14 19:52:47,416  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:47,416  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:47,416  INFO      
+======================================================================
+2026-10-14 19:52:47,416  INFO      EXPERIMENT: clinical_fold0  (mode=clinical, kd=False)
+2026-10-14 19:52:47,416  INFO      ======================================================================
+2026-10-14 19:52:47,417  INFO        Device: cuda
+2026-10-14 19:52:47,417  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,463  ERROR     Error during ablation 'clinical' (fold=0, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,464  INFO      
+======================================================================
+2026-10-14 19:52:47,464  INFO      EXPERIMENT: clinical_fold1  (mode=clinical, kd=False)
+2026-10-14 19:52:47,464  INFO      ======================================================================
+2026-10-14 19:52:47,464  INFO        Device: cuda
+2026-10-14 19:52:47,464  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,509  ERROR     Error during ablation 'clinical' (fold=1, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,510  INFO      
+======================================================================
+2026-10-14 19:52:47,510  INFO      EXPERIMENT: clinical_fold2  (mode=clinical, kd=False)
+2026-10-14 19:52:47,510  INFO      ======================================================================
+2026-10-14 19:52:47,510  INFO        Device: cuda
+2026-10-14 19:52:47,510  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,556  ERROR     Error during ablation 'clinical' (fold=2, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,557  INFO      
+======================================================================
+2026-10-14 19:52:47,557  INFO      EXPERIMENT: clinical_fold3  (mode=clinical, kd=False)
+2026-10-14 19:52:47,557  INFO      ======================================================================
+2026-10-14 19:52:47,557  INFO        Device: cuda
+2026-10-14 19:52:47,557  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,602  ERROR     Error during ablation 'clinical' (fold=3, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,603  INFO      
+======================================================================
+2026-10-14 19:52:47,603  INFO      EXPERIMENT: clinical_fold4  (mode=clinical, kd=False)
+2026-10-14 19:52:47,603  INFO      ======================================================================
+2026-10-14 19:52:47,603  INFO        Device: cuda
+2026-10-14 19:52:47,603  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,652  ERROR     Error during ablation 'clinical' (fold=4, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,653  INFO      
+  clinical — CV summary:
+2026-10-14 19:52:47,659  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio
+----------------------------------------------------------------------
+2026-10-14 19:52:47,660  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:47,660  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:47,660  INFO      
+======================================================================
+2026-10-14 19:52:47,660  INFO      EXPERIMENT: clinical+audio_fold0  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:47,660  INFO      ======================================================================
+2026-10-14 19:52:47,661  INFO        Device: cuda
+2026-10-14 19:52:47,661  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,708  ERROR     Error during ablation 'clinical+audio' (fold=0, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,708  INFO      
+======================================================================
+2026-10-14 19:52:47,708  INFO      EXPERIMENT: clinical+audio_fold1  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:47,708  INFO      ======================================================================
+2026-10-14 19:52:47,708  INFO        Device: cuda
+2026-10-14 19:52:47,708  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,754  ERROR     Error during ablation 'clinical+audio' (fold=1, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,754  INFO      
+======================================================================
+2026-10-14 19:52:47,754  INFO      EXPERIMENT: clinical+audio_fold2  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:47,754  INFO      ======================================================================
+2026-10-14 19:52:47,755  INFO        Device: cuda
+2026-10-14 19:52:47,755  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,799  ERROR     Error during ablation 'clinical+audio' (fold=2, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,800  INFO      
+======================================================================
+2026-10-14 19:52:47,800  INFO      EXPERIMENT: clinical+audio_fold3  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:47,800  INFO      ======================================================================
+2026-10-14 19:52:47,800  INFO        Device: cuda
+2026-10-14 19:52:47,800  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,845  ERROR     Error during ablation 'clinical+audio' (fold=3, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,846  INFO      
+======================================================================
+2026-10-14 19:52:47,846  INFO      EXPERIMENT: clinical+audio_fold4  (mode=clinical+audio, kd=False)
+2026-10-14 19:52:47,846  INFO      ======================================================================
+2026-10-14 19:52:47,846  INFO        Device: cuda
+2026-10-14 19:52:47,846  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,891  ERROR     Error during ablation 'clinical+audio' (fold=4, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,891  INFO      
+  clinical+audio — CV summary:
+2026-10-14 19:52:47,896  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+text
+----------------------------------------------------------------------
+2026-10-14 19:52:47,896  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:47,896  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:47,897  INFO      
+======================================================================
+2026-10-14 19:52:47,897  INFO      EXPERIMENT: clinical+text_fold0  (mode=clinical+text, kd=False)
+2026-10-14 19:52:47,897  INFO      ======================================================================
+2026-10-14 19:52:47,897  INFO        Device: cuda
+2026-10-14 19:52:47,897  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,942  ERROR     Error during ablation 'clinical+text' (fold=0, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,942  INFO      
+======================================================================
+2026-10-14 19:52:47,942  INFO      EXPERIMENT: clinical+text_fold1  (mode=clinical+text, kd=False)
+2026-10-14 19:52:47,943  INFO      ======================================================================
+2026-10-14 19:52:47,943  INFO        Device: cuda
+2026-10-14 19:52:47,943  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:47,987  ERROR     Error during ablation 'clinical+text' (fold=1, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:47,988  INFO      
+======================================================================
+2026-10-14 19:52:47,988  INFO      EXPERIMENT: clinical+text_fold2  (mode=clinical+text, kd=False)
+2026-10-14 19:52:47,988  INFO      ======================================================================
+2026-10-14 19:52:47,988  INFO        Device: cuda
+2026-10-14 19:52:47,988  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,034  ERROR     Error during ablation 'clinical+text' (fold=2, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,034  INFO      
+======================================================================
+2026-10-14 19:52:48,034  INFO      EXPERIMENT: clinical+text_fold3  (mode=clinical+text, kd=False)
+2026-10-14 19:52:48,034  INFO      ======================================================================
+2026-10-14 19:52:48,034  INFO        Device: cuda
+2026-10-14 19:52:48,034  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,082  ERROR     Error during ablation 'clinical+text' (fold=3, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,083  INFO      
+======================================================================
+2026-10-14 19:52:48,083  INFO      EXPERIMENT: clinical+text_fold4  (mode=clinical+text, kd=False)
+2026-10-14 19:52:48,083  INFO      ======================================================================
+2026-10-14 19:52:48,083  INFO        Device: cuda
+2026-10-14 19:52:48,083  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,129  ERROR     Error during ablation 'clinical+text' (fold=4, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,129  INFO      
+  clinical+text — CV summary:
+2026-10-14 19:52:48,134  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio+text
+----------------------------------------------------------------------
+2026-10-14 19:52:48,134  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:48,134  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:48,135  INFO      
+======================================================================
+2026-10-14 19:52:48,135  INFO      EXPERIMENT: clinical+audio+text_fold0  (mode=full, kd=False)
+2026-10-14 19:52:48,135  INFO      ======================================================================
+2026-10-14 19:52:48,135  INFO        Device: cuda
+2026-10-14 19:52:48,135  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,181  ERROR     Error during ablation 'clinical+audio+text' (fold=0, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,182  INFO      
+======================================================================
+2026-10-14 19:52:48,182  INFO      EXPERIMENT: clinical+audio+text_fold1  (mode=full, kd=False)
+2026-10-14 19:52:48,182  INFO      ======================================================================
+2026-10-14 19:52:48,182  INFO        Device: cuda
+2026-10-14 19:52:48,182  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,228  ERROR     Error during ablation 'clinical+audio+text' (fold=1, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,228  INFO      
+======================================================================
+2026-10-14 19:52:48,229  INFO      EXPERIMENT: clinical+audio+text_fold2  (mode=full, kd=False)
+2026-10-14 19:52:48,229  INFO      ======================================================================
+2026-10-14 19:52:48,229  INFO        Device: cuda
+2026-10-14 19:52:48,229  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,274  ERROR     Error during ablation 'clinical+audio+text' (fold=2, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,275  INFO      
+======================================================================
+2026-10-14 19:52:48,275  INFO      EXPERIMENT: clinical+audio+text_fold3  (mode=full, kd=False)
+2026-10-14 19:52:48,275  INFO      ======================================================================
+2026-10-14 19:52:48,275  INFO        Device: cuda
+2026-10-14 19:52:48,275  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,320  ERROR     Error during ablation 'clinical+audio+text' (fold=3, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,321  INFO      
+======================================================================
+2026-10-14 19:52:48,321  INFO      EXPERIMENT: clinical+audio+text_fold4  (mode=full, kd=False)
+2026-10-14 19:52:48,321  INFO      ======================================================================
+2026-10-14 19:52:48,321  INFO        Device: cuda
+2026-10-14 19:52:48,321  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,367  ERROR     Error during ablation 'clinical+audio+text' (fold=4, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,367  INFO      
+  clinical+audio+text — CV summary:
+2026-10-14 19:52:48,372  INFO      
+----------------------------------------------------------------------
+ABALATION: clinical+audio+text+soft
+----------------------------------------------------------------------
+2026-10-14 19:52:48,372  INFO      
+  Text_encoder: roberta-base
+2026-10-14 19:52:48,372  INFO      
+  audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
+2026-10-14 19:52:48,373  INFO      
+======================================================================
+2026-10-14 19:52:48,373  INFO      EXPERIMENT: clinical+audio+text+soft_fold0  (mode=full, kd=True)
+2026-10-14 19:52:48,373  INFO      ======================================================================
+2026-10-14 19:52:48,373  INFO        Device: cuda
+2026-10-14 19:52:48,373  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,421  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=0, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,422  INFO      
+======================================================================
+2026-10-14 19:52:48,422  INFO      EXPERIMENT: clinical+audio+text+soft_fold1  (mode=full, kd=True)
+2026-10-14 19:52:48,422  INFO      ======================================================================
+2026-10-14 19:52:48,422  INFO        Device: cuda
+2026-10-14 19:52:48,422  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,468  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=1, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,469  INFO      
+======================================================================
+2026-10-14 19:52:48,469  INFO      EXPERIMENT: clinical+audio+text+soft_fold2  (mode=full, kd=True)
+2026-10-14 19:52:48,469  INFO      ======================================================================
+2026-10-14 19:52:48,469  INFO        Device: cuda
+2026-10-14 19:52:48,469  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,515  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=2, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,515  INFO      
+======================================================================
+2026-10-14 19:52:48,515  INFO      EXPERIMENT: clinical+audio+text+soft_fold3  (mode=full, kd=True)
+2026-10-14 19:52:48,515  INFO      ======================================================================
+2026-10-14 19:52:48,515  INFO        Device: cuda
+2026-10-14 19:52:48,516  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,562  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=3, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,562  INFO      
+======================================================================
+2026-10-14 19:52:48,562  INFO      EXPERIMENT: clinical+audio+text+soft_fold4  (mode=full, kd=True)
+2026-10-14 19:52:48,562  INFO      ======================================================================
+2026-10-14 19:52:48,562  INFO        Device: cuda
+2026-10-14 19:52:48,562  INFO        Clinical features: age + sex (MMSE excluded)
+build_merged_df
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adni_teacher/outputs/without_mmse/adni_teacher_embeddings.csv
+2026-10-14 19:52:48,608  ERROR     Error during ablation 'clinical+audio+text+soft' (fold=4, {'link_features': 'both', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): 'has_audio'
+2026-10-14 19:52:48,608  INFO      
+  clinical+audio+text+soft — CV summary:
+2026-10-14 19:52:48,618  INFO      
+Results saved in: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/outputs/results
+2026-10-14 19:52:48,619  INFO      
+======================================================================
+2026-10-14 19:52:48,619  INFO      Training completed.
+2026-10-14 19:52:48,619  INFO      ======================================================================
+Wed Oct 14 07:52:49 PM CEST 2026
+Student training completed.

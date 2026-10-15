@@ -33,7 +33,7 @@ nvidia-smi
 echo "Starting ADReSSo Student training..."
 
 python -u trace_link_features.py \
-  --ablation multimodal_no_kd \
+  --ablation clinical+audio+text \
   --link-features plain \
   --cv \
   --n-folds 2 \

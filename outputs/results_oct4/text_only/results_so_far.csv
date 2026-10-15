@@ -1,5 +1,5 @@
 ablation,link_features,text_encoder,audio_encoder,error
-text_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+clinical+text,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
@@ -9,7 +9,7 @@ Original Traceback (most recent call last):
     clinical    = torch.stack([b[""clinical""]   for b in batch])
 TypeError: expected Tensor as element 0 in argument 0, but got NoneType
 "
-text_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+clinical+text,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
@@ -19,7 +19,7 @@ Original Traceback (most recent call last):
     clinical    = torch.stack([b[""clinical""]   for b in batch])
 TypeError: expected Tensor as element 0 in argument 0, but got NoneType
 "
-text_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+clinical+text,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
@@ -29,7 +29,7 @@ Original Traceback (most recent call last):
     clinical    = torch.stack([b[""clinical""]   for b in batch])
 TypeError: expected Tensor as element 0 in argument 0, but got NoneType
 "
-text_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+clinical+text,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
@@ -39,7 +39,7 @@ Original Traceback (most recent call last):
     clinical    = torch.stack([b[""clinical""]   for b in batch])
 TypeError: expected Tensor as element 0 in argument 0, but got NoneType
 "
-text_only,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
+clinical+text,plain,roberta-base,/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base,"Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File ""/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py"", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]

@@ -24,7 +24,7 @@ Starting ADReSSo Student training...
 ======================================================================
 2026-10-04 16:34:16,649  INFO      ADReSSo Student — Knowledge Distillation Training
 2026-10-04 16:34:16,650  INFO      ======================================================================
-2026-10-04 16:34:16,650  INFO        Ablation:    ['audio_only']
+2026-10-04 16:34:16,650  INFO        Ablation:    ['clinical_only']
 2026-10-04 16:34:16,650  INFO        CV:          True
 2026-10-04 16:34:16,650  INFO        No clinical: False
 2026-10-04 16:34:16,650  INFO        Temperature: 1.1861923153571683
@@ -36,7 +36,7 @@ LINK FEATURES: plain
 ======================================================================
 2026-10-04 16:34:16,650  INFO      
 ----------------------------------------------------------------------
-ABALATION: audio_only
+ABALATION: clinical_only
 ----------------------------------------------------------------------
 2026-10-04 16:34:16,650  INFO      
   Text_encoder: roberta-base
@@ -44,7 +44,7 @@ ABALATION: audio_only
   audio_encoder: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
 2026-10-04 16:34:16,651  INFO      
 ======================================================================
-2026-10-04 16:34:16,651  INFO      EXPERIMENT: audio_only_fold0  (mode=audio_only, kd=False)
+2026-10-04 16:34:16,651  INFO      EXPERIMENT: audio_only_fold0  (mode=clinical_only, kd=False)
 2026-10-04 16:34:16,651  INFO      ======================================================================
 2026-10-04 16:34:16,691  INFO        Device: cuda
 build_merged_df
@@ -60,11 +60,15 @@ Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF
 2026-10-04 16:34:17,844  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
 2026-10-04 16:34:17,971  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
 2026-10-04 16:34:18,309  INFO      Split: train=99 val=25 test=42 (fold=0)
-2026-10-04 16:34:18,310  INFO      ADReSSoDataset: 99 subjects | mode=audio_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:34:18,310  INFO      ADReSSoDataset: 99 subjects | mode=clinical_only | HC=47 AD=52 | soft_label_classes=3 (CN/MCI/AD)
 2026-10-04 16:34:18,311  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
-2026-10-04 16:34:18,316  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
-2026-10-04 16:34:18,317  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
-Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights:  47%|████▋     | 100/211 [00:00<00:00, 994.29it/s]Loading weights:  95%|█████████▍| 200/211 [00:00<00:00, 953.33it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 993.19it/s]
+2026-10-04 16:34:18,316  INFO      ADReSSoDataset: 25 subjects | mode=clinical_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
+2026-10-04 16:34:18,317  INFO      ADReSSoDataset: 42 subjects | mode=clinical_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
+
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]
+Loading weights:  47%|████▋     | 100/211 [00:00<00:00, 994.29it/s]
+Loading weights:  95%|█████████▍| 200/211 [00:00<00:00, 953.33it/s]
+Loading weights: 100%|██████████| 211/211 [00:00<00:00, 993.19it/s]
 [transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
 Key                          | Status     |  | 
 -----------------------------+------------+--+-
@@ -80,7 +84,10 @@ Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
 2026-10-04 16:34:20,091  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:34:20,232  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
-Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights:  49%|████▊     | 96/197 [00:00<00:00, 959.13it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 1006.27it/s]
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights:  49%|████▊     | 96/197 [00:00<00:00, 959.13it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 1006.27it/s]
 [transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
 Key                       | Status     | 
 --------------------------+------------+-
@@ -101,16 +108,19 @@ Notes:
 2026-10-04 16:34:21,438  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
 2026-10-04 16:34:21,571  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
 2026-10-04 16:34:21,704  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
-2026-10-04 16:34:31,526  INFO          audio_encoder                           : 85,251,840
+2026-10-04 16:34:31,526  INFO          audio_encoder                           : 85,251,840clinical+audio
 2026-10-04 16:34:31,527  INFO          text_encoder                            : 85,251,840
 2026-10-04 16:34:31,527  INFO          clinical_encoder                        :     42,118
 2026-10-04 16:34:31,527  INFO          fusion                                  :  1,054,720
 2026-10-04 16:34:31,527  INFO          classifiers                             :     66,308
 2026-10-04 16:34:31,527  INFO          total_trainable                         : 171,668,365
 2026-10-04 16:34:31,532  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
-E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]                                                                                                              2026-10-04 16:34:35,270  ERROR     Error during ablation 'audio_only' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
+
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]
+                                                                                                              
+2026-10-04 16:34:35,270  ERROR     Error during ablation 'audio_only' (fold=0, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
-  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/libclinical+audio0/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
   File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
     return self.collate_fn(data)
@@ -124,10 +134,10 @@ TypeError: expected Tensor as element 0 in argument 0, but got NoneType
 2026-10-04 16:34:35,273  INFO      ======================================================================
 2026-10-04 16:34:35,273  INFO        Device: cuda
 build_merged_df
-Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
+Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distclinical+audiodresso_softlabels/outputs/adresso_soft_labels_T1_1861923153571683.csv
 2026-10-04 16:34:35,351  INFO      Merged dataset: 166 subjects with audio (HC=79 AD=87)
-2026-10-04 16:34:35,359  INFO      Loading tokenizer (roberta-base)...
-2026-10-04 16:34:35,527  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-10-04 16:34:35,359  INFO      Loading tokenizer (roberta-base)...clinical_only
+2026-10-04 16:34:35,527  INFO      HTTP Request: HEAD https://huggingfclinical+audioerta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:34:35,673  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
 2026-10-04 16:34:35,848  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
 2026-10-04 16:34:35,981  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
@@ -138,7 +148,9 @@ Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/a
 2026-10-04 16:34:56,742  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
 2026-10-04 16:34:56,743  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
 2026-10-04 16:34:56,744  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
-Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4266.80it/s]
+
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 211/211 [00:00<00:00, 4266.80it/s]
 [transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
 Key                          | Status     |  | 
 -----------------------------+------------+--+-
@@ -154,7 +166,9 @@ Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
 2026-10-04 16:34:57,206  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:34:57,347  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
-Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3317.36it/s]
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3317.36it/s]
 [transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
 Key                       | Status     | 
 --------------------------+------------+-
@@ -168,7 +182,7 @@ pooler.dense.bias         | MISSING    |
 
 Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
-- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.clinical_only
 2026-10-04 16:34:57,670  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:34:57,809  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
 2026-10-04 16:34:57,944  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
@@ -180,9 +194,12 @@ Notes:
 2026-10-04 16:34:58,999  INFO          clinical_encoder                        :     42,118
 2026-10-04 16:34:58,999  INFO          fusion                                  :  1,054,720
 2026-10-04 16:34:58,999  INFO          classifiers                             :     66,308
-2026-10-04 16:34:58,999  INFO          total_trainable                         : 171,668,365
+2026-10-04 16:34:58,999  INFO          total_trainable                 clinical+audio171,668,365
 2026-10-04 16:34:59,002  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
-E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]                                                                                                              2026-10-04 16:35:00,798  ERROR     Error during ablation 'audio_only' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
+
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]
+                                                                                                              
+2026-10-04 16:35:00,798  ERROR     Error during ablation 'audio_only' (fold=1, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
@@ -191,10 +208,10 @@ Original Traceback (most recent call last):
   File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py", line 256, in __call__
     clinical    = torch.stack([b["clinical"]   for b in batch])
 TypeError: expected Tensor as element 0 in argument 0, but got NoneType
-
+clinical_only
 2026-10-04 16:35:00,800  INFO      
-======================================================================
-2026-10-04 16:35:00,800  INFO      EXPERIMENT: audio_only_fold2  (mode=audio_only, kd=False)
+======================================================================clinical_only
+2026-10-04 16:35:00,800  INFO      EXPERIMENT: audio_only_fold2  (modeclinical+audioy, kd=False)
 2026-10-04 16:35:00,800  INFO      ======================================================================
 2026-10-04 16:35:00,800  INFO        Device: cuda
 build_merged_df
@@ -212,7 +229,9 @@ Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/a
 2026-10-04 16:35:22,160  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
 2026-10-04 16:35:22,161  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
 2026-10-04 16:35:22,163  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
-Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 3638.85it/s]
+
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 211/211 [00:00<00:00, 3638.85it/s]
 [transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
 Key                          | Status     |  | 
 -----------------------------+------------+--+-
@@ -228,14 +247,16 @@ Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
 2026-10-04 16:35:22,616  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:35:22,753  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
-Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 4037.58it/s]
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 4037.58it/s]
 [transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
 Key                       | Status     | 
 --------------------------+------------+-
 lm_head.bias              | UNEXPECTED | 
 lm_head.layer_norm.bias   | UNEXPECTED | 
 lm_head.dense.bias        | UNEXPECTED | 
-lm_head.dense.weight      | UNEXPECTED | 
+lm_head.dense.weight      | UNEXPECTED | clinical_only
 lm_head.layer_norm.weight | UNEXPECTED | 
 pooler.dense.weight       | MISSING    | 
 pooler.dense.bias         | MISSING    | 
@@ -247,7 +268,7 @@ Notes:
 2026-10-04 16:35:23,187  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
 2026-10-04 16:35:23,318  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 307 Temporary Redirect"
 2026-10-04 16:35:23,449  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
-2026-10-04 16:35:23,576  INFO      HTTP Request: GET https://huggingface.co/api/models/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
+2026-10-04 16:35:23,576  INFO      HTTP Request: GET https://huggingfacclinical+audioodels/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 307 Temporary Redirect"
 2026-10-04 16:35:23,704  INFO      HTTP Request: GET https://huggingface.co/api/models/FacebookAI/roberta-base/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
 2026-10-04 16:35:24,340  INFO          audio_encoder                           : 85,251,840
 2026-10-04 16:35:24,340  INFO          text_encoder                            : 85,251,840
@@ -256,12 +277,15 @@ Notes:
 2026-10-04 16:35:24,340  INFO          classifiers                             :     66,308
 2026-10-04 16:35:24,340  INFO          total_trainable                         : 171,668,365
 2026-10-04 16:35:24,343  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
-E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]                                                                                                              2026-10-04 16:35:25,434  ERROR     Error during ablation 'audio_only' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
+
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]
+                                                                                                              
+2026-10-04 16:35:25,434  ERROR     Error during ablation 'audio_only' (fold=2, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
-  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/liclinical+audio10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
-  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
-    return self.collate_fn(data)
+  File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/liclinical+audio10/site-packages/torch/utils/data/_utils/fetch.py", line 55, in fetch
+    return self.collate_fn(data)clinical_only
   File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/adresso_student/datasets/adresso_dataset.py", line 256, in __call__
     clinical    = torch.stack([b["clinical"]   for b in batch])
 TypeError: expected Tensor as element 0 in argument 0, but got NoneType
@@ -286,7 +310,9 @@ Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/a
 2026-10-04 16:35:46,766  INFO      [train] augmentation: 99 + 198 aug (factor×2) = 297
 2026-10-04 16:35:46,768  INFO      ADReSSoDataset: 25 subjects | mode=audio_only | HC=12 AD=13 | soft_label_classes=3 (CN/MCI/AD)
 2026-10-04 16:35:46,769  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
-Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 5671.87it/s]
+
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 211/211 [00:00<00:00, 5671.87it/s]
 [transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
 Key                          | Status     |  | 
 -----------------------------+------------+--+-
@@ -302,7 +328,9 @@ Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
 2026-10-04 16:35:47,214  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:35:47,349  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
-Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3326.56it/s]
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3326.56it/s]clinical_only
 [transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
 Key                       | Status     | 
 --------------------------+------------+-
@@ -314,7 +342,7 @@ lm_head.layer_norm.weight | UNEXPECTED |
 pooler.dense.weight       | MISSING    | 
 pooler.dense.bias         | MISSING    | 
 
-Notes:
+Notes:clinical_only
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
 - MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
 2026-10-04 16:35:47,657  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
@@ -328,9 +356,12 @@ Notes:
 2026-10-04 16:35:48,987  INFO          clinical_encoder                        :     42,118
 2026-10-04 16:35:48,987  INFO          fusion                                  :  1,054,720
 2026-10-04 16:35:48,987  INFO          classifiers                             :     66,308
-2026-10-04 16:35:48,987  INFO          total_trainable                         : 171,668,365
+2026-10-04 16:35:48,987  INFO          total_trainable                 clinical+audio171,668,365
 2026-10-04 16:35:48,990  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
-E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]                                                                                                              2026-10-04 16:35:50,033  ERROR     Error during ablation 'audio_only' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
+clinical_only
+E001 [train]:   0%|                                                   clinical_only       | 0/38 [00:00<?, ?it/s]
+                                                                                                              
+2026-10-04 16:35:50,033  ERROR     Error during ablation 'audio_only' (fold=3, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
@@ -360,7 +391,9 @@ Loading soft labels CSV: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/a
 2026-10-04 16:36:11,369  INFO      [train] augmentation: 100 + 200 aug (factor×2) = 300
 2026-10-04 16:36:11,370  INFO      ADReSSoDataset: 24 subjects | mode=audio_only | HC=11 AD=13 | soft_label_classes=3 (CN/MCI/AD)
 2026-10-04 16:36:11,371  INFO      ADReSSoDataset: 42 subjects | mode=audio_only | HC=20 AD=22 | soft_label_classes=3 (CN/MCI/AD)
-Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]Loading weights: 100%|██████████| 211/211 [00:00<00:00, 3727.08it/s]
+
+Loading weights:   0%|          | 0/211 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 211/211 [00:00<00:00, 3727.08it/s]
 [transformers] [1mWav2Vec2Model LOAD REPORT[0m from: /home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base
 Key                          | Status     |  | 
 -----------------------------+------------+--+-
@@ -371,16 +404,18 @@ project_hid.bias             | UNEXPECTED |  |
 project_q.bias               | UNEXPECTED |  | 
 quantizer.weight_proj.bias   | UNEXPECTED |  | 
 project_hid.weight           | UNEXPECTED |  | 
-
+clinical_only
 Notes:
 - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
 2026-10-04 16:36:11,810  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
 2026-10-04 16:36:11,947  INFO      HTTP Request: HEAD https://huggingface.co/roberta-base/resolve/main/config.json "HTTP/1.1 200 OK"
-Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3370.06it/s]
+
+Loading weights:   0%|          | 0/197 [00:00<?, ?it/s]
+Loading weights: 100%|██████████| 197/197 [00:00<00:00, 3370.06it/s]
 [transformers] [1mRobertaModel LOAD REPORT[0m from: roberta-base
 Key                       | Status     | 
 --------------------------+------------+-
-lm_head.bias              | UNEXPECTED | 
+lmclinical+audio              | UNEXPECTED | 
 lm_head.layer_norm.bias   | UNEXPECTED | 
 lm_head.dense.bias        | UNEXPECTED | 
 lm_head.dense.weight      | UNEXPECTED | 
@@ -404,7 +439,10 @@ Notes:
 2026-10-04 16:36:13,520  INFO          classifiers                             :     66,308
 2026-10-04 16:36:13,520  INFO          total_trainable                         : 171,668,365
 2026-10-04 16:36:13,522  INFO        AdamW: lr_pretrained=1e-05 lr_new=5e-05 wd=0.01
-E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]                                                                                                              2026-10-04 16:36:14,577  ERROR     Error during ablation 'audio_only' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
+
+E001 [train]:   0%|                                                                    | 0/38 [00:00<?, ?it/s]
+                                                                                                              
+2026-10-04 16:36:14,577  ERROR     Error during ablation 'audio_only' (fold=4, {'link_features': 'plain', 'text_encoder': 'roberta-base', 'audio_encoder': '/home/usuaris/veu/joan.lapeyra/knowledge_distillation/pretrained/wav2vec2-base'}): Caught TypeError in DataLoader worker process 0.
 Original Traceback (most recent call last):
   File "/home/usuaris/veu/joan.lapeyra/knowledge_distillation/.venv/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
     data = fetcher.fetch(index)  # type: ignore[possibly-undefined]

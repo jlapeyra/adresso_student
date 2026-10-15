@@ -76,11 +76,11 @@ class ADReSSoDataset(Dataset):
         transcripts:   dict {subject_id: transcript_text}
         text_tokenizer: RoBERTa tokenizer
         feature_cols:  list of clinical feature column names
-        mode:          "full" | "audio_only" | "text_only"
+        mode:          "full" | "clinical+audio" | "clinical+text"
         max_text_len:  max tokens for RoBERTa
     """
 
-    VALID_MODES = {"full", "audio_only", "text_only", "clinical_only"}
+    VALID_MODES = {"full", "clinical+audio", "clinical+text", "clinical"}
 
     def __init__(
         self,
@@ -140,18 +140,18 @@ class ADReSSoDataset(Dataset):
             clin_vals.append(float(v) if not pd.isna(v) else 0.0)
         clinical = torch.tensor(clin_vals, dtype=torch.float32)
 
-        # Audio — not loaded in text_only or clinical_only
+        # Audio — not loaded in clinical+text or clinical
         audio_values = None
-        if self.mode in ("full", "audio_only"):
+        if self.mode in ("full", "clinical+audio"):
             apath = str(row.get("audio_path", ""))
             if apath and Path(apath).exists():
                 audio_values = load_audio(apath)
             if audio_values is None:
                 audio_values = torch.zeros(cfg.TARGET_SAMPLE_RATE, dtype=torch.float32)
 
-        # Text — not loaded in audio_only or clinical_only
+        # Text — not loaded in clinical+audio or clinical
         text_input_ids = text_attention_mask = None
-        if self.mode in ("full", "text_only"):
+        if self.mode in ("full", "clinical+text"):
             transcript = self.transcripts.get(sid, "")
             if not transcript or not isinstance(transcript, str):
                 transcript = "[UNK]"
@@ -304,7 +304,8 @@ def build_merged_df(
     soft_labels_csv: Path,
     enriched_csv:    Path,
     adni_teacher_embeddings_csv: Path,
-    link_features: str
+    link_features: str,
+    use_mmse: bool = True
 ) -> pd.DataFrame:
     """
     Merge the new Teacher soft labels CSV with the enriched ADReSSo CSV.
@@ -328,6 +329,8 @@ def build_merged_df(
         enriched_df[["subject_id", "audio_path"]]
     ]
     if link_features in ("plain", "both"):
+        if not use_mmse:
+            enriched_df["MMSE_norm"] = 0.0
         to_merge.append(enriched_df[["subject_id"] + cfg.CLINICAL_FEATURE_COLS])
     if link_features in ("emb", "both") and teacher_embeddings_df is not None:
         to_merge.append(teacher_embeddings_df)
@@ -378,6 +381,7 @@ def build_dataloaders(
     augment_train:    bool = False,
     aug_factor:       int = 1,
     link_features:    str = "plain",
+    use_mmse:        bool = True,
 ) -> Dict[str, DataLoader]:
     """
     Build train/val/test DataLoaders.
@@ -400,7 +404,7 @@ def build_dataloaders(
     tr_csv  = transcripts_csv  or cfg.TRANSCRIPTIONS_CSV
     emb_csv = adni_teacher_embeddings_csv or cfg.ADNI_TEACHER_EMBEDDINGS_CSV
 
-    df          = build_merged_df(sl_csv, enc_csv, emb_csv, link_features=link_features)
+    df          = build_merged_df(sl_csv, enc_csv, emb_csv, link_features=link_features, use_mmse=use_mmse)
     transcripts = load_transcripts(tr_csv)
 
     log.info(f"Loading tokenizer ({text_encoder})...")
